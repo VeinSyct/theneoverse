@@ -1,0 +1,248 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+    :root {
+        --border-radius: 12px;
+    }
+    body {
+		margin: 12px;
+		overflow-y: scroll;
+        color: white;
+	}
+    .centered {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-width: 100%;
+        min-height: 100%;
+        overflow: hidden;
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .features {
+        margin: 0 auto;
+        padding: 1rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 2rem;
+        max-width: 90vw;
+    }
+    @media only screen and (max-width:1024px) and (orientation:landscape) {
+
+    }
+    @media only screen and (max-width:480px) {
+        .centered {
+            padding: 2rem 0 4rem;
+            min-height: calc(100% - 64px);
+        }
+        .features {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:768px) {
+        .centered {
+            padding: 0 0 2rem;
+            min-height: calc(100% - 42px);
+        }
+        .features {
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        }
+        .feature p {
+            font-size: 12px;
+        }
+    }
+    .feature {
+        padding: 24px;
+        background: rgba(255, 255, 255, .03);
+        backdrop-filter: blur(10px);
+        border-radius: var(--border-radius);
+        background: rgba(255, 255, 255, .01);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, .2);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, .1), inset 0 1px 0 rgba(255, 255, 255, .2);
+        transition: var(--transition-medium);
+        cursor: pointer;
+    }
+    .feature:hover {
+        transform: translateY(-10px);
+        background: rgba(255, 255, 255, .6);
+        border-color: rgba(33, 150, 243, .3);
+    }
+    .feature h3 {
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+    }
+    .opt-icon {
+        position: absolute;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: calc(100% - 48px);
+        height: calc(100% - 48px);
+        pointer-events: none;
+    }
+    .opt-icon span {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 64px;
+        height: 64px;
+        text-decoration: none;
+        color: white;
+        background: rgba(14, 30, 37, .6);
+        border-radius: 1rem;
+        transition: all .3s ease;
+        border: 1px solid rgba(255, 255, 255, .2);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+        fill: currentColor;
+        pointer-events: auto;
+        z-index: 1;
+    }
+    .opt-icon span:hover {
+        background: rgba(14, 30, 37, .76);
+        transform: translateY(-2px);
+        box-shadow: rgba(14, 30, 37, .12) 0px 2px 4px 0px, rgba(14, 30, 37, .32) 0px 2px 16px 0px;
+    }
+    .opt-icon span:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+    }
+    .mobile-icon {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        top: 76px;
+        right: 9px;
+        text-decoration: none;
+        color: white;
+        background: rgba(255, 255, 255, .1);
+        backdrop-filter: blur(7px);
+        border-radius: 50%;
+        transition: all .3s ease;
+        border: 1px solid rgba(255, 255, 255, .2);
+        fill: currentColor;
+        cursor: pointer;
+    }
+    @media only screen and (max-width:480px) {
+        .mobile-icon {
+            top: 9px;
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:768px) {
+        .mobile-icon {
+            top: 9px;
+        }
+    }
+    .mobile-icon:hover {
+        background: rgba(255, 255, 255, .2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+    }
+    .mobile-icon:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+    }
+    .network-nodes {
+        position: absolute;
+        opacity: .13;
+        z-index: -1;
+    }
+</style>
+<canvas class="network-nodes"></canvas>
+<script src="assets/js/network-nodes.js"></script>
+<span class="mobile-icon" onclick="logOut({})">
+    <i class="fa fa-times"></i>
+</span>
+<div class="centered">
+    <div class="features">
+        <div class="feature" onclick="showBtn({ e: this })">
+            <div class="opt-icon">
+                <span onclick="delete localStorage.transfer; loadPage({ shells: ['showqr'], scroll: 0 })">
+                    <i class="fa fa-qrcode fa-3x"></i>
+                </span>
+            </div>
+            <i class="fa fa-qrcode fa-3x"></i>
+            <h3>Share QR</h3>
+            <p class="font-numerical">Show account qr codes for ecash users to scan.</p>
+        </div>
+        <div class="feature" onclick="showBtn({ e: this })">
+            <div class="opt-icon">
+                <span onclick="loadPage({ shells: ['scanqr'], scroll: 0 })">
+                    <i class="fa fa-object-group fa-3x"></i>
+                </span>
+            </div>
+            <i class="fa fa-object-group fa-3x"></i>
+            <h3>Scan QR</h3>
+            <p class="font-numerical">Open camera to scan ecash user's account qr codes.</p>
+        </div>
+        <div class="feature" onclick="showBtn({ e: this })">
+            <div class="opt-icon">
+                <span onclick="loadPage({ shells: ['transactions'], scroll: 0 })">
+                    <i class="fa fa-history fa-3x"></i>
+                </span>
+            </div>
+            <i class="fa fa-history fa-3x"></i>
+            <h3>Transactions</h3>
+            <p class="font-numerical">Transfer history between you and other users.</p>
+        </div>
+    </div>
+</div>
+<script>
+    let showBtn = (d) => {
+        d.f = document.getElementsByClassName("opt-icon");
+        for (let i in d.f)
+            if (d.f[i].style)
+                d.f[i].style.display = 'none';
+        d.e.getElementsByTagName('div')[0].style.display='flex'
+    },
+    logOut = (d) => {
+        localStorage.dialog = JSON.stringify({
+            message: `Do you want to exit ecash now?`,
+            buttons: {
+                reset: {
+                    text: `<span><i class="fa fa-sign-out" style="margin-right: 12px"></i> Exit</span>`,
+                    action: `let u=JSON.parse(localStorage.user);delete u.opened.ecash;localStorage.user=JSON.stringify(u);`,
+                    shells: `['unlock']`,
+                    scroll: 0,
+                    reset: !0
+                }
+            },
+            back: {
+                shells: `['settings', 'balance', 'options']`,
+                scroll: 1,
+                reset: !0
+            }
+        });
+        loadPage({ shells: ['dialog'], scroll: 0, reset: !0 });
+    };
+</script>
+<script src="assets/js/index.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

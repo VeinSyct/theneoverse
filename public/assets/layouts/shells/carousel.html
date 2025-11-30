@@ -1,0 +1,388 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .slider-container {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .slider-track {
+        display: flex;
+        height: 100%;
+        transition: transform .5s ease;
+    }
+    .slide {
+        flex: 0 0 100vw;
+        height: 100vh;
+        background: #1b2838;
+    }
+    .slider-container:hover .nav-button {
+        opacity: 1;
+    }
+    .slide > div {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        height: 100vh;
+        font-size: 4em;
+        color: white;
+        user-select: none;
+        pointer-events: none;
+        overflow: hidden;
+    }
+    .slider-image {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: #1b2838;
+        animation: image-zoom 36s ease-in-out infinite;
+    }
+    @keyframes image-zoom {
+        0%{
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.2);
+        }
+    }
+    .slider-youtube {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transform: scale(1.24);
+        opacity: .36;
+        pointer-events: none;
+    }
+    @media only screen and (max-width:480px) {
+        .slider-youtube {
+            width: calc((100vh * 16) / 9);
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:961px) {
+        
+    }
+    .nav-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, .1);
+        font-size: 3em;
+        opacity: 0;
+        transition: opacity .3s ease;
+        z-index: 10;
+    }
+    .nav-button:hover {
+        color: rgba(255, 255, 255, .64);
+        font-size: 3.2em;
+    }
+    .nav-button:active {
+        font-size: 3.1em;
+        color: rgba(255, 255, 255, .42);
+    }
+    .nav-left {
+        left: 0px;
+    }
+    .nav-right {
+        right: 0px;
+    }
+    .content-section {
+        padding: 100px 20px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 100vw;
+        height: 100vh;
+        text-align: center;
+        color: white;
+        position: relative;
+    }
+    .section-title {
+        display: inline;
+        font-family: 'Lato', sans-serif;
+        font-style: italic;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        line-height: 1.6;
+        letter-spacing: .1em;
+        border-width: 0 0 8px 0;
+        border-style: solid;
+        -o-border-image: linear-gradient(45deg, #405dce 0%, #8b20c0 100%);
+            border-image: linear-gradient(45deg, #405dce 0%, #8b20c0 100%);
+        border-image-slice: 1;
+    }
+    .section-subtitle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        font-size: 1.3rem;
+        opacity: .8;
+        max-width: 600px;
+        line-height: 1.6;
+        margin-bottom: 40px;
+    }
+    .outlined-text {
+        background-color: #444;
+        color: #fff;
+        background-clip: text;
+        -webkit-text-stroke: 4px #fff0;
+        -webkit-background-clip: text;
+        text-shadow: -1px -1px 1px rgba(0, 0, 0, .7), 1px 1px 1px rgba(255, 255, 255, .7);
+    }
+    .submit-btn {
+        margin: 12px 0;
+        width: 100%;
+        max-width: 200px;
+        padding: 15px 30px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all .3s ease;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, .15), inset 0 1px 0 rgba(255, 255, 255, .3);
+        position: relative;
+        overflow: hidden;
+        pointer-events: auto;
+    }
+    .submit-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #764ba2, #667eea);
+        transition: left .3s ease;
+    }
+    .submit-btn:hover::before {
+        left: 0;
+    }
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: rgba(0, 0, 0, .35) 0px 5px 15px;
+    }
+    .submit-btn:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+    }
+    .submit-btn span {
+        position: relative;
+        z-index: 1;
+    }
+    .scroll-down {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        left: 50%;
+        bottom: 64px;
+        transform: translate(-50%);
+        font-size: 3rem;
+        pointer-events: none;
+        z-index: 1;
+    }
+    .arrow-animated {
+        color: white;
+        position: absolute;
+        font-size: 1em;
+        animation: arrow-float 1s infinite;
+    }
+    @keyframes arrow-float {
+        0% {
+            transform: translateY(0);
+            animation-timing-function: ease-out;
+        }
+        60% {
+            transform: translateY(50%);
+            animation-timing-function: ease-in-out;
+        }
+        100% {
+            transform: translateY(0);
+            animation-timing-function: ease-out;
+        }
+    }
+    @media only screen and (min-device-width: 480px) and (max-device-width: 1400px) and (orientation: landscape) {
+        .scroll-down {
+            top: 51%;
+            transform: translate(34%, -50%);
+            right: 0;
+        }
+        .arrow-animated {
+            rotate: -90deg;
+        }
+    }
+
+</style>
+<div class="scroll-down">
+    <div class="arrow-animated">&darr;</div>
+</div>
+<div class="slider-container">
+    <div class="slider-track" id="track"></div>
+    <button class="nav-button nav-left" onclick="if (debounce()) { _su.index = (_su.index > 0) ? _su.index - 1 : (_su.totalSlides - 1); updateSlide() }">&#10094;</button>
+    <button class="nav-button nav-right" onclick="if (debounce()) { _su.index = (_su.index < _su.totalSlides - 1) ? _su.index + 1 : 0; updateSlide() }">&#10095;</button>
+</div>
+<script>
+    let slideItem = (d) => {
+        return `
+            <div class="slide">
+                ${d.i ? `<div><div class="slider-image" style="background-image: url('${d.i}'); background-blend-mode: soft-light"></div>` : `<div><iframe class="slider-youtube" src="https://www.youtube.com/embed/${d.y}?autoplay=1&autohide=0&mute=1&disablekb=1&loop=1&rel=0&playlist=${d.y}" allow="autoplay; encrypted-media" frameborder="0" scrolling="no" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>`}
+                    <section class="content-section">
+                        <h1 class="section-title outlined-text">${d.t}</h1>
+                        <p class="section-subtitle outlined-text">${d.p}</p>
+                    </section>
+                </div>
+            </div>`;
+    },
+    buildSlides = (d) => {
+        document.getElementById("track").innerHTML = `
+        ${slideItem({
+            i: `assets/images/${"experience 002"}.webp`,
+            t: "Virtual Experience Project",
+            p: `We are developing immersive virtual experiences city for everyone to visit.<button class='submit-btn' onclick=localStorage.url='https:\/\/serini.web.app#serini';loadPage({shells:['demo'],scroll:0,reset:!0})><span><i class='fa fa-play fa-1x' style='margin-right: 12px;'></i> Live Demo</span></button>`
+        })}
+        ${slideItem({
+            i: `assets/images/${"experience 001"}.webp`,
+            t: "Virtual Experience Development",
+            p: `Create immersive 3d virtual experiences.<button class='submit-btn' onclick=localStorage.url='https:\/\/threeviewer.web.app#crateria';loadPage({shells:['demo'],scroll:0,reset:!0})><span><i class='fa fa-play fa-1x' style='margin-right: 12px;'></i> Live Demo</span></button>`
+        })}
+        ${slideItem({
+            y: "Eki7arO13hk",
+            t: "Personal Avatar",
+            p: `Create your custom character in virtual world.<button class='submit-btn' onclick=localStorage.url='https:\/\/threeviewer.web.app#crateria';loadPage({shells:['demo'],scroll:0,reset:!0})><span><i class='fa fa-play fa-1x' style='margin-right: 12px;'></i> Live Demo</span></button>`
+        })}
+        ${slideItem({
+            i: `assets/images/${"virtual tours 04"}.webp`,
+            t: "360 Panoramic Tours",
+            p: `Experience the future of real estates browsing.<button class='submit-btn' onclick=localStorage.url='https:\/\/realtours.web.app?pvar#tours=paseo-typical-flat-living';loadPage({shells:['demo'],scroll:0,reset:!0})><span><i class='fa fa-play fa-1x' style='margin-right: 12px;'></i> Live Demo</span></button>`
+        })}
+        ${slideItem({
+            i: `assets/images/${"virtual tours 00"}.webp`,
+            t: "360 Virtual Tours",
+            p: `Experience the future of interior design visualization.<button class='submit-btn' onclick=localStorage.url='https:\/\/realtours.web.app#tours=towerresidence';loadPage({shells:['demo'],scroll:0,reset:!0})><span><i class='fa fa-play fa-1x' style='margin-right: 12px;'></i> Live Demo</span></button>`
+        })}
+        ${slideItem({
+            y: "PoM6mkHmyCE",
+            t: "3D Virtual Experiences",
+            p: `Experience the future of web exploring in virtual experiences where your needs and wants are at hands reach.<button class='submit-btn' onclick=localStorage.url='https:\/\/threeviewer.web.app#crateria';loadPage({shells:['demo'],scroll:0,reset:!0})><span><i class='fa fa-play fa-1x' style='margin-right: 12px;'></i> Live Demo</span></button>`
+        })}
+        ${slideItem({
+            i: `assets/images/${"city 07"}.webp`,
+            t: "Virtual Projects",
+            p: `Participates in building the future, as we dream and create worlds.<button class='submit-btn' onclick=localStorage.url='https:\/\/threeviewer.web.app#crateria';loadPage({shells:['demo'],scroll:0,reset:!0})><span><i class='fa fa-play fa-1x' style='margin-right: 12px;'></i> Live Demo</span></button>`
+        })}
+        ${slideItem({
+            y: "9nrVAjHXv6o",
+            t: "Interior Designs",
+            p: `Experience the future of architectural designs presentation in web.<button class='submit-btn' onclick=localStorage.url='https:\/\/realverse.web.app/edgeapartment.html';loadPage({shells:['demo'],scroll:0,reset:!0})><span><i class='fa fa-play fa-1x' style='margin-right: 12px;'></i> Live Demo</span></button>`
+        })}
+        ${slideItem({
+            i: `assets/images/${"city 01"}.webp`,
+            t: "Virtual Events",
+            p: `Experience the future of events in virtual experiences.<button class='submit-btn' onclick=localStorage.url='https:\/\/threeviewer.web.app#crateria';loadPage({shells:['demo'],scroll:0,reset:!0})><span><i class='fa fa-play fa-1x' style='margin-right: 12px;'></i> Live Demo</span></button>`
+        })}
+        ${slideItem({
+            i: `assets/images/${"city 06"}.webp`,
+            t: "Lets Dream & Create",
+            p: `Be part of amazing visions that the next generations will enjoy.<button class='submit-btn' onclick=localStorage.url='https:\/\/threeviewer.web.app#crateria';loadPage({shells:['demo'],scroll:0,reset:!0})><span><i class='fa fa-play fa-1x' style='margin-right: 12px;'></i> Live Demo</span></button>`
+        })}
+        ${slideItem({
+            y: "1NmIAXIXk7c",
+            t: "Electronic Cash",
+            p: `Grow your economy with electronic cash, stimulating cash flows offline.<button class='submit-btn' onclick=window.open('https:\/\/github.com/VeinSyct/Electronic-Cash')><span><i class='fa fa-github fa-1x' style='margin-right: 12px;'></i> Repository</span></button>`
+        })}`;
+        _su.track.addEventListener(_su.mobile ? "touchstart" : "mousedown", startDrag);
+        _su.track.addEventListener(_su.mobile ? "touchmove" : "mousemove", onDrag);
+        for (let i = 0, j = ["mouseup", "mouseleave", "touchend"]; i < j.length; i++) _su.track.addEventListener(j[i], endDrag);
+        _su.totalSlides = _su.track.children.length;
+        updateSlide({});
+    },
+    updateSlide = (d) => {
+        _su.track.style.transform = `translateX(-${_su.index * 100}vw)`;
+        if (_su.interval) clearInterval(_su.interval);
+        _su.interval = setInterval(() => {
+            _su.index = (_su.index < _su.totalSlides - 1) ? _su.index + 1 : 0;
+            updateSlide();
+        }, 8192);
+    },
+    startDrag = (e) => {
+        if (debounce()) {
+            _su.isDragging = !0;
+            _su.startX = e.type.includes("mouse") ? e.pageX : e.touches[0].pageX;
+            _su.track.style.transition = "none";
+        }
+    },
+    onDrag = (e) => {
+        if (!_su.isDragging) return;
+        _su.currentX = e.type.includes("mouse") ? e.pageX : e.touches[0].pageX;
+        const deltaX = _su.currentX - _su.startX;
+        _su.track.style.transform = `translateX(${-_su.index * window.innerWidth + deltaX}px)`;
+    },
+    endDrag = (e) => {
+        if (!_su.isDragging) return;
+        _su.isDragging = !1;
+        const deltaX = _su.currentX - _su.startX;
+        if (deltaX > 100 && _su.index > 0) _su.index--;
+        else if (deltaX < -100 && _su.index < _su.totalSlides - 1) _su.index++;
+        _su.track.style.transition = `transform .5s ease`;
+        updateSlide();
+    },
+    debounce = (d) => {
+        if (_su.debounce + 240 < performance.now()) _su.debounce = performance.now();
+        return _su.debounce == performance.now();
+    },
+    _su = { index: 0, startX: 0, currentX: 0, isDragging: !1, debounce: performance.now(), track: document.getElementById("track"), mobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) };
+    window.addEventListener("resize", updateSlide);
+    buildSlides({});
+</script>
+<script src="assets/js/index.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

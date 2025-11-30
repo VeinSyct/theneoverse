@@ -1,0 +1,698 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+  :root {
+    --border-radius: 12px;
+    --muted: #9da5ab;
+    --accent: #61b2d8;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @-webkit-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .emkt-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    height: 100%;
+    color: white;
+    overflow: hidden;
+  }
+  .emkt-main {
+    padding: 86px 18px 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    overflow: auto;
+  }
+  .emkt-area {
+    margin: 24px 0 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .emkt-products {
+    flex: 1;
+    display: grid;
+    grid-auto-rows: auto;
+    gap: 18px;
+    grid-template-columns: repeat(5, 1fr);
+    align-content: start;
+  }
+  @media only screen and (max-width:1480px) and (orientation:landscape) {
+    .emkt-products {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+  @media only screen and (max-width:480px) {
+    .emkt-products {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media only screen and (min-width:769px) and (max-width:1480px) {
+    .emkt-products {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media only screen and (min-width:481px) and (max-width:768px) {
+    .emkt-products {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .emkt-card {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 100%;
+    background: rgba(255, 255, 255, .03);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, .2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .1), inset 0 1px 0 rgba(255, 255, 255, .2);
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+    cursor: pointer;
+  }
+  .emkt-card:hover {
+    transform: translateY(-10px);
+    background: linear-gradient(180deg, #0f1214, #0b0d0f);
+    border-color: rgba(33, 150, 243, .3);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+  }
+  .emkt-thumb {
+    width: 100%;
+    height: 100%;
+    min-height: 230px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #08090a;
+  }
+  .emkt-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .emkt-title {
+    font-weight: 600;
+  }
+  .emkt-desc {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .emkt-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+  }
+  .emkt-pagination {
+    flex: 0 0 auto;
+    padding: 12px 18px;
+  }
+  .emkt-pages {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+  .emkt-page-btn {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .emkt-page-btn:hover {
+    background: rgba(255, 64, 129, 0.09);
+    color: var(--primary-fg);
+  }
+  .emkt-page-btn:active {
+    background: rgba(255, 64, 129, 0.09);
+    color: skyblue;
+  }
+  .emkt-page-btn.active {
+    background: rgba(255, 64, 129, 0.09);
+    color: var(--primary-sw-active);
+  }
+  .emkt-search-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(2, 4, 6, 0.7);
+  }
+  .emkt-search-modal.show {
+    display: flex;
+  }
+  .emkt-search-card {
+    padding: 16px 24px;
+    background: rgba(255, 255, 255, .03);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, .2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .1), inset 0 1px 0 rgba(255, 255, 255, .2);
+  }
+  .emkt-search-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .emkt-search-row input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    background: #0b0d0f;
+    color: var(--muted);
+  }
+  .emkt-search-row button {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 0;
+    background: var(--accent);
+    color: #02121a;
+    cursor: pointer;
+  }
+  .emkt-search-close {
+    margin: -9px -12px 6px;
+    display: block;
+    text-align: right;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .emkt-message-modal {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 260px;
+    background: rgba(16, 12, 14, 0.95);
+    border-radius: 10px;
+    padding: 18px 22px;
+    border: 1px solid var(--accent);
+    box-shadow: 0 0 18px rgba(255, 64, 129, 0.12);
+    opacity: 0;
+    display: none;
+    transition: opacity 0.4s ease;
+  }
+  .emkt-message-modal.show {
+    display: block;
+    opacity: 1;
+  }
+  .emkt-message-modal .emkt-message-close {
+    margin: -9px -6px 0;
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    cursor: pointer;
+    color: var(--accent);
+  }
+  .mobile-icon {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    top: 76px;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: white;
+    background: rgba(255, 255, 255, .1);
+    backdrop-filter: blur(7px);
+    border-radius: 50%;
+    transition: all .3s ease;
+    border: 1px solid rgba(255, 255, 255, .2);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    fill: currentColor;
+    cursor: pointer;
+    z-index: 1;
+  }
+  .mobile-icon:hover {
+    background: rgba(255, 255, 255, .2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+  }
+  .mobile-icon:active {
+    box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+  }
+  .mobile-icon span {
+    transition: all .3s ease;
+  }
+  .mobile-icon span:hover {
+    transform: translateY(-2px) scale(1.07);
+  }
+  .mobile-icon span:active {
+    transform: translateY(-2px) scale(.9);
+  }
+  .currency-amount {
+    font-family: var(--font-numerical);
+    margin: 10px 0;
+    font-style: normal;
+    font-weight: 700;
+    white-space: nowrap;
+    letter-spacing: 1px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: var(--primary-sw-active);
+    line-height: 1;
+    text-shadow: 0px 0 2px #ea36af, -1px 0 1px #41ffd8;
+    animation-duration: .0064s;
+    animation-name: textflicker;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    pointer-events: none;
+  }
+  @keyframes textflicker {
+    from {
+      text-shadow: 1px 0 0 #ea36af, -2px 0 0 #41ffd8;
+    }
+    to {
+      text-shadow: 2px .5px 2px #ea36af, -1px -0.5px 2px #41ffd8;
+    }
+  }
+  .ratings {
+    display: flex;
+  }
+  .stars {
+    color: #666;
+    font-size: 24px;
+  }
+  .stars:hover {
+    color: yellow;
+  }
+  .submit-btn {
+    padding: 10px 16px 10px 12px;
+    max-width: 180px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .3s ease;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, .15), inset 0 1px 0 rgba(255, 255, 255, .3);
+    position: relative;
+    overflow: hidden;
+    pointer-events: auto;
+  }
+  .submit-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #764ba2, #667eea);
+    transition: left .3s ease;
+  }
+  .submit-btn:hover::before {
+    left: 0;
+  }
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  .submit-btn:active {
+    transform: translateY(2px);
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  }
+  .submit-btn span {
+    position: relative;
+    z-index: 1;
+  }
+  @media only screen and (max-width:480px) {
+    .submit-btn span span {
+        display: none;
+    }
+  }
+  .cart-quantity {
+    position: absolute;
+    right: 0px;
+    top: -12px;
+    color: var(--accent);
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .network-nodes {
+    position: absolute;
+    opacity: .13;
+    z-index: -1;
+  }
+</style>
+<canvas class="network-nodes"></canvas>
+<script src="assets/js/network-nodes.js"></script>
+<div class="grids"></div>
+<div class="emkt-shell">
+  <main class="emkt-main">
+    <div class="emkt-area">
+      <div class="emkt-products"></div>
+    </div>
+    <span class="mobile-icon" onclick="document.querySelector('.emkt-search-modal').classList.add('show')" style="right: 64px">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="mobile-icon" onclick="loadPage({ shells: ['cart'], scroll: 0, reset: !0 })" style="right: 12px">
+      <i class="fa fa-shopping-cart"></i>
+      <span class="cart-quantity"></span>
+    </span>
+    <span class="mobile-icon" onclick="_uz.toggleGrid({ e: this })" style="left: 12px">
+      <i class="fa fa-list"></i>
+    </span>
+  </main>
+  <div class="emkt-pagination">
+    <div class="emkt-pages"></div>
+  </div>
+  <div class="emkt-search-modal">
+    <div class="emkt-search-card">
+      <div class="emkt-search-close" data-action="close-search">✕</div>
+      <div class="emkt-search-row">
+        <input class="emkt-search-input" placeholder="Search item..." />
+        <a onclick="_uz.searchWord({})">
+          <i class="fa fa-search" style="margin-left: 12px; font-size: 21px"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="emkt-message-modal">
+    <div class="emkt-message-close" data-action="close-notfound">✕</div>
+    <div class="emkt-message-modal-text"></div>
+  </div>
+</div>
+<script src="assets/js/index.js"></script>
+<script>
+  let getRatings = (d) => {
+    for (let i = 1; i < 6; i++) {
+      d.s = i <= d.n + .24 ? "star" : "star-o";
+      d.m = _uz.products.rates[d.id];
+      d.r += `<i class="fa fa-${d.s} stars" style="${d.s == "star" ? "color: yellow" : ""}" onclick="rateCards({ id: '${d.id}', n: ${(d.m ? d.m + i : i) / 2} })"></i>`;
+    };
+    return d.r;
+  },
+  rateCards = (d) => {
+    window.parent.postMessage({
+      id: window.frameElement.id,
+      action: "rate-products",
+      tag: d.id,
+      message: { rate: d.n }
+    }, "*");
+    updateRating({ k: d.id, n: d.n });
+  },
+  updateRating = (d) => {
+    try {
+      d.e = document.getElementsByClassName(`ratings-${d.k}`);
+      for (let i in d.e) 
+        if (d.e[i])
+          d.e[i].innerHTML = getRatings({ r: "", id: d.k, n: _uz.products.rates[d.k] = d.n }); 
+    } catch (error) {}
+  },
+  _uz = {
+    user: localStorage.user ? JSON.parse(localStorage.user) : {},
+    products: {
+      rates: {},
+      items: _ux.items
+    },
+    state: { page: 1, per: 10, view: "grid", query: "", cart: {} },
+    toggleGrid: (d) => {
+      _uz.state.view = _uz.state.view === "grid" ? "list" : "grid";
+      d.e.innerHTML = `<i class="fa fa-${_uz.state.view === "grid" ? "list" : "th"}"></i>`;
+      _uz.render({});
+    },
+    searchWord: (d) => {
+      _uz.state.query = document.querySelector(".emkt-search-input").value;
+      _uz.state.page = 1;
+      _uz.render({});
+    },
+    showProduct: (d) => {
+      d.it = Object.values(_uz.products.items).find(p => p.id === d.id);
+      localStorage.product = JSON.stringify(d.it);
+      localStorage.img = JSON.stringify({ d: _uz.productDatails(d.it) });
+      loadPage({ shells: ['product', 'details'], scroll: 0, reset: !0 });
+    },
+    productDatails: (d) => {
+      return `<header><h1>${d.name}</h1></header>
+        <section class='description'>
+          <h2>
+            Digital product
+          </h2>
+          Number:
+          <p>
+            ${d.pSN.toUpperCase()}
+          </p>
+        </section>
+        <section class='note'>
+          Description:
+          <p>${d.fulldesc ? d.fulldesc : d.desc ? d.desc : "N/A"}</p>
+          <br>
+          <ul>
+            Feature:
+            <li>${d.features ? d.features : "N/A."}</li>
+          </ul>
+          <br>
+          Price: <h2>${d.price ? `${d.symbol}${d.price}</h2>` : `<strong>FREE</strong>`}
+          <br>
+          <div class="group-button">
+            <span>
+              ${d.price ? `<button class='submit-btn' onclick="addToCart({})">
+                <span>
+                  <i class='fa fa-cart-plus fa-1x' style='margin-right: 12px;'></i> Add to cart
+                </span>
+              </button>` : _uz.user && _uz.user.opened && _uz.user.opened.buyer ? `<button class='submit-btn' onclick="let a=document.createElement('a');a.href='${d.url}';a.download='';a.click()">
+                <span>
+                  <i class='fa fa-download fa-1x' style='margin-right: 12px;'></i> Download
+                </span>
+              </button>` : `<p><strong onclick="loadPage({ shells: ['signin'], scroll: 0, reset: !0 })" style="cursor: pointer">Sign in</strong> to download.</p>`}
+            </span>
+            <span>
+              <button class='submit-btn check-out' onclick="loadPage({ shells: ['cart'], scroll: 0, reset: !0 })" hidden>
+                <span>
+                  <i class='fa fa-credit-card fa-1x' style='margin-right: 12px;'></i> Check out
+                </span>
+              </button>
+            </span>
+          </div>
+          <br>
+          <br>
+        </section>
+        <footer class='footer'>
+          <a onclick='_uz.goBack({})' style='cursor: pointer'>← Continue shopping</a>
+        </footer>`;
+    },
+    addToCart: (d) => {
+      d.it = Object.values(_uz.products.items).find(p => p.id === d.id);
+      if (_uz.state.cart[d.it.pSN]) {
+        document.querySelector(".emkt-message-modal-text").innerHTML = `You already added the <strong>'${d.it.name}'</strong> in the cart!`;
+        document.querySelector(".emkt-message-modal").classList.add("show");
+      } else _uz.state.cart[d.it.pSN] = d.it;
+      document.querySelector(".cart-quantity").innerHTML = Object.keys(_uz.state.cart).length;
+      localStorage.cart = JSON.stringify(_uz.state.cart);
+    },
+    render: (d) => {
+      d.q = _uz.state.query.trim().toLowerCase();
+      d.filtered = Object.values(_uz.products.items).filter((p) => p.name.toLowerCase().includes(d.q.toLowerCase()) || p.desc.toLowerCase().includes(d.q.toLowerCase()));
+      if (!d.filtered.length) {
+        document.querySelector(".emkt-search-modal").classList.remove("show");
+        document.querySelector(".emkt-message-modal-text").innerHTML = `The item <strong>'${_uz.state.query}'</strong> is not found!`;
+        document.querySelector(".emkt-message-modal").classList.add("show");
+        return;
+      }
+      document.querySelector(".emkt-message-modal").classList.remove("show");
+      d.start = (_uz.state.page - 1) * _uz.state.per;
+      d.pageItems = d.filtered.slice(d.start, d.start + _uz.state.per);
+      d.e = document.querySelector(".emkt-products");
+      if (_uz.state.view === "grid") {
+        d.e.style.display = "grid";
+        d.e.style.gridTemplateColumns = _uz.state.grid;
+        d.e.style.gap = "18px";
+        d.e.innerHTML = d.pageItems.map((p) => `
+          <div class='emkt-card' data-id='${p.id}'>
+            <div class='emkt-thumb'/>
+              <img src='${p.thumb}' onclick='_uz.showProduct({ id: ${p.id} })'>
+              ${p.demo ? `
+              <span class="mobile-icon" onclick="${p.demo}" style="left: 50%; top: 30%; transform: translate(-50%, -50%);">
+                <span>
+                  <i class="fa fa-play-circle fa-2x"></i>
+                </span>
+              </span>` : ""}
+            </div>
+            <div class='emkt-title'>${p.name}</div>
+            <div class='ratings ratings-${p.pSN}'>${getRatings({ r: "", id: p.pSN, n: _uz.products.rates[p.pSN] })}</div>
+            <div class='emkt-desc'>${p.desc}</div>
+            <div class='emkt-meta'>
+              <div class='currency-amount'>${p.price ? `₱${p.symbol}${p.price}` : `<strong>FREE</strong>`}</div>
+              ${p.price ? `<button class='submit-btn' onclick='_uz.addToCart({ id: ${p.id} })'>
+                <span><i class='fa fa-cart-plus fa-1x'></i>
+                  Add to cart
+                </span>
+              </button>` : _uz.user && _uz.user.opened && _uz.user.opened.buyer ? `<button class='submit-btn' onclick="_uz.free = localStorage.free ? JSON.parse(localStorage.free) : {}; _uz.free['${p.pSN}'] = { link: '${p.url}'}; localStorage.free = JSON.stringify(_uz.free); let a=document.createElement('a');a.href='${p.url}';a.download='';a.click()">
+                <span><i class='fa fa-download fa-1x'></i>
+                  Download
+                </span>
+              </button>` : `<p><strong onclick="_uz.free = localStorage.free ? JSON.parse(localStorage.free) : {}; _uz.free['${p.pSN}'] = { link: '${p.url}'}; localStorage.free = JSON.stringify(_uz.free); loadPage({ shells: ['signin'], scroll: 0, reset: !0 })" style="cursor: pointer">Sign in</strong> to download.</p>`}
+            </div>
+          </div>`).join("");
+      } else {
+        d.e.style.display = "grid";
+        if (d.e.style.gridTemplateColumns != "1fr") {
+          _uz.state.grid = d.e.style.gridTemplateColumns;
+          d.e.style.gridTemplateColumns = "1fr";
+        }
+        d.e.style.gap = "12px";
+        d.e.innerHTML = d.pageItems.map((p) => `
+          <div class='emkt-card' data-id='${p.id}' style='flex-direction:row'>
+            <div class='emkt-thumb' style='max-width:36%;flex-shrink:0'>
+              <img src='${p.thumb}'  onclick='_uz.showProduct({ id: ${p.id} })'/>
+            </div>
+            ${p.demo ? `
+            <span class="mobile-icon" onclick="${p.demo}" style="right: 12px; top: 12px">
+              <span>
+                <i class="fa fa-play-circle fa-2x"></i>
+              </span>
+            </span>` : ""}
+            <div style='flex:1;display:flex;flex-direction:column;gap:6px;padding-left:12px'>
+              <div class='emkt-title'>${p.name}</div>
+              <div class='ratings ratings-${p.pSN}'>${getRatings({ r: "", id: p.pSN, n: _uz.products.rates[p.pSN] })}</div>
+              <div class='emkt-desc'>${p.desc}</div>
+              <div class='emkt-meta'>
+                <div class='currency-amount'>${p.price ? `₱${p.symbol}${p.price}` : `<strong>FREE</strong>`}</div>
+                ${p.price ? `<button class='submit-btn' onclick='_uz.addToCart({ id: ${p.id} })'>
+                  <span><i class='fa fa-cart-plus fa-1x'></i>
+                    <span style='margin-left: 6px'> Add to cart</span>
+                  </span>
+                </button>` : _uz.user && _uz.user.opened && _uz.user.opened.buyer ? `<button class='submit-btn' onclick="_uz.free = localStorage.free ? JSON.parse(localStorage.free) : {}; _uz.free['${p.pSN}'] = { link: '${p.url}'}; localStorage.free = JSON.stringify(_uz.free); let a=document.createElement('a');a.href='${p.url}';a.download='';a.click()">
+                  <span><i class='fa fa-download fa-1x'></i>
+                    <span style='margin-left: 6px'> Download</span>
+                  </span>
+                </button>` : `<p><strong onclick="_uz.free = localStorage.free ? JSON.parse(localStorage.free) : {}; _uz.free['${p.pSN}'] = { link: '${p.url}'}; localStorage.free = JSON.stringify(_uz.free); loadPage({ shells: ['signin'], scroll: 0, reset: !0 })" style="cursor: pointer">Sign in</strong> to download.</p>`}
+              </div>
+            </div>
+          </div>`).join("");
+      }
+      d.pages = Math.max(1, Math.ceil(d.filtered.length / _uz.state.per));
+      d.pagesEl = document.querySelector(".emkt-pages");
+      d.pagesEl.innerHTML = "";
+      d.makeBtn = (t, dis, fn, active) => {
+        var b = document.createElement("button");
+        b.textContent = t;
+        b.className = "emkt-page-btn" + (active ? " active" : "");
+        b.disabled = dis;
+        b.onclick = fn;
+        d.pagesEl.appendChild(b);
+      };
+      d.page = _uz.state.page;
+      d.total = d.pages;
+      d.makeBtn("First", d.page === 1, () => { _uz.state.page = 1; _uz.render({}) });
+      d.makeBtn("Prev", d.page === 1, () => { _uz.state.page--; _uz.render({}) });
+      if (d.total <= 4) {
+        for (d.i = 1; d.i <= d.total; d.i++) {
+          d.makeBtn(d.i, false, (() => { var i = d.i; return () => { _uz.state.page = i; _uz.render({}) } })(), d.page === d.i);
+        }
+      } else if (d.page <= 2) {
+        for (d.i = 1; d.i <= 2; d.i++) {
+          d.makeBtn(d.i, false, (() => { var i = d.i; return () => { _uz.state.page = i; _uz.render({}) } })(), d.page === d.i);
+        }
+        d.dots = document.createElement("span");
+        d.dots.textContent = "…";
+        d.dots.style.color = "var(--muted)";
+        d.dots.style.padding = "8px";
+        d.pagesEl.appendChild(d.dots);
+        d.makeBtn(d.total, false, () => { _uz.state.page = d.total; _uz.render({}) }, d.page === d.total);
+      } else if (d.page >= d.total - 1) {
+        d.makeBtn(1, false, () => { _uz.state.page = 1; _uz.render({}) }, d.page === 1);
+        d.dots = document.createElement("span");
+        d.dots.textContent = "…";
+        d.dots.style.color = "var(--muted)";
+        d.dots.style.padding = "8px";
+        d.pagesEl.appendChild(d.dots);
+        for (d.i = d.total - 1; d.i <= d.total; d.i++) {
+          d.makeBtn(d.i, false, (() => { var i = d.i; return () => { _uz.state.page = i; _uz.render({}) } })(), d.page === d.i);
+        }
+      } else {
+        d.makeBtn(d.page - 1, false, (() => { var i = d.page - 1; return () => { _uz.state.page = i; _uz.render({}) } })(), false);
+        d.makeBtn(d.page, false, (() => { var i = d.page; return () => { _uz.state.page = i; _uz.render({}) } })(), true);
+        d.dots = document.createElement("span");
+        d.dots.textContent = "…";
+        d.dots.style.color = "var(--muted)";
+        d.dots.style.padding = "8px";
+        d.pagesEl.appendChild(d.dots);
+        d.makeBtn(d.total, false, () => { _uz.state.page = d.total; _uz.render({}) }, d.page === d.total);
+      }
+      d.makeBtn("Next", d.page === d.total, () => { _uz.state.page++; _uz.render({}) });
+      d.makeBtn("Last", d.page === d.total, () => { _uz.state.page = d.total; _uz.render({}) });
+    },
+    create: (t, disabled, fn, cls, btn) => {
+      btn = document.createElement("button");
+      btn.textContent = t;
+      btn.className = "emkt-page-btn" + (cls ? " " + cls : "");
+      btn.disabled = !!disabled;
+      btn.onclick = fn;
+      document.querySelector(".emkt-pages").appendChild(btn);
+    }
+  };
+  document.querySelector('[data-action="close-search"]').onclick = () => document.querySelector(".emkt-search-modal").classList.remove("show");
+  document.querySelector(".emkt-search-input").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      _uz.state.query = e.target.value;
+      _uz.state.page = 1;
+      _uz.render({});
+    }
+  });
+  document.querySelector('[data-action="close-notfound"]').onclick = () => {
+    document.querySelector(".emkt-message-modal").classList.remove("show");
+    document.querySelector(".emkt-search-input").value = "";
+    _uz.state.query = "";
+    _uz.state.page = 1;
+  };
+  _uz.render({});
+  window.addEventListener("message", (e) => {
+    if (e.data && e.data.action && e.data.action.match(/(rate-products)/))
+      for (let k in e.data.message)
+        updateRating({ k: k, n: _uz.products.rates[k] = e.data.message[k].message.rate });
+  });
+  window.parent.postMessage({
+    id: window.frameElement.id,
+    action: "whatsapp-button",
+    hide: !0
+  }, "*");
+  window.parent.postMessage({
+    id: window.frameElement.id,
+    action: "read-data",
+    tag: "rate-products"
+  }, "*");
+  if (localStorage.cart)
+    document.querySelector(".cart-quantity").innerHTML = Object.keys(_uz.state.cart = JSON.parse(localStorage.cart)).length;
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

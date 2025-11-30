@@ -1,0 +1,374 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+    :root {
+        --accent: #61b2d8;
+    }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .slider-container {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .slider-track {
+        display: flex;
+        height: 100%;
+        transition: transform .5s ease;
+    }
+    .slide {
+        flex: 0 0 100vw;
+        height: 100vh;
+        background: #1b2838;
+    }
+    .slider-container:hover .nav-button {
+        opacity: 1;
+    }
+    .slide > div {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        height: 100vh;
+        font-size: 4em;
+        color: white;
+        user-select: none;
+        pointer-events: none;
+        overflow: hidden;
+    }
+    .slider-image {
+        position: absolute;
+        width: 100vw;
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: auto 100%;
+        background-blend-mode: soft-light;
+        overflow: hidden;
+    }
+    .slider-image::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: inherit;
+        background-size: cover;
+        background-position: center;
+        filter: blur(30px) brightness(0.6);
+        transform: scale(1.1);
+    }
+    .slider-image::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: inherit;
+        background-size: auto 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        animation: image-zoom 36s ease-in-out infinite;
+    }
+    @keyframes image-zoom {
+        0%{
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.2);
+        }
+    }
+    .slider-youtube {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transform: scale(1.24);
+        pointer-events: none;
+    }
+    @media only screen and (max-width:480px) {
+        .slider-youtube {
+            width: calc((100vh * 16) / 9);
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:961px) {
+        
+    }
+    .nav-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, .1);
+        font-size: 3em;
+        transition: opacity .3s ease;
+        z-index: 10;
+    }
+    .nav-button:hover {
+        color: rgba(255, 255, 255, .64);
+        font-size: 3.2em;
+    }
+    .nav-button:active {
+        font-size: 3.1em;
+        color: rgba(255, 255, 255, .42);
+    }
+    .nav-left {
+        left: 0px;
+    }
+    .nav-right {
+        right: 0px;
+    }
+    .content-section {
+        position: absolute;
+        padding: 100px 20px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 100vw;
+        height: 100vh;
+        bottom: 24px;
+        text-align: center;
+        color: white;
+    }
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+    .section-subtitle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        font-size: 1.3rem;
+        opacity: .8;
+        max-width: 600px;
+        line-height: 1.6;
+        margin-bottom: 40px;
+    }
+    .outlined-text {
+        background-color: #444;
+        color: #fff;
+        background-clip: text;
+        -webkit-text-stroke: 4px #fff0;
+        -webkit-background-clip: text;
+        text-shadow: -1px -1px 1px rgba(0, 0, 0, .7), 1px 1px 1px rgba(255, 255, 255, .7);
+    }
+    .mobile-icon {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        top: 76px;
+        font-size: 1.5rem;
+        text-decoration: none;
+        color: white;
+        background: rgba(255, 255, 255, .1);
+        backdrop-filter: blur(7px);
+        border-radius: 50%;
+        transition: all .3s ease;
+        border: 1px solid rgba(255, 255, 255, .2);
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+        fill: currentColor;
+        cursor: pointer;
+        z-index: 1;
+    }
+    .mobile-icon:hover {
+        background: rgba(255, 255, 255, .2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+    }
+    .mobile-icon:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+    }
+    .mobile-icon span {
+        transition: all .3s ease;
+    }
+    .mobile-icon span:hover {
+        transform: translateY(-2px) scale(1.07);
+    }
+    .mobile-icon span:active {
+        transform: translateY(-2px) scale(.9);
+    }
+    .cart-quantity {
+        position: absolute;
+        right: 0px;
+        top: -12px;
+        color: var(--accent);
+        font-size: 17px;
+        font-weight: 600;
+    }
+    .scroll-down {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        left: 50%;
+        bottom: 64px;
+        transform: translate(-50%);
+        font-size: 3rem;
+        pointer-events: none;
+        z-index: 1;
+    }
+    .arrow-animated {
+        color: white;
+        position: absolute;
+        font-size: 1em;
+        animation: arrow-float 1s infinite;
+    }
+    @keyframes arrow-float {
+        0% {
+            transform: translateY(0);
+            animation-timing-function: ease-out;
+        }
+        60% {
+            transform: translateY(50%);
+            animation-timing-function: ease-in-out;
+        }
+        100% {
+            transform: translateY(0);
+            animation-timing-function: ease-out;
+        }
+    }
+    @media only screen and (min-device-width: 480px) and (max-device-width: 1400px) and (orientation: landscape) {
+        .scroll-down {
+            top: 51%;
+            transform: translate(29%, -50%);
+            right: 0;
+        }
+        .arrow-animated {
+            rotate: -90deg;
+        }
+    }
+</style>
+<div class="scroll-down">
+    <div class="arrow-animated">&darr;</div>
+</div>
+<span class="mobile-icon play-demo" onclick="" style="left: 50%; top: 50%; transform: translate(-50%, -50%);">
+    <span>
+        <i class="fa fa-play-circle fa-3x"></i>
+    </span>
+</span>
+<span class="mobile-icon" onclick="loadPage({ shells: ['store'], scroll: 0 })" style="left: 12px">
+    <i class="fa fa-chevron-left"></i>
+</span>
+<span class="mobile-icon" onclick="navigator.clipboard.writeText(`${window.location.origin}#${_su.product.pSN}`)" style="right: 64px">
+    <i class="fa fa-chain"></i>
+</span>
+<span class="mobile-icon" onclick="loadPage({ shells: ['cart'], scroll: 0, reset: !0 })" style="right: 12px">
+    <i class="fa fa-shopping-cart"></i>
+    <span class="cart-quantity"></span>
+</span>
+<div class="slider-container">
+    <div class="slider-track" id="track"></div>
+    <button class="nav-button nav-left" onclick="if (debounce()) { _su.index = (_su.index > 0) ? _su.index - 1 : (_su.totalSlides - 1); updateSlide() }">&#10094;</button>
+    <button class="nav-button nav-right" onclick="if (debounce()) { _su.index = (_su.index < _su.totalSlides - 1) ? _su.index + 1 : 0; updateSlide() }">&#10095;</button>
+    <section class="content-section"></section>
+</div>
+<script>
+    let slideItem = (d) => {
+        d.e = document.querySelector(".play-demo");
+        if (d.demo)
+           d.e.setAttribute("onclick", d.demo);
+        else d.e.style.display = "none"; 
+        return `
+            <div class="slide">
+                ${d.i ? `<div><div class="slider-image" style="background-image: url('${d.i}'); background-blend-mode: soft-light"></div>` : `<div><iframe class="slider-youtube" src="https://www.youtube.com/embed/${d.y}?autoplay=1&autohide=0&mute=1&disablekb=1&loop=1&rel=0&playlist=${d.y}" allow="autoplay; encrypted-media" frameborder="0" scrolling="no" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>`}
+                </div>
+            </div>`;
+    },
+    buildSlides = (d) => {
+        if (localStorage.product) {
+            _su.product = JSON.parse(localStorage.product);
+            for (let i in _su.product.slides)
+                d.s += slideItem({ [_su.product.slides[i].match(/(assets)/) ? "i" : "y"]: _su.product.slides[i], demo: _su.product.demo });
+            document.getElementById("track").innerHTML = d.s;
+            _su.track.addEventListener(_su.mobile ? "touchstart" : "mousedown", startDrag);
+            _su.track.addEventListener(_su.mobile ? "touchmove" : "mousemove", onDrag);
+            for (let i = 0, j = ["mouseup", "mouseleave", "touchend"]; i < j.length; i++) _su.track.addEventListener(j[i], endDrag);
+            _su.totalSlides = _su.track.children.length;
+            updateSlide({});
+        }
+    },
+    updateSlide = (d) => {
+        _su.track.style.transform = `translateX(-${_su.index * 100}vw)`;
+        if (_su.interval) clearInterval(_su.interval);
+        _su.interval = setInterval(() => {
+            _su.index = (_su.index < _su.totalSlides - 1) ? _su.index + 1 : 0;
+            updateSlide();
+        }, 8192);
+    },
+    startDrag = (e) => {
+        if (debounce()) {
+            _su.isDragging = !0;
+            _su.startX = e.type.includes("mouse") ? e.pageX : e.touches[0].pageX;
+            _su.track.style.transition = "none";
+        }
+    },
+    onDrag = (e) => {
+        if (!_su.isDragging) return;
+        _su.currentX = e.type.includes("mouse") ? e.pageX : e.touches[0].pageX;
+        const deltaX = _su.currentX - _su.startX;
+        _su.track.style.transform = `translateX(${-_su.index * window.innerWidth + deltaX}px)`;
+    },
+    endDrag = (e) => {
+        if (!_su.isDragging) return;
+        _su.isDragging = !1;
+        const deltaX = _su.currentX - _su.startX;
+        if (deltaX > 100 && _su.index > 0) _su.index--;
+        else if (deltaX < -100 && _su.index < _su.totalSlides - 1) _su.index++;
+        _su.track.style.transition = `transform .5s ease`;
+        updateSlide();
+    },
+    debounce = (d) => {
+        if (_su.debounce + 240 < performance.now()) _su.debounce = performance.now();
+        return _su.debounce == performance.now();
+    },
+    openApp = (d) => {
+        if (localStorage.cart)
+            document.querySelector(".cart-quantity").innerHTML = Object.keys(_su.state.cart = JSON.parse(localStorage.cart)).length;
+    },
+    _su = { state: {}, index: 0, startX: 0, currentX: 0, isDragging: !1, debounce: performance.now(), track: document.getElementById("track"), mobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) };
+    window.addEventListener("resize", updateSlide);
+    buildSlides({ s: "" });
+    openApp({});
+</script>
+<script src="assets/js/index.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

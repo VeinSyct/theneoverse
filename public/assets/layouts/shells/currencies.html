@@ -1,0 +1,453 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+		margin: 12px;
+		overflow-y: scroll;
+        color: white;
+	}
+    .centered {
+        padding-bottom: 96px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-width: 100%;
+        min-height: 100%;
+        overflow: hidden;
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @media only screen and (max-width:1024px) and (orientation:landscape) {
+        .contact-form {
+            margin-top: 96px;
+        }
+    }
+    @media only screen and (max-width:480px) {
+        .contact-form {
+            margin-top: 12px;
+            margin-bottom: 96px;
+            padding: 36px 18px;
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:768px) {
+        .contact-form {
+            margin-top: 12px;
+            margin-bottom: 96px;
+            padding: 36px 18px;
+        }
+    }
+    .content-section {
+        margin: 64px 0 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+    }
+    @media only screen and (max-width:480px) {
+        .content-section {
+            margin: 0 0 12px;
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:768px) {
+        .content-section {
+            margin: 0 0 12px;
+        }
+    }
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #ffffff, #f0f0f0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .section-subtitle {
+        font-size: 1.1rem;
+        opacity: .8;
+        max-width: 600px;
+        line-height: 1.6;
+    }
+    .section {
+        padding: 5rem 1rem;
+    }
+    .section h2 {
+        text-align: center;
+        margin-bottom: 3rem;
+        font-size: 2.5rem;
+        color: white;
+    }
+    .currencies {
+        margin: 0 auto;
+        margin-bottom: 24px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
+        gap: 1rem;
+        max-width: 90vw;
+    }
+    .currency {
+        padding: 6px;
+        background: rgba(255, 255, 255, .03);
+        backdrop-filter: blur(10px);
+        border-radius: var(--border-radius);
+        background: rgba(255, 255, 255, .01);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, .2);
+        border-radius: 6px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, .1), inset 0 1px 0 rgba(255, 255, 255, .2);
+        transition: var(--transition-medium);
+        cursor: pointer;
+    }
+    .currency:hover {
+        transform: translateY(-10px);
+        background: rgba(255, 255, 255, .06);
+        border-color: rgba(33, 150, 243, .3);
+    }
+    .currency h3 {
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+    }
+    .submit-btn {
+        position: relative;
+        width: calc(100% - 96px);
+        max-width: 500px;
+        padding: 15px 30px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all .3s ease;
+        box-shadow: rgba(0, 0, 0, .35) 0px 5px 15px;
+        overflow: hidden;
+    }
+    .submit-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        box-shadow: rgba(0, 0, 0, .24) 0px 3px 8px;
+        transition: left .3s ease;
+    }
+    .submit-btn:hover::before {
+        left: 0;
+    }
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: rgba(0, 0, 0, .25) 0px 14px 28px, rgba(0, 0, 0, .22) 0px 10px 10px;
+    }
+    .submit-btn:active {
+        box-shadow: rgba(0, 0, 0, .12) 0px 1px 3px, rgba(0, 0, 0, .24) 0px 1px 2px;
+    }
+    .submit-btn span {
+        position: relative;
+        z-index: 1;
+    }
+    .mobile-icon {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        left: 12px;
+        top: 76px;
+        text-decoration: none;
+        color: white;
+        background: rgba(255, 255, 255, .1);
+        backdrop-filter: blur(7px);
+        border-radius: 50%;
+        transition: all .3s ease;
+        border: 1px solid rgba(255, 255, 255, .2);
+        fill: currentColor;
+        cursor: pointer;
+    }
+    @media only screen and (max-width:480px) {
+        .mobile-icon {
+            left: 9px;
+            top: 9px;
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:768px) {
+        .mobile-icon {
+            left: 9px;
+            top: 9px;            
+        }
+    }
+    .mobile-icon:hover {
+        background: rgba(255, 255, 255, .2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+    }
+    .mobile-icon:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+    }
+    .network-nodes {
+        position: absolute;
+        opacity: .13;
+        z-index: -1;
+    }
+</style>
+<canvas class="network-nodes"></canvas>
+<script src="assets/js/network-nodes.js"></script>
+<span class="mobile-icon" onclick="loadPage({ shells: ['settings', 'balance', 'options'], scroll: 1, reset: !0 })">
+    <i class="fa fa-chevron-left"></i>
+</span>
+<div class="centered">
+    <section class="content-section">
+        <h1 class="section-title">Currencies</h1>
+        <p class="section-subtitle">Choose your preferred currency from the list below.</p>
+    </section>
+    <div class="currencies"></div>
+    <button class="submit-btn" onclick="saveChanges({})" hidden>
+        <i class="fa fa-floppy-o fa-1x" style="margin-right: 12px;"></i>
+        <span>Save</span>
+    </button>
+</div>
+<div id="api-404" hidden></div>
+<script src="./assets/js/ecash.js"></script>
+<script>
+    document.getElementById("api-404").appendChild(_uz.api);
+    _uz.z = { qrScan: { arr: [], hashes: [] }, digit: { height: 12 }, slider: { single: {} } };
+    _uz.qr = {
+        length: 72,
+        delay: 128,
+        interval: 0,
+        hash: "9h65t34t31p7s&83*4392*81839e5c732a8181sh232%ic421o232n490s$321w23e59b$a472p921p"
+    };
+    _uz.qrhash({ hash: _uz.qr.hash });
+</script>
+<script>
+    let openApp = (d) => {
+        loadCurrencies({ s: "" });
+    },
+    currencyFrame = (d) => {
+        return `
+            <div class="currency" onclick="_uz.select='${d.k}'; document.querySelector('.submit-btn').style.display='block'">
+                <h3>${d.k}</h3>
+            </div>`;
+    },
+    loadCurrencies = (d) => {
+        for (let k in _uz.language)
+            d.s += currencyFrame({ k: k });
+        document.querySelector(".currencies").innerHTML = d.s;
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    },
+    changeCurrency = (d) => {
+        _uz.api.contentWindow.postMessage({
+            action: "ecash-api-change-currency",
+            currency: d.currency
+        }, _uz.api.src);
+        _uz.user = JSON.parse(localStorage.user);
+        _uz.user.currency = d.currency;
+        localStorage.user = JSON.stringify(_uz.user);
+    },
+    saveChanges = (d) => {
+        changeCurrency({ currency: _uz.select });
+        localStorage.dialog = JSON.stringify({
+            message: `You have changed your currency to ${_uz.select}, dismiss to <i class='fa fa-check'></i> accept or go back to select another?`,
+            buttons: {
+                dismiss: {
+                    text: `<span><i class="fa fa-check" style="margin-right: 12px"></i> Dismiss</span>`,
+                    shells: `['settings', 'balance', 'options']`,
+                    scroll: 1,
+                    reset: !0
+                }
+            },
+            back: {
+                shells: `['currencies']`,
+                scroll: 0
+            }
+        });
+        loadPage({ shells: ['dialog'], scroll: 0 });
+    };
+    _uz.language = {
+        VCY: "en-US",
+        EUR: "en-DE",
+        USD: "en-US-POSIX",
+        PHP: "es-PH",
+        AED: "ar-AE",
+        AFN: "ps-AF",
+        ALL: "sq-AL",
+        AMD: "hy-AM",
+        ANG: "nl-CW",
+        AOA: "ln-AO",
+        ARS: "es-AR",
+        AUD: "en-AU",
+        AWG: "nl-AW",
+        AZN: "az-Cyrl-AZ",
+        BAM: "bs-Cyrl-BA",
+        BBD: "en-BB",
+        BDT: "bn-BD",
+        BGN: "bg-BG",
+        BHD: "ar-BH",
+        BIF: "rn-BI",
+        BMD: "en-BM",
+        BND: "ms-Latn-BN",
+        BOB: "es-BO",
+        BRL: "pt-BR",
+        BSD: "en-BS",
+        BTN: "dz-BT",
+        BWP: "en-BW",
+        BYR: "ru-BY",
+        BZD: "en-BZ",
+        CAD: "fr-CA",
+        CDF: "lu-CD",
+        CHF: "rm-CH",
+        CLP: "es-CL",
+        CNY: "ii-CN",
+        COP: "es-CO",
+        CRC: "es-CR",
+        CUP: "es-CU",
+        CVE: "pt-CV",
+        CZK: "en-CZ",
+        DJF: "ar-DJ",
+        DKK: "da-DK",
+        DOP: "es-DO",
+        DZD: "kab-DZ",
+        EGP: "ar-EG",
+        ERN: "ar-ER",
+        ETB: "om-ET",
+        FJD: "en-FJ",
+        FKP: "en-FK",
+        GBP: "en-GB",
+        GEL: "ka-GE",
+        GHS: "ak-GH",
+        GGP: "en-GG",
+        GIP: "en-GI",
+        GMD: "en-GM",
+        GNF: "fr-GN",
+        GTQ: "es-GT",
+        GYD: "en-GY",
+        HKD: "zh-Hans-HK",
+        HNL: "es-HN",
+        HRK: "hr-HR",
+        HTG: "fr-HT",
+        HUF: "en-HU",
+        IDR: "id-ID",
+        ILS: "ar-IL",
+        INR: "kok-IN",
+        IQD: "ar-IQ",
+        IRR: "fa-IR",
+        ISK: "en-IS",
+        JMD: "en-JM",
+        JOD: "ar-JO",
+        JPY: "ja-JP",
+        KES: "saq-KE",
+        KGS: "ru-KG",
+        KHR: "km-KH",
+        KMF: "ar-KM",
+        KPW: "ko-KP",
+        KRW: "ko-KR",
+        KWD: "ar-KW",
+        KYD: "en-KY",
+        KZT: "kk-Cyrl-KZ",
+        LAK: "lo-LA",
+        LBP: "ar-LB",
+        LKR: "ta-LK",
+        LRD: "vai-Latn-LR",
+        LSL: "en-LS",
+        LTL: "en-LT",
+        LVL: "en-LV",
+        LYD: "ar-LY",
+        MAD: "ar-MA",
+        MDL: "ru-MD",
+        MGA: "mg-MG",
+        MKD: "sq-MK",
+        MMK: "my-MM",
+        MNT: "mn-Cyrl-MN",
+        MOP: "zh-Hant-MO",
+        MRO: "ar-MR",
+        MUR: "en-MU",
+        MWK: "en-MW",
+        MXN: "es-MX",
+        MYR: "ms-Latn-MY",
+        MZN: "mgh-MZ",
+        NAD: "naq-NA",
+        NGN: "ha-Latn-NG",
+        NIO: "es-NI",
+        NOK: "nn-NO",
+        NPR: "ne-NP",
+        NZD: "en-NZ",
+        OMR: "ar-OM",
+        PAB: "es-PA",
+        PEN: "es-PE",
+        PGK: "en-PG",
+        PKR: "pa-Arab-PK",
+        PLN: "en-PL",
+        PYG: "es-PY",
+        QAR: "ar-QA",
+        RON: "en-RO",
+        RSD: "sr-Latn-RS",
+        RUB: "ru-RU",
+        RWF: "rw-RW",
+        SAR: "ar-SA",
+        SBD: "en-SB",
+        SCR: "en-SC",
+        SDG: "ar-SD",
+        SEK: "sv-SE",
+        SGD: "ms-Latn-SG",
+        SHP: "en-SH",
+        SLL: "en-SL",
+        SOS: "ar-SO",
+        SRD: "nl-SR",
+        STD: "pt-ST",
+        SYP: "ar-SY",
+        SZL: "en-SZ",
+        THB: "th-TH",
+        TJS: "tg-Cyrl-TJ",
+        TMT: "tk-Latn-TM",
+        TND: "ar-TN",
+        TOP: "to-TO",
+        TRY: "tr-TR",
+        TTD: "en-TT",
+        TWD: "zh-Hant-TW",
+        TZS: "sw-TZ",
+        UAH: "ru-UA",
+        UGX: "teo-UG",
+        UYU: "es-UY",
+        UZS: "uz-Cyrl-UZ",
+        VEF: "es-VE",
+        VND: "vi-VN",
+        VUV: "en-VU",
+        WST: "en-WS",
+        YER: "ar-YE",
+        ZAR: "en-LS",
+        ZMW: "af-ZA",
+        DMY: "en-US"
+    };
+</script>
+<script src="assets/js/index.js"></script>

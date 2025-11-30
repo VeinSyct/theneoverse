@@ -1,0 +1,278 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+    :root {
+        --border-radius: 12px;
+    }
+    body {
+		margin: 12px;
+		overflow-y: scroll;
+        color: white;
+	    animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .content-section {
+        margin: 0 0 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+    }
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #ffffff, #f0f0f0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .section-subtitle {
+        font-size: 1.1rem;
+        opacity: .8;
+        max-width: 600px;
+        line-height: 1.6;
+    }
+    .section {
+        padding: 5rem 1rem 2rem;
+    }
+    @media only screen and (max-width:1024px) and (orientation:landscape) {
+        
+    }
+    @media only screen and (max-width:480px) {
+        .section {
+            padding: 0 1rem 3rem;
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:768px) {
+        .section {
+            padding: 0 1rem 3rem;
+        }
+    }
+    .section h2 {
+        text-align: center;
+        margin-bottom: 3rem;
+        font-size: 2.5rem;
+        color: white;
+    }
+    .features {
+        margin: 0 auto;
+        margin-bottom: 24px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        max-width: 90vw;
+    }
+    .feature {
+        padding: 2rem;
+        backdrop-filter: blur(10px);
+        border-radius: var(--border-radius);
+        background: url('assets/images/receipt back.webp');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: #1b2838;
+        backdrop-filter: blur(20px);
+        background-blend-mode: screen;
+        border: 1px solid rgba(255, 255, 255, .2);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, .1), inset 0 1px 0 rgba(255, 255, 255, .2);
+        transition: var(--transition-medium);
+        cursor: pointer;
+    }
+    .feature:hover {
+        transform: translateY(-10px);
+        background-blend-mode: lighten;
+        box-shadow: rgba(0, 0, 0, .19) 0px 10px 20px, rgba(0, 0, 0, .23) 0px 6px 6px;
+    }
+    .feature:active {
+        background-blend-mode: screen;
+        background-color: #0b1828;
+        border-color: none;
+        box-shadow: rgba(0, 0, 0, .24) 0px 3px 8px;
+    }
+    .feature h3 {
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+    }
+    .tx-buttons-cont {
+        margin: 12px 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 12px;
+    }
+    .calc-transaction-cont > .tx-buttons-cont {
+        display: none;
+    }
+    @media only screen and (max-width:480px) {
+        .tx-buttons-cont {
+            flex-direction: column;
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:961px) {
+        .tx-buttons-cont {
+            flex-direction: row;
+        }
+    }
+    .mobile-icon {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        left: 12px;
+        top: 76px;
+        text-decoration: none;
+        color: white;
+        background: rgba(255, 255, 255, .1);
+        backdrop-filter: blur(7px);
+        border-radius: 50%;
+        transition: all .3s ease;
+        border: 1px solid rgba(255, 255, 255, .2);
+        fill: currentColor;
+        cursor: pointer;
+    }
+    @media only screen and (max-width:480px) {
+        .mobile-icon {
+            left: 9px;
+            top: 9px;
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:768px) {
+        .mobile-icon {
+            left: 9px;
+            top: 9px;            
+        }
+    }
+    .mobile-icon:hover {
+        background: rgba(255, 255, 255, .2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+    }
+    .mobile-icon:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+    }
+    .network-nodes {
+        position: absolute;
+        opacity: .13;
+        z-index: -1;
+    }
+</style>
+<canvas class="network-nodes"></canvas>
+<script src="assets/js/network-nodes.js"></script>
+<span class="mobile-icon" onclick="loadPage({ shells: ['settings', 'balance', 'options'], scroll: 1, reset: !0 })">
+    <i class="fa fa-chevron-left"></i>
+</span>
+<div class="section">
+    <section class="content-section">
+        <h1 class="section-title">Transactions</h1>
+        <p class="section-subtitle">Transfer history of received and sent ecash.</p>
+    </section>
+    <div class="features tx-receipt"></div>
+</div>
+<script>
+    let transactionFrame = (d) => {
+        return `
+            <div class="feature">
+                <h3><i class="fa fa-qrcode fa-1x" style="margin-right: 12px"></i>${d.t}</h3>
+                <p>${d.s}</p>
+            </div>`;
+    },
+    loadTransactions = (d) => {
+        if (localStorage.transactions) {
+            try {
+                d.tx = JSON.parse(localStorage.transactions);
+                d.ts = "";
+                for (k in d.tx)
+                    d.ts = txCard({ k: k, tx: d.tx[k] }) + d.ts;
+                d.e = document.querySelector(".tx-receipt");
+                if (d.e) d.e.innerHTML = d.ts;
+            } catch (error) {}
+        }
+    },
+    txCard = (d) => {
+        return`
+            <div id="down-${d.k}" class="feature" onclick="setTimeout(() => { if (!_uz.download) document.getElementById('${d.k}').style.display='flex' }, 120)">
+                <h1 class="icon-button font-numerical" onclick="">${d.tx.currency} ${`${d.tx.amount}`.replace(/(\.\d{2})\d+$/, '$1').replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h1>
+                <h3><i class="fa fa-user"></i> ${d.tx.incoming ? "From" : "To"} <strong class="font-numerical">${d.tx.name}</strong></h3>
+                <p><i class="fa fa-credit-card"></i> <strong class="font-numerical">${d.tx.number}</strong></p>
+                <p>Time: <strong class="font-numerical">${d.tx.time}</strong></p>
+                <p>Date: <strong class="font-numerical">${d.tx.date}</strong></p>
+                <span class="tx-buttons-cont" id="${d.k}" style="display: none">
+                    <span onclick="downloadReciept({ n: '${d.tx && d.tx.number ? d.tx.number : (Math.random() + 1).toString(36).substring(7)}', id: '${d.k}' })">
+                        <i class="fa fa-download"></i> Download
+                    </span>
+                    <span onclick="showQRCode({ k: '${d.k}' })">
+                        <i class="fa fa-qrcode"></i> Show QR
+                    </span>    
+                </span>
+            </div>`;
+    },
+    showQRCode = (d) => {
+        if (localStorage.transactions) {
+            try {
+                d.tx = JSON.parse(localStorage.transactions);
+                localStorage.showqr = d.tx[d.k].hash;
+                loadPage({ shells: ["showqr"], scroll: 0 });
+            } catch (error) {}
+        }
+    };
+    _uz = { e: document.querySelector(".calc-close") };
+    if (_uz.e) {
+        _uz.e.addEventListener("click", (e) => {
+            loadPage({ shells: ["settings", "home", "options"], scroll: 2 });
+        });
+    };
+    window.downloadReciept = (d) => {
+        _uz.download = !0;
+        d.e = document.createElement("script");
+        d.e.onload = () => {
+            d.x = document.getElementById(`down-${d.id}`);
+            d.x.noShow = !0;
+            document.getElementById(`${d.id}`).style.display = "none";
+            html2canvas(d.x).then((canvas) => {
+                d.l = document.createElement("a");
+                d.l.href = canvas.toDataURL("image/png;base64");
+                d.l.download = d.n + ".jpg";
+                d.x.appendChild(d.l);
+                d.l.click();
+                d.x.removeChild(d.l);
+                for (let i = 0, j = document.getElementsByTagName("script"); i < j.length; i++)
+                    if (j[i].src && j[i].src.toString().match(/(html2canvas.js)/))
+                        j[i].parentNode.removeChild(j[i]);
+                setTimeout(() => { delete _uz.download }, 1200);
+            });
+        };
+        d.e.src = "assets/js/html2canvas.js";
+        document.body.appendChild(d.e);
+    };
+    loadTransactions({});
+</script>
+<script src="assets/js/index.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

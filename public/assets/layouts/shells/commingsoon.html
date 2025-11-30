@@ -1,0 +1,100 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+    body {
+        color: #fff;
+    }
+    .wrapper {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    h1 {
+        font-size: 50px;
+        font-family: "Poppins", sans-serif;
+        margin-bottom: 0;
+        line-height: 1;
+        font-weight: 700;
+        text-align: center;
+    }
+    .dot {
+        color: #4febfe;
+    }
+    p {
+        text-align: center;
+        margin: 18px;
+        font-family: "Muli", sans-serif;
+        font-weight: normal;
+    }
+    .icons {
+        text-align: center;
+    }
+    .icons i {
+        color: #00091b;
+        background: #fff;
+        height: 15px;
+        width: 15px;
+        padding: 13px;
+        margin: 0 10px;
+        border-radius: 50px;
+        border: 2px solid #fff;
+        transition: all 200ms ease;
+        text-decoration: none;
+        position: relative;
+    }
+    .icons i:hover,
+    .icons i:active {
+        color: #fff;
+        background: none;
+        cursor: pointer !important;
+        transform: scale(1.2);
+        -webkit-transform: scale(1.2);
+        text-decoration: none;
+    }
+    .network-nodes {
+        position: absolute;
+        opacity: .13;
+        z-index: -1;
+    }
+</style>
+<canvas class="network-nodes"></canvas>
+<script src="assets/js/network-nodes.js"></script>
+<div class="wrapper">
+    <h1>coming soon<span class="dot">.</span></h1>
+    <p>You will enjoy this feature soon.</p>
+    <div class="icons">
+        <a onclick="loadPage({ shells: ['carousel', 'accordion', 'cards', 'faqs'], scroll: 0, reset: !0 })"><i class="fa fa-chevron-left"></i></a>
+        <a onclick="loadPage({ shells: ['contact'], scroll: 0, reset: !0 })"><i class="fa fa-envelope-o"></i></a>
+    </div>
+</div>
+<script src="assets/js/index.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

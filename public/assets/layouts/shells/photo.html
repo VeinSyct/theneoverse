@@ -1,0 +1,273 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+    body {
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .mobile-icon {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        left: 12px;
+        top: 76px;
+        text-decoration: none;
+        color: white;
+        background: rgba(255, 255, 255, .1);
+        backdrop-filter: blur(7px);
+        border-radius: 50%;
+        transition: all .3s ease;
+        border: 1px solid rgba(255, 255, 255, .2);
+        fill: currentColor;
+        cursor: pointer;
+        z-index: 1;
+    }
+    .mobile-icon:hover {
+        background: rgba(255, 255, 255, .2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+    }
+    .mobile-icon:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+    }
+    .photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        animation: image-zoom 36s ease-in-out infinite;
+    }
+    @keyframes image-zoom {
+        0%{
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.2);
+        }
+    }
+	.content-section {
+		position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+        flex-direction: column;
+        text-align: center;
+    }
+    .section-title {
+        display: inline;
+        font-family: 'Lato', sans-serif;
+        font-style: italic;
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        line-height: 1.6;
+        letter-spacing: .1em;
+        border-width: 0 0 8px 0;
+        border-style: solid;
+        -o-border-image: linear-gradient(45deg, #405dce 0%, #8b20c0 100%);
+            border-image: linear-gradient(45deg, #405dce 0%, #8b20c0 100%);
+        border-image-slice: 1;
+        filter: drop-shadow(0 0 2px black);
+    }
+    .section-subtitle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        font-size: 2rem;
+        opacity: 1;
+        max-width: 600px;
+        line-height: 1.6;
+        filter: drop-shadow(0 0 2px black);
+    }
+    @media only screen and (max-width:480px) {
+        .section-subtitle {
+            font-size: 1.4rem;
+        }
+	}
+	@media only screen and (min-width:481px) and (max-width:768px) {
+        .section-subtitle {
+            font-size: 1.6rem;
+        }
+	}
+	.logo-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        height: 86px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        -webkit-mask: url("assets/images/neoverse_thumb.webp") center/contain;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, .2);
+    }
+    .logo-icon img {
+        height: 96px;
+        opacity: 0;
+    }
+    .logo-icon::before {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        animation: logo-pulse 2s ease-in-out infinite;
+    }
+    @media only screen and (max-width:1024px) and (orientation:landscape) {
+	}
+	@media only screen and (max-width:480px) {
+        .logo-icon {
+            height: 76px;
+        }
+        .logo-icon img {
+            height: 76px;
+        }
+	}
+	@media only screen and (min-width:481px) and (max-width:768px) {
+        .logo-icon {
+            height: 64px;
+        }
+        .logo-icon img {
+            height: 64px;
+        }
+	}
+    .rotating {
+        -webkit-animation: rotate 10s linear infinite;
+        animation: rotate 10s linear infinite;
+        -o-animation: rotate 10s linear infinite;
+        -moz-animation: rotate 10s linear infinite;
+    }
+    @-webkit-keyframes rotate {
+        to {
+            -webkit-transform: rotate(360deg);
+                    transform: rotate(360deg);
+        }
+    }
+    @keyframes rotate {
+        to {
+            -webkit-transform: rotate(360deg);
+                    transform: rotate(360deg);
+        }
+    }
+    .flickering-text {
+        margin: 10px 0;
+        max-width: 90vw;
+        white-space: wrap;
+        letter-spacing: 1px;
+        color: #eeede4;
+        background: linear-gradient(135deg, #eeede4, #f0f0f0);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        line-height: 1;
+        animation-duration: .005s;
+        animation-name: textflicker;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+    }
+    @keyframes textflicker {
+        from {
+            text-shadow: 1px 0 0 #4b5868, -2px 0 0 #2b3848;
+        }
+        to {
+            text-shadow: 2px .5px 2px #ea36af, -1px -0.5px 2px #4b5868;
+        }
+    }
+    .submit-btn {
+        margin: 12px 0;
+        width: 100%;
+        max-width: 200px;
+        padding: 15px 30px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all .3s ease;
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+        position: relative;
+        overflow: hidden;
+    }
+    .submit-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #764ba2, #667eea);
+        transition: left .3s ease;
+    }
+    .submit-btn:hover::before {
+        left: 0;
+    }
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+    .submit-btn:active {
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    }
+    .submit-btn span {
+        position: relative;
+        z-index: 1;
+    }
+    .network-nodes {
+        position: absolute;
+        opacity: .13;
+        z-index: -1;
+    }
+</style>
+<span class="mobile-icon" onclick="loadPage({ shells: [img.r], scroll: 0 })">
+    <i class="fa fa-chevron-left"></i>
+</span>
+<img class="photo" src=""/>
+<section class="content-section">
+	<div class="logo-icon rotating">
+		<img src="assets/images/neoverse_thumb.webp"/>
+	</div>
+	<h1 class="section-title flickering-text"></h1>
+	<p class="section-subtitle flickering-text"></p>
+</section>
+<script>
+    let img;
+    if (localStorage.img) {
+        img = JSON.parse(localStorage.img);
+        document.querySelector(".photo").src = img.i;
+        document.querySelector(".section-title").innerHTML = img.t;
+        document.querySelector(".section-subtitle").innerHTML = img.s;
+	}
+</script>
+<script src="assets/js/index.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

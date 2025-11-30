@@ -1,0 +1,312 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="assets/css/unlock.css" />
+<style>
+    body {
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+<body></body>
+<script src="assets/js/index.js"></script>
+<script>
+    let shapeButtons = (d) => {
+        for (let i = 0; i < d.j.length; i++)
+            d.l += !i
+                ? `<label for='unlock-open' class='unlock-button unlock-open-button' onclick='verifyCodeInputs(this)' id='unlock-button'><i class='fa fa-${d.j[i]}'></i></label>`
+                : `<a class='unlock-button unlock-item' onclick='verifyCodeInputs(this)'><i class='fa fa-${d.j[i]}'></i></a>`;
+        return d.l;
+    },
+    createAccount = (d) => {
+        if (localStorage.signup) {
+            d.su = JSON.parse(localStorage.signup);
+            d.su.unlock = _ul.user.unlock;
+            window.parent.postMessage({
+                action: "accounts",
+                tag: `${`${d.su[1]}`.toLowerCase().replace(/\@|\./g,"_")}`,
+                message: d.su
+            }, "*");
+        }
+    },
+    openDownloads = (d) => {
+        if (d.ok) {
+            d.t = `<i class='fa fa-unlock'></i> unlocked`;
+            d.u = `<i class='fa fa-check'></i>`;
+            _ul.user.trial = 5;
+            _ul.user.opened.buyer = _ul.signin ? JSON.parse(_ul.signin).email : JSON.parse(localStorage.signup)[1];
+            window.parent.postMessage({id:window.frameElement.id,action:'navigation-bar',update:!0},'*');
+            setTimeout(() => loadPage({ shells: _ul.shells, scroll: _ul.scroll }), 1);
+        } else {
+            _ul.user.trial--;
+            d.t = `Wrong <i class='fa fa-unlock'></i> shapes, you have ` + (_ul.user.trial > 1 ? _ul.user.trial + ` more tries.` : _ul.user.trial > 0 ? `one last try.` : `no more try.`);
+            d.u = `<i class='fa fa-lock'></i>`;
+        }
+    },
+    verifyCodeInputs = (d) => {
+        d.c = d.getElementsByTagName("i")[0].className.replace("fa fa-", "").slice(-2);
+        d.u = `<i class='fa fa-lock'></i>`;
+        delete _ul.user.opened.buyer;
+        if (_ul.user.unlock || _ul.signin) {
+            _ul.user.trial = _ul.user.trial === undefined ? 5 : _ul.user.trial;
+            if (_ul.user.trial > 0) {
+                d.u = `<i class='fa fa-unlock'></i>`;
+                if (d.c.match(/(ck)/)) {
+                    if (_ul.code != "") {
+                        d.ok = _ul.signin ? _ul.code == JSON.parse(_ul.signin).unlock : _ul.code == _ul.user.unlock;
+                        createAccount({});
+                        openDownloads(d);
+                        _ul.code = "";
+                    }
+                } else _ul.code += d.c;
+            } else {
+                document.getElementById("unlock-button").disabled = !0;
+                d.t = `Too many <i class='fa fa-unlock'></i> tries!`;
+                d.u = `<i class='fa fa-close'></i>`;
+            }
+            localStorage.user = JSON.stringify(_ul.user);
+        } else {
+            if (d.c.match(/(ck|it)/)) {
+                if (_ul.code != "") {
+                    if (!_ul.confirm) {
+                        _ul.confirm = _ul.code;
+                        d.t = `Confirm your <i class='fa fa-unlock'></i> shapes`;
+                    } else if (_ul.confirm == _ul.code) {
+                        _ul.user.unlock = _ul.code;
+                        createAccount({});
+                        localStorage.user = JSON.stringify(_ul.user);
+                        localStorage.dialog = JSON.stringify({
+                            message: `You have set your unlock <i class='fa fa-unlock'></i> shapes.`,
+                            buttons: {
+                                dismiss: {
+                                    text: `<span><i class="fa fa-sign-in" style="margin-right: 12px"></i> Enter</span>`,
+                                    action: `let u=localStorage.user?JSON.parse(localStorage.user):{agreed:{},opened:{}};u.opened.buyer=JSON.parse(localStorage.signup)[1];delete localStorage.signup;localStorage.user=JSON.stringify(u);window.parent.postMessage({id:window.frameElement.id,action:'navigation-bar',update:!0},'*');`,
+                                    shells: `['${localStorage.cart ? "cart" : "downloads"}']`,
+                                    scroll: 0,
+                                    reset: !0
+                                }
+                            },
+                            back: {
+                                shells: `['signin']`,
+                                scroll: 0,
+                                reset: !0
+                            }
+                        });
+                        loadPage({ shells: ['dialog'], scroll: 0 });
+                    } else d.t = `Your <i class='fa fa-unlock'></i> shapes did not match!`;
+                    _ul.code = _ul.shapes = "";
+                } else d.t = `Select your <i class='fa fa-unlock'></i> shapes`;
+            } else {
+                _ul.code += d.c;
+                _ul.shapes += d.innerHTML.trim() + " ";
+                d.t = "[ " + _ul.shapes + " ]";
+                d.u = `<i class='fa fa-edit'></i>`;
+            }
+        }
+        if (d.t) document.getElementById("action-text").innerHTML = d.t;
+        if (d.u) document.getElementById("unlock-button").innerHTML = d.u;
+    },
+    _ul = { code:"", shapes:"", user: localStorage.user ? JSON.parse(localStorage.user) : { agreed: {}, opened: {} }, shells: [localStorage.cart ? "cart" : "downloads"], scroll: 0 };
+    if (!_ul.user.agreed.buyer && !localStorage.signin) {
+        localStorage.dialog = JSON.stringify({
+            message: `
+                <h2>
+                    Digital Product Purchase Agreement
+                </h2><br>
+                <div style="border:2px solid #ff4d4d; padding:15px; background:linear-gradient(135deg,rgba(0,0,0,0.9),rgba(50,50,50,0.8))">
+                    <p>
+                        <strong>⚠️ PRE-PURCHASE CHECKLIST, MANDATORY ACKNOWLEDGEMENT:</strong><br>
+                        You must scroll through all items and confirm each before clicking <strong>"I Agree"</strong>:
+                    </p>
+                    <div class="chk-scroll font-numerical">
+                        <ul>
+                            <li><input type="checkbox" class="agree-chk"> I understand that all products purchased are <strong>digital items</strong> delivered electronically and not physical goods.</li>
+                            <li><input type="checkbox" class="agree-chk"> I acknowledge that <strong>digital products cannot be returned, refunded, or exchanged</strong> once purchased.</li>
+                            <li><input type="checkbox" class="agree-chk"> I understand that after purchase, I will immediately receive <strong>download access</strong> or delivery of the digital item.</li>
+                            <li><input type="checkbox" class="agree-chk"> I acknowledge that once purchased, the digital product is <strong>automatically considered downloaded and accessed</strong> by the buyer, and the seller has <strong>no way to verify</strong> or confirm its usage.</li>
+                            <li><input type="checkbox" class="agree-chk"> I understand that all sales are <strong>final</strong> due to the nature of downloadable digital goods.</li>
+                            <li><input type="checkbox" class="agree-chk"> I agree not to request or initiate chargebacks, reversals, or disputes after purchasing the digital product.</li>
+                        </ul>
+                    </div>
+                </div><br>
+                <div style="border:2px solid #ff4d4d; padding:15px; background:linear-gradient(135deg,rgba(0,0,0,0.9),rgba(50,50,50,0.8))">
+                    <p>
+                        <strong>⚠️ WARNING, READ CAREFULLY:</strong><br>
+                        Scroll to the bottom of the agreement and click <strong>"I agree"</strong> only if you fully understand and accept these terms.
+                    </p>
+                    <p>
+                        You are purchasing <strong>non-tangible digital products</strong>. Once the payment is completed, the product is <strong>deemed delivered, downloaded, and accessed</strong> by the buyer. <strong>The sale becomes final and irreversible</strong>. There are <strong>no refunds, cancellations, or exchanges</strong> under any circumstances.
+                    </p>
+                </div><br>
+                <p>
+                    This is a binding electronic agreement between the buyer ("Client") and the digital seller ("Provider"). It governs all purchases, downloads, and usage of digital products under the terms set herein.
+                </p><br>
+                <h3>
+                    SCROLL-TO-AGREE ACKNOWLEDGEMENT
+                </h3><br>
+                <p>
+                    By scrolling to the bottom of this agreement and clicking <strong>"I agree"</strong>, you explicitly acknowledge that:
+                </p><br>
+                <ul>
+                    <li>You have read and understood all warnings regarding the digital nature of the products.</li>
+                    <li>You understand all sales are <strong>final and non-refundable</strong>.</li>
+                    <li>You acknowledge that once a digital purchase is completed, the product is <strong>considered delivered, downloaded, and accessed</strong>.</li>
+                    <li>You accept full responsibility for safeguarding your purchased files or access links.</li>
+                </ul><br>
+                <h3>
+                    NATURE OF DIGITAL PRODUCTS
+                </h3><br>
+                <p>
+                    Digital products are <strong>intangible goods</strong> delivered electronically via download or access link. Upon purchase, <strong>delivery is considered complete</strong>, and the product is treated as <strong>downloaded and accessed</strong> by the buyer. Because of this automatic fulfillment, <strong>no refunds, cancellations, or exchanges</strong> are allowed once payment is confirmed.
+                </p><br>
+                <p>
+                    The Provider cannot track or verify the Client’s download or access status. Therefore, once a purchase is made, it is <strong>irrevocably assumed that the Client has received and accessed</strong> the digital product.
+                </p><br>
+                <h3>
+                    RIGHT TO USE
+                </h3><br>
+                <p>
+                    The Client is granted a non-exclusive, non-transferable license to use the purchased digital product for personal or approved purposes as defined by the Provider. Redistribution, resale, or unauthorized sharing of digital content is strictly prohibited.
+                </p><br>
+                <h3>
+                    CLIENT RESPONSIBILITIES
+                </h3><br>
+                <ul>
+                    <li><strong>Account Security:</strong> Ensure your account and download links are kept private and secure.</li>
+                    <li><strong>Data Backup:</strong> You are solely responsible for keeping backups of your purchased files after purchase.</li>
+                    <li><strong>Device Compatibility:</strong> Verify your system supports the file format prior to purchase.</li>
+                    <li><strong>Payment Authorization:</strong> You confirm all purchases are made with authorized payment methods.</li>
+                    <li><strong>Irrevocable Purchase:</strong> Once payment is processed, <strong>the digital product is considered delivered, downloaded, and accessed</strong>, and no reversals or refunds shall be issued.</li>
+                </ul><br>
+                <h3>
+                    LIMITATION OF LIABILITY
+                </h3><br>
+                <p>
+                    The Provider shall not be liable for any loss, damage, or claim arising from:
+                </p><br>
+                <ul>
+                    <li>Download failure due to Client’s internet, software, or device malfunction.</li>
+                    <li>Loss or deletion of digital files after purchase.</li>
+                    <li>Unauthorized sharing, misuse, or modification of digital products.</li>
+                    <li>Client’s inability to access or use the product after purchase.</li>
+                    <li>Any technical incompatibility or improper installation of the product.</li>
+                </ul><br>
+                <p>
+                    The Client indemnifies and holds the Provider harmless from all claims, losses, or liabilities arising from misuse, distribution, or unauthorized duplication of digital products.
+                </p><br>
+                <h3>
+                    TERMS OF SALE AND NON-REFUND POLICY
+                </h3><br>
+                <ul>
+                    <li>All purchases are final once payment is processed.</li>
+                    <li>No returns or refunds are available after purchase.</li>
+                    <li>Each product is deemed <strong>delivered, downloaded, and accessed</strong> immediately upon successful payment.</li>
+                    <li>Refunds are not possible because <strong>digital products cannot be “returned”</strong> once delivery is complete.</li>
+                    <li>Chargeback or dispute attempts after purchase may result in <strong>account termination and legal action</strong>.</li>
+                </ul><br>
+                <h3>
+                    ACKNOWLEDGEMENT OF TERMS
+                </h3><br>
+                <p>
+                    By completing a purchase, the Client acknowledges:
+                </p><br>
+                <ul>
+                    <li>That the transaction involves non-tangible digital goods.</li>
+                    <li>That the product is <strong>considered delivered, downloaded, and accessed</strong> immediately upon purchase.</li>
+                    <li>That all sales are final and non-refundable.</li>
+                    <li>That the Provider bears no responsibility for file loss or deletion after delivery.</li>
+                </ul><br>
+                <h3>
+                    TERMINATION
+                </h3><br>
+                <p>
+                    The Provider reserves the right to terminate access or revoke licenses if the Client violates any terms, including unauthorized sharing or redistribution of purchased digital content.
+                </p><br>
+                <h3>
+                    GOVERNING LAW AND DISPUTE RESOLUTION
+                </h3><br>
+                <p>
+                    Any dispute arising from the purchase or use of digital products shall be resolved under the laws of the Provider’s operating jurisdiction. All disputes shall first be attempted to resolve amicably. If unresolved, arbitration or legal action may be pursued in the Provider’s local jurisdiction.
+                </p><br>
+                <h3>
+                    ENTIRE AGREEMENT
+                </h3><br>
+                <p>
+                    This document represents the complete agreement between the Client and the Provider concerning digital product purchases. No previous statements, communications, or representations shall alter these terms.
+                </p><br>
+                <div style="border:2px solid #ff4d4d; padding:15px; background:linear-gradient(135deg,rgba(0,0,0,0.9),rgba(50,50,50,0.8))">
+                    <p>
+                        <strong>⚠️ FINAL NOTICE:</strong><br>
+                        <strong>All sales are final. No refunds, exchanges, or returns will be issued after purchase.</strong>
+                    </p>
+                    <p>
+                        By proceeding, you acknowledge that you are purchasing a digital item and that upon payment completion, the digital product is <strong>deemed delivered, downloaded, and accessed</strong>. The Provider <strong>cannot monitor, retract, or verify</strong> downloads once delivery has occurred.
+                    </p>
+                    <p>
+                        Any claim of non-receipt, misunderstanding, or regret after purchase does not exempt you from these terms. <strong>Chargebacks or fraudulent refund requests may result in permanent account suspension and legal enforcement.</strong>
+                    </p>
+                </div><br>`,
+            buttons: {
+                decline: {
+                    type: 1,
+                    text: `<span><i class="fa fa-times" style="margin-right: 12px"></i> I decline</span>`,
+                    action: `let u=localStorage.user?JSON.parse(localStorage.user):{agreed:{},opened:{}};delete u.agreed.buyer;delete u.unlock;localStorage.user=JSON.stringify(u);`,
+                    shells: `['signup']`,
+                    scroll: 0,
+                    reset: !0,
+                    disabled: !0
+                },
+                reset: {
+                    text: `<span><i class="fa fa-check" style="margin-right: 12px"></i> I agree</span>`,
+                    action: `let u=localStorage.user?JSON.parse(localStorage.user):{agreed:{},opened:{}};u.agreed.buyer=!0;localStorage.user=JSON.stringify(u);localStorage.signAgree=!0;`,
+                    shells: `['signin']`,
+                    scroll: 0,
+                    reset: !0,
+                    disabled: !0
+                }
+            },
+            back: {
+                shells: `['signup']`,
+                scroll: 0,
+                reset: !0
+            }
+        });
+        loadPage({ shells: ['dialog'], scroll: 0, reset: !0 });
+    } else if (_ul.user.opened.buyer) setTimeout(() => loadPage({ shells: _ul.shells, scroll: _ul.scroll }), 1);
+    else document.body.innerHTML = `<div class='centered-container'><div class='action-text' id='action-text'></div><div class='unlock'><input id='unlock-open' name='unlock-open' class='unlock-open' type='checkbox' />${shapeButtons({ j: ["lock", "circle", "square", "bookmark", "bolt", "star", "certificate"], l: "" })}</div></div>`;
+    if (!localStorage.signAgree && !localStorage.signin)
+        loadPage({ shells: ['signup'], scroll: 0, reset: !0 });
+    _ul.signin = localStorage.signin;
+    delete localStorage.signin;
+    delete localStorage.signAgree;
+    window.parent.postMessage({
+        id: window.frameElement.id,
+        action: "whatsapp-button",
+        hide: !0
+    }, "*");
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

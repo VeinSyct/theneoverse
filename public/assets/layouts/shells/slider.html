@@ -1,0 +1,512 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+	:root {
+		--primary-sw-active: #eeede4;
+		--primary-bg-hover: linear-gradient(135deg, #eeede4, #f0f0f0);
+		--amount-width: 93%;
+	}
+	.mobile-icon {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        left: 12px;
+        top: 76px;
+        text-decoration: none;
+        color: white;
+        background: rgba(255, 255, 255, .1);
+        backdrop-filter: blur(7px);
+        border-radius: 50%;
+        transition: all .3s ease;
+        border: 1px solid rgba(255, 255, 255, .2);
+        fill: currentColor;
+        cursor: pointer;
+    }
+    @media only screen and (max-width:480px) {
+        .mobile-icon {
+            left: 9px;
+            top: 9px;
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:768px) {
+        .mobile-icon {
+            left: 9px;
+            top: 9px;            
+        }
+    }
+    .mobile-icon:hover {
+        background: rgba(255, 255, 255, .2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+    }
+    .mobile-icon:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+    }
+	.centered {
+		position: absolute;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		width: var(--amout-width);
+		max-width: var(--amount-width);
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		overflow: hidden;
+	}
+    @media only screen and (min-width:481px) and (max-width:768px) {
+        .centered {
+    		top: 40%;
+        }
+    }
+	.currency-amount {
+        font-family: var(--font-numerical);
+		display: flex;
+		font-style: normal;
+		font-weight: 700;
+		letter-spacing: 1px;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		color: var(--primary-sw-active);
+		line-height: 1;
+		text-shadow: 0px 0 2px #ea36af, -1px 0 1px #41ffd8;
+		animation-duration: .005s;
+		animation-name: textflicker;
+		animation-iteration-count: infinite;
+		animation-direction: alternate;
+	}
+	@keyframes textflicker {
+		from {
+			text-shadow: 1px 0 0 #ea36af, -2px 0 0 #41ffd8;
+		}
+		to {
+			text-shadow: 2px .5px 2px #ea36af, -1px -0.5px 2px #41ffd8;
+		}
+	}
+	.range-container {
+		position: absolute;
+		width: var(--amount-width);
+		left: 50%;
+		bottom: 45px;
+		transform: translate(-50%);
+	}
+	input[type="range"] {
+		padding: 4px;
+		width: 100%;
+		background: transparent;
+		-webkit-appearance: none;
+		border-color: white;
+		border-style: solid;
+		border-width: 2px;
+		border-radius: 10px;
+		transition: opacity .5s;
+		cursor: pointer;
+	}
+	input[type="range"]::-webkit-slider-thumb {
+		width: 42px;
+		height: 42px;
+		-webkit-appearance: none;
+		background: rgba(255, 255, 255, .2);
+		backdrop-filter: blur(20px);
+		border: 1px solid rgba(255, 255, 255, .2);
+		transition: all .4s cubic-bezier(0.25, .46, .45, .94);
+		border-radius: 5px;
+		cursor: pointer;
+	}
+	input[type="range"]::-webkit-slider-thumb::before {
+		content: "";
+		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .1), transparent);
+		transition: left .8s ease;
+	}
+	input[type="range"]::-webkit-slider-thumb:hover::before {
+		left: 100%;
+	}
+	input[type="range"]::-webkit-slider-thumb:hover:hover {
+		background: rgba(255, 255, 255, .1);
+		transition: background .2s ease-in-out;
+		transition: box-shadow .2s ease-out;
+		box-shadow: 0 20px 40px rgba(0, 0, 0, .1), inset 0 1px 0 rgba(255, 255, 255, .2);
+	}
+	input[type="range"]::-webkit-slider-thumb:hover:active {
+		background: var(--primary-bg-hover);
+		border: none;
+		outline: 0;
+		box-shadow: .1px -.1px 4px .5px #ea36af, .1px -.1px 5px .4px #41ffd8;
+	}
+	section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        overflow: hidden;
+    }
+	.dialog-btn {
+        width: 100%;
+        padding: 15px 30px;
+		max-width: 200px;
+		bottom: 30vh;
+        background: rgba(255, 255, 255, .1);
+        border: 1px solid rgba(255, 255, 255, .2);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all .3s ease;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, .15), inset 0 1px 0 rgba(255, 255, 255, .3);
+        position: absolute;
+        overflow: hidden;
+        cursor: pointer;
+    }
+	@media only screen and (max-width:480px) {
+        .dialog-btn {
+			bottom: 13vh;
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:768px) {
+        .dialog-btn {
+			bottom: 24vh;
+        }
+    }
+    .dialog-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        box-shadow: rgba(0, 0, 0, .24) 0px 3px 8px;
+        transition: left .3s ease;
+    }
+    .dialog-btn:hover::before {
+        left: 0;
+    }
+    .dialog-btn:hover {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, .2);
+    }
+    .dialog-btn:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+    }
+    .dialog-btn span {
+        position: relative;
+        z-index: 1;
+    }
+    .network-nodes {
+        position: absolute;
+        opacity: .13;
+        z-index: -1;
+    }
+</style>
+<canvas class="network-nodes"></canvas>
+<script src="assets/js/network-nodes.js"></script>
+<div class="floating-elements">
+    <div class="floating-circle"></div>
+    <div class="floating-circle"></div>
+    <div class="floating-circle"></div>
+</div>
+<span class="mobile-icon" onclick="loadPage({ shells: ['dialog'], scroll: 0 })">
+    <i class="fa fa-chevron-left"></i>
+</span>
+<section>
+	<div id="budget-digit-container"></div>
+	<button class="dialog-btn" onclick="acceptRange({})">Transfer</button>
+</section>
+<script>
+    let getStringDigits = (s) => {
+        return(parseInt(s.replace(/(<([^>]+)>)/gi, "").match(/\d+/g).toString().replace(/,/g, "")) / 100);
+    },
+    toCurrency = (n) => {
+        n = n.toString();
+        var pattern = /(-?\d+)(\d{3})/;
+        while (pattern.test(n)) n = n.replace(pattern, "$1,$2");
+        return n;
+    },
+    _uz = {
+        mobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent),
+        z: { digit: { height: 200 }, slider: { single: {} } },
+        container: "budget-digit-container",
+        digit: "budget-digit-display-1",
+        slider: "budget-digit-slider",
+        stepper: "budget-digit-stepper",
+        restore: {},
+        language: { 
+            "PHP": "en-PH",
+        },
+        default: "PHP",
+        local: {
+            account: {
+                amount: 0
+            }
+        },
+        transfer: {}
+    },
+    loadInterface = (d) => {
+        _uz.d = d;
+        return `
+            <div class="centered" style="padding-bottom: 96px">
+                <div id="${d.digit}"
+                    class="currency-amount digital-text"
+                    ontouchstart="frameString({ e: this, container: '${d.container}', digit: '${d.digit}', slider: '${d.slider}', stepper: '${d.stepper}' })"
+                    ontouchend="hideRangeSlider({ stepper: '${d.stepper}' })"
+                    onmouseenter="frameString({ e: this, container: '${d.container}', digit: '${d.digit}', slider: '${d.slider}', stepper: '${d.stepper}' })"
+                    onmouseleave="hideRangeSlider({ stepper: '${d.stepper}' })"></div>
+                <div class="range-container" id="${d.slider}">
+                    <input type="range"
+                        min="0"
+                        max="${d.range.max}"
+                        step=".01"
+                        value="0"
+                        ontouchstart="delete _uz.disabled; document.getElementById('${d.container}').classList.add('noScroll')"
+                        ontouchend="_uz.disabled = !0; this.step = .01; document.getElementById('${d.container}').classList.remove('noScroll')"
+                        onmouseover="this.step = .01; document.getElementById('${d.container}').classList.add('noScroll')"
+                        onmouseleave="_uz.disabled = !0; document.getElementById('${d.container}').classList.remove('noScroll')"
+                        onchange="delete _uz.disabled; updateDigitDisplay({ container: '${d.container}', digit: '${d.digit}', slider: '${d.slider}', stepper: '${d.stepper}', amount: this.value }); _uz.transfer.range = _uz.z.range"
+                        ontouchmove="this.step = parseFloat(Math.floor('1e+' + (parseInt(this.value).toString().length - 2) )); updateDigitDisplay({ container: '${d.container}', digit: '${d.digit}', slider: '${d.slider}', stepper: '${d.stepper}', amount: this.value })"
+                        onmousemove="updateDigitDisplay({ container: '${d.container}', digit: '${d.digit}', slider: '${d.slider}', stepper: '${d.stepper}', amount: this.value })"
+                        onmousedown="delete _uz.disabled; this.step = parseFloat(Math.floor('1e+' + (parseInt(this.value).toString().length - 2) ))"
+                        onmouseup="_uz.disabled = !0"/>
+                </div>
+            </div>`;
+    },
+    loadSlider = (d) => {
+        if (localStorage.user) {
+			_uz.user = JSON.parse(localStorage.user);
+			if (_uz.user.balance) {
+				d.c = document.querySelector(".floating-circle");
+				d.c.innerHTML = _uz.user.balance;
+				d.a = d.c.innerHTML.replace(/,/g,"").match(/\d+/g).toString().replace(",",".").split(".");
+				d.c.innerHTML = "";
+				_uz.local.account.amount = `${d.a[0]}.${d.a[1]}`;
+			}
+		};
+        document.getElementById(_uz.container).innerHTML = loadInterface({
+            container: _uz.container,
+            digit: _uz.digit,
+            slider: _uz.slider,
+            stepper: _uz.stepper,
+            range: { max: _uz.local.account.amount }
+        });
+    };
+    window.updateDigitSlider = (d) => {
+        d.e = document.getElementById(d.digit);
+        d.a = d.e.textContent != "" ? getStringDigits(d.e.textContent) : 0;
+        d.r = document.getElementById(d.slider).getElementsByTagName("input")[0];
+        d.r.step = .01;
+        if (_uz.local.account.amount < d.a) {
+            d.vl.style.display = "none";
+            _uz.z.slider.removing = !0;
+            delete _uz.disabled;
+            updateDigitDisplay({ container: d.container, digit: d.digit, slider: d.slider, stepper: d.stepper, amount: _uz.local.account.amount });
+            d.r.value = _uz.z.range = _uz.local.account.amount;
+        } else d.r.value = _uz.z.range = getStringDigits(document.getElementById(d.digit).textContent);
+    };
+    window.updateDigitDisplay = (d) => {
+        if (!_uz.disabled) {
+            d.e = document.getElementById(d.digit);
+            if (d.e) {
+                d.a = d.e.textContent != "" ? getStringDigits(d.e.textContent) : 0;
+                _uz.z.range = d.amount;
+                if (d.e) {
+                    while (d.e.firstElementChild) d.e.removeChild(d.e.firstElementChild);
+                    _uz.z.slider.single.empty = !0;
+                    d.cy = _uz.local.account.currency ? _uz.local.account.currency : _uz.default;
+                    d.n = (d.amount !== undefined ? d.amount : d.a ? d.a : 0).toString().split(".");
+                    d.e.textContent = toCurrency(`${d.n[0] ? d.n[0] : "0"}.${((d.n[1] ? d.n[1] : "00") + "00").slice(0, 2)}`);
+                    d.w = parseFloat(window.getComputedStyle(d.e).width);
+                    _uz.z.digit.height = (((_uz.z.digit.height * window.innerWidth) / d.w) * parseInt(getComputedStyle(document.getElementById(d.container)).getPropertyValue("--amount-width"))) / 105;
+                    _uz.z.digit.height = _uz.z.digit.height <= 120 ? _uz.z.digit.height : 120;
+                    d.e.style.fontSize = _uz.z.digit.height + "px";
+                }
+            }
+        }
+    };
+    window.frameString = (d) => {
+        if (_uz.z.slider.single.empty) {
+            d.text = d.e.textContent;
+            while (d.e.firstElementChild) d.e.removeChild(d.e.firstElementChild);
+            d.e.textContent = "";
+            for (let i = 0, j = 0; i < d.text.length; i++)
+                if (d.text.charAt(i) != " " && d.text.charAt(i) != "\n") {
+                    if (d.text.charAt(i) >= "0" && d.text.charAt(i) <= "9") {
+                        d.d = document.createElement("div");
+                        d.d.innerHTML = `<span id="${Math.random().toString(36).slice(2)}"
+                            style="display: flex; justify-content: center; align-items: center; cursor: pointer;"
+                            ontouchstart="showDigitRange({ event: event, container: '${d.container}', digit: '${d.digit}', slider: '${d.slider}', stepper: '${d.stepper}' })"
+                            onmouseenter="showDigitRange({ event: event, container: '${d.container}', digit: '${d.digit}', slider: '${d.slider}', stepper: '${d.stepper}' })"
+                            ontouchend="delete _uz.z.slider.active; delete _uz.z.slider.removing"
+                            onmouseleave="delete _uz.z.slider.active; delete _uz.z.slider.removing"><span></span></span>`;
+                        d.d.firstChild.getElementsByTagName("span")[0].textContent = d.text.charAt(i);
+                        d.e.appendChild(d.d.firstChild);
+                        j++;
+                    } else d.e.innerHTML += d.text.charAt(i);
+                }
+            delete _uz.z.slider.single.empty;
+        }
+    };
+    window.showDigitRange = (d) => {
+        if (!_uz.z.slider.removing) {
+            d.d = document.getElementById(d.stepper);
+            if (!d.d) {
+                d.d = document.createElement("div");
+                d.d.innerHTML = `
+                    <div id="${d.stepper}"
+                        ontouchend="hideRangeSlider({ stepper: '${d.stepper}' })"
+                        onmouseleave="hideRangeSlider({ stepper: '${d.stepper}' })"
+                        style="position: absolute">
+                        <div>
+                            <input type="range"
+                                min="0"
+                                max="9"
+                                step="1"
+                                value="0"
+                                orient="vertical"
+                                onchange="try { document.getElementById(this.targetId).getElementsByTagName('span')[0].textContent = this.value; updateDigitSlider({ vl: this, container: '${d.container}', digit: '${d.digit}', slider: '${d.slider}', stepper: '${d.stepper}' }); _uz.transfer.range = _uz.z.range } catch (e) {}"
+                                ontouchmove="try { document.getElementById(this.targetId).getElementsByTagName('span')[0].textContent = this.value; updateDigitSlider({ vl: this, container: '${d.container}', digit: '${d.digit}', slider: '${d.slider}', stepper: '${d.stepper}' }) } catch (e) {}"
+                                onmousemove="try { document.getElementById(this.targetId).getElementsByTagName('span')[0].textContent = this.value; updateDigitSlider({ vl: this, container: '${d.container}', digit: '${d.digit}', slider: '${d.slider}', stepper: '${d.stepper}' }) } catch (e) {}"
+                                ontouchstart="_uz.z.slider.active = !0; document.getElementById('${d.container}').classList.add('noScroll'); this.style.opacity = .36"
+                                ontouchend="document.getElementById('${d.container}').classList.remove('noScroll'); this.style.opacity = .86"
+                                onmouseover="_uz.z.slider.active = !0; document.getElementById('${d.container}').classList.add('noScroll')"
+                                onmouseleave="document.getElementById('${d.container}').classList.remove('noScroll')"
+                                onmousedown="this.style.opacity = .12"
+                                onmouseup="this.style.opacity = .42"
+                                style="-webkit-transform: rotate(-90deg); width: ${_uz.z.digit.height}px; opacity: .42"/>
+                        </div>
+                    </div>`;
+                document.getElementById(d.container).appendChild(d.d);
+                showDigitRange(d);
+            } else if (!_uz.z.slider.active) {
+                d.d.style.pointerEvents = "none";
+                if (d.d) d.d.remove();
+                d.f = document.getElementById(d.event.target.id);
+                if (d.f) {
+                    d.event.target.appendChild(d.d);
+                    d.d.getElementsByTagName("div")[0].getElementsByTagName("input")[0].targetId = d.event.target.id;
+                    d.d.getElementsByTagName("div")[0].getElementsByTagName("input")[0].value = parseInt(d.f.getElementsByTagName("span")[0].textContent);
+                    setTimeout(() => {
+                        d.d.style.pointerEvents = "auto";
+                    }, 128);
+                } else {
+                    updateDigitDisplay({ container: d.container, digit: d.digit, slider: d.slider, stepper: d.stepper, amount: document.getElementById(d.slider).getElementsByTagName("input")[0].value });
+                    d.e = document.getElementById(d.digit);
+                    if (d.e) {
+                        while (d.e.firstElementChild) d.e.removeChild(d.e.firstElementChild);
+                        _uz.z.slider.single.empty = !0;
+                    }
+                }
+            }
+        }
+    };
+    window.hideRangeSlider = (d) => {
+        setTimeout(() => {
+            if (!_uz.z.slider.active) {
+                d.d = document.getElementById(d.stepper);
+                if (d.d) d.d.remove();
+            }
+        }, 720);
+    };
+    window.readContents = (d) => {
+        _uz.local.account.currency = _uz.local.account.currency ? _uz.local.account.currency : _uz.default;
+        updateDigitDisplay({ container: d.container, digit: d.digit, slider: d.slider, stepper: d.stepper, amount: 0 });
+    };
+    window.addEventListener("resize", () => {
+        updateDigitDisplay({ container: _uz.container, digit: _uz.digit, slider: _uz.slider, stepper: _uz.stepper });
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+        readContents({
+            container: _uz.container,
+            digit: _uz.digit,
+            slider: _uz.slider,
+            stepper: _uz.stepper,
+            range: { max: _uz.local.account.amount }
+        })        
+    });
+    loadSlider({});
+</script>
+<script>
+    let acceptRange = (d) => {
+        if (_uz.z.range && localStorage.beneficiary) {
+            d.beneficiary = JSON.parse(localStorage.beneficiary);
+            d.currency = _uz.user.currency;
+            delete localStorage.transfer;
+            d.a = _uz.z.range.split(".");
+            d.b = _uz.local.account.amount.split(".");
+            if (BigInt(d.a[0] ? d.a[0] : 0) <= BigInt(d.b[0] ? d.b[0] : 0) && BigInt(d.a[1] ? d.a[1] : 0) <= BigInt(d.b[1] ? d.b[1] : 0)) {
+                localStorage.dialog = JSON.stringify({
+                    message: `
+                        Do you want to transfer <strong>${d.currency} ${`${_uz.z.range}`.replace(/(\.\d{2})\d+$/, '$1').replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</strong> to <strong>${d.beneficiary[d.beneficiary.name != "N/A" ? "name" : "number"]}</strong>?`,
+                    buttons: {
+                        cancel: {
+                            type: 1,
+                            text: `<span>✖ Cancel</span>`,
+                            shells: `['settings', 'balance', 'options']`,
+                            scroll: 1,
+                            reset: !0
+                        },
+                        transfer: {
+                            text: `<span>Transfer ➔</span>`,
+                            shells: `['showqr']`,
+                            scroll: 0
+                        }
+                    },
+                    back: {
+                        shells: `['slider']`,
+                        scroll: 0
+                    }
+                });
+                localStorage.transfer = JSON.stringify({
+                    currency: d.currency,
+                    amount: _uz.z.range
+                });
+            } else localStorage.dialog = JSON.stringify({
+                    message: `
+                        You do not have enough balance to transfer <strong>${d.currency ? d.currency : "USD"} ${`${d.n}`.replace(/(\.\d{2})\d+$/, '$1').replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</strong> to <strong>${d.beneficiary[d.beneficiary.name != "N/A" ? "name" : "number"]}</strong>`,
+                    buttons: {
+                        cancel: {
+                            text: `<span>✖ Cancel</span>`,
+                            shells: `['settings', 'balance', 'options']`,
+                            scroll: 1,
+                            reset: !0
+                        }
+                    },
+                    back: {
+                        shells: `['slider']`,
+                        scroll: 0
+                    }
+                });
+        }else localStorage.dialog = JSON.stringify({
+                message: `
+                    Please select a valid amount`,
+                buttons: {
+                    cancel: {
+                        text: `<span>✖ Cancel</span>`,
+                        shells: `['settings', 'balance', 'options']`,
+                        scroll: 1,
+                        reset: !0
+                    }
+                },
+                back: {
+                    shells: `['slider']`,
+                    scroll: 0
+                }
+            });
+        loadPage({ shells: ['dialog'], scroll: 0 });
+    };
+</script>
+<script src="assets/js/index.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

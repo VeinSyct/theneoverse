@@ -1,0 +1,754 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+  :root {
+    --border-radius: 12px;
+    --muted: #9da5ab;
+    --accent: #61b2d8;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @-webkit-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .emkt-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    height: 100%;
+    color: white;
+    overflow: hidden;
+  }
+  .emkt-main {
+    padding: 86px 18px 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    overflow: auto;
+  }
+  .emkt-area {
+    margin: 24px 0 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .emkt-products {
+    flex: 1;
+    display: grid;
+    grid-auto-rows: auto;
+    gap: 18px;
+    grid-template-columns: repeat(5, 1fr);
+    align-content: start;
+  }
+  @media only screen and (max-width:1480px) and (orientation:landscape) {
+    .emkt-products {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+  @media only screen and (max-width:480px) {
+    .emkt-products {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media only screen and (min-width:769px) and (max-width:1480px) {
+    .emkt-products {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media only screen and (min-width:481px) and (max-width:768px) {
+    .emkt-products {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .emkt-card {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 100%;
+    background: rgba(255, 255, 255, .03);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, .2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .1), inset 0 1px 0 rgba(255, 255, 255, .2);
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+    cursor: pointer;
+  }
+  .emkt-card:hover {
+    transform: translateY(-10px);
+    background: linear-gradient(180deg, #0f1214, #0b0d0f);
+    border-color: rgba(33, 150, 243, .3);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+  }
+  .emkt-thumb {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #08090a;
+  }
+  .emkt-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .emkt-title {
+    font-weight: 600;
+  }
+  .emkt-desc {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .emkt-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+  }
+  .emkt-pagination {
+    flex: 0 0 auto;
+    padding: 12px 18px;
+  }
+  .emkt-pages {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+  .emkt-page-btn {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .emkt-page-btn:hover {
+    background: rgba(255, 64, 129, 0.09);
+    color: var(--primary-fg);
+  }
+  .emkt-page-btn:active {
+    background: rgba(255, 64, 129, 0.09);
+    color: skyblue;
+  }
+  .emkt-page-btn.active {
+    background: rgba(255, 64, 129, 0.09);
+    color: var(--primary-sw-active);
+  }
+  .emkt-search-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(2, 4, 6, 0.7);
+  }
+  .emkt-search-modal.show {
+    display: flex;
+  }
+  .emkt-search-card {
+    padding: 16px 24px;
+    background: rgba(255, 255, 255, .03);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, .2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .1), inset 0 1px 0 rgba(255, 255, 255, .2);
+  }
+  .emkt-search-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .emkt-search-row input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    background: #0b0d0f;
+    color: var(--muted);
+  }
+  .emkt-search-row button {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 0;
+    background: var(--accent);
+    color: #02121a;
+    cursor: pointer;
+  }
+  .emkt-search-close {
+    margin: -9px -12px 6px;
+    display: block;
+    text-align: right;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .emkt-message-modal {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 260px;
+    background: rgba(16, 12, 14, 0.95);
+    border-radius: 10px;
+    padding: 18px 22px;
+    border: 1px solid var(--accent);
+    box-shadow: 0 0 18px rgba(255, 64, 129, 0.12);
+    opacity: 0;
+    display: none;
+    transition: opacity 0.4s ease;
+  }
+  .emkt-message-modal.show {
+    display: block;
+    opacity: 1;
+  }
+  .emkt-message-modal .emkt-message-close {
+    margin: -9px -6px 0;
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    cursor: pointer;
+    color: var(--accent);
+  }
+  .mobile-icon {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    top: 76px;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: white;
+    background: rgba(255, 255, 255, .1);
+    backdrop-filter: blur(7px);
+    border-radius: 50%;
+    transition: all .3s ease;
+    border: 1px solid rgba(255, 255, 255, .2);
+    fill: currentColor;
+    cursor: pointer;
+    z-index: 1;
+  }
+  .mobile-icon:hover {
+    background: rgba(255, 255, 255, .2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+  }
+  .mobile-icon:active {
+    box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+  }
+  .currency-amount {
+    font-family: var(--font-numerical);
+    margin: 10px 0;
+    font-style: normal;
+    font-weight: 700;
+    white-space: nowrap;
+    letter-spacing: 1px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: var(--primary-sw-active);
+    line-height: 1;
+    text-shadow: 0px 0 2px #ea36af, -1px 0 1px #41ffd8;
+    animation-duration: .0064s;
+    animation-name: textflicker;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    pointer-events: none;
+  }
+  @keyframes textflicker {
+    from {
+      text-shadow: 1px 0 0 #ea36af, -2px 0 0 #41ffd8;
+    }
+    to {
+      text-shadow: 2px .5px 2px #ea36af, -1px -0.5px 2px #41ffd8;
+    }
+  }
+  .ratings {
+    display: flex;
+  }
+  .stars {
+    color: #666;
+    font-size: 24px;
+  }
+  .stars:hover {
+    color: yellow;
+  }
+  .submit-btn {
+    padding: 10px 16px 10px 12px;
+    max-width: 180px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .3s ease;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, .15), inset 0 1px 0 rgba(255, 255, 255, .3);
+    position: relative;
+    overflow: hidden;
+    pointer-events: auto;
+  }
+  .submit-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #764ba2, #667eea);
+    transition: left .3s ease;
+  }
+  .submit-btn:hover::before {
+    left: 0;
+  }
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  .submit-btn:active {
+    transform: translateY(2px);
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  }
+  .submit-btn span {
+    position: relative;
+    z-index: 1;
+  }
+  @media only screen and (max-width:480px) {
+    .submit-btn span span {
+        display: none;
+    }
+  }
+  .cart-quantity {
+    position: absolute;
+    right: 0px;
+    top: -12px;
+    color: var(--accent);
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .center-icon {
+    display: none;
+    position: fixed;
+    max-width: 42vw;
+    max-height: 42vh;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+  }
+  .network-nodes {
+    position: absolute;
+    opacity: .13;
+    z-index: -1;
+  }
+</style>
+<canvas class="network-nodes"></canvas>
+<script src="assets/js/network-nodes.js"></script>
+<div class="grids"></div>
+<div class="emkt-shell">
+  <main class="emkt-main">
+    <div class="emkt-area">
+      <div class="emkt-products">
+        <img class="center-icon" src="assets/images/empty downloads.webp"/>
+      </div>
+    </div>
+    <span class="mobile-icon" onclick="document.querySelector('.emkt-search-modal').classList.add('show')" style="right: 64px">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="mobile-icon" onclick="signOut({})" style="right: 12px">
+      <i class="fa fa-sign-out"></i>
+    </span>
+    <span class="mobile-icon" onclick="_uz.toggleGrid({ e: this })" style="left: 12px">
+      <i class="fa fa-list"></i>
+    </span>
+  </main>
+  <div class="emkt-pagination">
+    <div class="emkt-pages"></div>
+  </div>
+  <div class="emkt-search-modal">
+    <div class="emkt-search-card">
+      <div class="emkt-search-close" data-action="close-search">✕</div>
+      <div class="emkt-search-row">
+        <input class="emkt-search-input" placeholder="Search item..." />
+        <a onclick="_uz.searchWord({})">
+          <i class="fa fa-search" style="margin-left: 12px; font-size: 21px"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="emkt-message-modal">
+    <div class="emkt-message-close" data-action="close-notfound">✕</div>
+    <div class="emkt-message-modal-text"></div>
+  </div>
+</div>
+<script src="assets/js/index.js"></script>
+<script>
+  let getRatings = (d) => {
+    for (let i = 1; i < 6; i++) {
+      d.s = i <= d.n + .24 ? "star" : "star-o";
+      d.m = _uz.products.rates[d.id];
+      d.r += `<i class="fa fa-${d.s} stars" style="${d.s == "star" ? "color: yellow" : ""}" onclick="rateCards({ id: '${d.id}', n: ${(d.m ? d.m + i : i) / 2} })"></i>`;
+    };
+    return d.r;
+  },
+  signOut = (d) => {
+    localStorage.dialog = JSON.stringify({
+      message: `Do you want to sign out?`,
+      buttons: {
+        reset: {
+          text: `<span><i class="fa fa-sign-out" style="margin-right: 12px"></i> Sign out</span>`,
+          action: `let u=JSON.parse(localStorage.user);delete u.opened.buyer;localStorage.user=JSON.stringify(u);window.parent.postMessage({id:window.frameElement.id,action:'navigation-bar',update:!0},'*');`,
+          shells: `['carousel', 'accordion', 'cards', 'faqs']`,
+          scroll: 0,
+          reset: !0
+        }
+      },
+      back: {
+        shells: `['downloads']`,
+        scroll: 0,
+        reset: !0
+      }
+    });
+    loadPage({ shells: ['dialog'], scroll: 0, reset: !0 });
+  },
+  rateCards = (d) => {
+    window.parent.postMessage({
+      id: window.frameElement.id,
+      action: "rate-products",
+      tag: d.id,
+      message: { rate: d.n }
+    }, "*");
+    updateRating({ k: d.id, n: d.n });
+  },
+  updateRating = (d) => {
+    try {
+      d.e = document.getElementsByClassName(`ratings-${d.k}`);
+      for (let i in d.e) 
+        if (d.e[i])
+          d.e[i].innerHTML = getRatings({ r: "", id: d.k, n: _uz.products.rates[d.k] = d.n }); 
+    } catch (error) {}
+  },
+  _uz = {
+    hash: `OvUhCKRZZQLSYSWPQQRXQWIGqnaCKTRYTGLWRQGZSSTGQYIGYyUCKgnpycGvycvyGcvycvGcfUIGfwiCOzVfCQLTZvTGZqkCQLRVQvTGxSmCQLTdWvTMGtluCOzVfCRYfuWGZqkCZTQuWGxSmCRadauWMGqkhCOzVfCQLUZvSGZqkCQLUQvSGxSmCQLUUvSMGjbaCOzVfCSTbduRLSXSUYeSRZUdVRdacTvSQGZqkCXTWfVuQLTTcUXdVfYTReebdZcvSQGxSmCRWWXVUuQLUQWedfVcReedbTVVdvSQ=`,
+    user: localStorage.user ? JSON.parse(localStorage.user) : {},
+    state: { page: 1, per: 10, view: "grid", query: "", cart: {} },
+    toggleGrid: (d) => {
+      _uz.state.view = _uz.state.view === "grid" ? "list" : "grid";
+      d.e.innerHTML = `<i class="fa fa-${_uz.state.view === "grid" ? "list" : "th"}"></i>`;
+      _uz.render({});
+    },
+    searchWord: (d) => {
+      _uz.state.query = document.querySelector(".emkt-search-input").value;
+      _uz.state.page = 1;
+      _uz.render({});
+    },
+    showProduct: (d) => {
+      d.it = Object.values(_uz.products.items).find(p => p.id === d.id);
+      localStorage.product = JSON.stringify(d.it);
+      localStorage.img = JSON.stringify({ d: _uz.productDatails(d.it) })
+      loadPage({ shells: ['product', 'details'], scroll: 0, reset: !0 })
+    },
+    productDatails: (d) => {
+      return `<header><h1>${d.name}</h1></header>
+        <section class='description'>
+            <h2>
+              Digital product
+            </h2>
+            Number:
+            <p>
+              ${d.pSN.toUpperCase()}
+            </p>
+        </section>
+        <section class='note'>
+          Description:
+          <p>${d.fulldesc ? d.fulldesc : d.desc ? d.desc : "N/A"}</p>
+          <br>
+          <ul>
+            Feature:
+            <li>${d.features ? d.features : "N/A."}</li>
+          </ul>
+          <br>
+          Price: <h2>${d.symbol}${d.price}</h2>
+          <br>
+          <div style="display: flex; width: 100%; justify-content: space-between">
+            <span>
+              <button class='submit-btn' onclick="downLoad({})">
+                <span>
+                  <i class='fa fa-download fa-1x' style='margin-right: 12px;'></i> Download
+                </span>
+              </button>
+            </span>
+          </div>
+          <br>
+          <br>
+        </section>
+        <footer class='footer'>
+            <a onclick='_uz.goBack({})' style='cursor: pointer'>← Go shopping</a>
+        </footer>`;
+    },
+    downLoad: (d) => {
+      d.it = Object.values(_uz.products.items).find(p => p.id === d.id);
+      if (!d.it.link) {
+        d.x = {
+          s: _uz.hash,
+          pSN: d.it.pSN,
+          url: d.it.url
+        };
+        if (d.it.void)
+          d.x.void = d.it.void
+      };
+      window.parent.postMessage({
+        id: window.frameElement.id,
+        action: `${d.it.link ? "free" : "item"}-download`,
+        item: d.it.link || d.x 
+      }, "*");
+      localStorage.dialog = JSON.stringify({
+          message: `Please wait while your ${d.it.link ? "<strong>FREE</strong> " : ""}<i class='fa fa-download fa-1x'></i> download begins...`,
+          buttons: {
+            dismiss: {
+              text: `<span>Dismiss</span>`,
+              shells: `['downloads']`,
+              scroll: 0
+            }
+          },
+          back: {
+            shells: `['downloads']`,
+            scroll: 0
+          }
+        });
+        loadPage({ shells: ['dialog'], scroll: 0 });
+    },
+    render: (d) => {
+      if (Object.keys(_uz.products.items).length > 0) {
+          d.q = _uz.state.query.trim().toLowerCase();
+        d.filtered = Object.values(_uz.products.items).filter((p) => p.name.toLowerCase().includes(d.q.toLowerCase()) || p.desc.toLowerCase().includes(d.q.toLowerCase()));
+        if (!d.filtered.length) {
+          document.querySelector(".emkt-search-modal").classList.remove("show");
+          document.querySelector(".emkt-message-modal-text").innerHTML = `The item <strong>'${_uz.state.query}'</strong> is not found!`;
+          document.querySelector(".emkt-message-modal").classList.add("show");
+          return;
+        }
+        document.querySelector(".emkt-message-modal").classList.remove("show");
+        d.start = (_uz.state.page - 1) * _uz.state.per;
+        d.pageItems = d.filtered.slice(d.start, d.start + _uz.state.per);
+        d.e = document.querySelector(".emkt-products");
+        if (_uz.state.view === "grid") {
+          d.e.style.display = "grid";
+          d.e.style.gridTemplateColumns = _uz.state.grid;
+          d.e.style.gap = "18px";
+          d.e.innerHTML = d.pageItems.map((p) => `
+            <div class='emkt-card' data-id='${p.id}'>
+              <div class='emkt-thumb'/>
+                <img src='${p.thumb}'  onclick='_uz.showProduct({ id: ${p.id} })'>
+                ${p.demo ? `
+                <span class="mobile-icon" onclick="${p.demo}" style="left: 50%; top: 30%; transform: translate(-50%, -50%);">
+                  <span>
+                    <i class="fa fa-play-circle fa-2x"></i>
+                  </span>
+                </span>` : ""}
+              </div>
+              <div class='emkt-title'>${p.name}</div>
+              <div class='ratings ratings-${p.pSN}'>${getRatings({ r: "", id: p.pSN, n: _uz.products.rates[p.pSN] })}</div>
+              <div class='emkt-desc'>${p.desc}</div>
+              <div class='emkt-meta'>
+                <div class='currency-amount'>${p.price ? `₱${p.symbol}${p.price}` : `<strong>FREE</strong>`}</div>
+                <button class='submit-btn' onclick='_uz.downLoad({ id: ${p.id} })'>
+                  <span><i class='fa fa-download fa-1x'></i>
+                    Download
+                  </span>
+                </button>
+              </div>
+            </div>`).join("");
+        } else {
+          d.e.style.display = "grid";
+          if (d.e.style.gridTemplateColumns != "1fr") {
+            _uz.state.grid = d.e.style.gridTemplateColumns;
+            d.e.style.gridTemplateColumns = "1fr";
+          }
+          d.e.style.gap = "12px";
+          d.e.innerHTML = d.pageItems.map((p) => `
+            <div class='emkt-card' data-id='${p.id}' style='flex-direction:row'>
+              <div class='emkt-thumb' style='max-width:36%;flex-shrink:0'>
+                <img src='${p.thumb}'  onclick='_uz.showProduct({ id: ${p.id} })'/>
+              </div>
+              ${p.demo ? `
+              <span class="mobile-icon" onclick="${p.demo}" style="right: 12px; top: 12px">
+                <span>
+                  <i class="fa fa-play-circle fa-2x"></i>
+                </span>
+              </span>` : ""}
+              <div style='flex:1;display:flex;flex-direction:column;gap:6px;padding-left:12px'>
+                <div class='emkt-title'>${p.name}</div>
+                <div class='ratings ratings-${p.pSN}'>${getRatings({ r: "", id: p.pSN, n: _uz.products.rates[p.pSN] })}</div>
+                <div class='emkt-desc'>${p.desc}</div>
+                <div class='emkt-meta'>
+                  <div class='currency-amount'>${p.price ? `₱${p.symbol}${p.price}` : `<strong>FREE</strong>`}</div>
+                  <button class='submit-btn' onclick='_uz.downLoad({ id: ${p.id} })'>
+                    <span><i class='fa fa-download fa-1x'></i>
+                      <span style='margin-left: 6px'>Download</span>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>`).join("");
+        }
+        d.pages = Math.max(1, Math.ceil(d.filtered.length / _uz.state.per));
+        document.querySelector(".emkt-pages").innerHTML = "";
+        _uz.create("First", _uz.state.page === 1, () => {
+          _uz.state.page = 1;
+          _uz.render({});
+        });
+        _uz.create("Prev", _uz.state.page === 1, () => {
+          _uz.state.page = Math.max(1, _uz.state.page - 1);
+          _uz.render({});
+        });
+        for (let i = 1; i <= d.pages; i++) {
+          _uz.create(i, !1, () => {
+            _uz.state.page = i;
+            _uz.render({});
+          }, _uz.state.page === i ? "active" : "");
+        }
+        _uz.create("Next", _uz.state.page === d.pages, () => {
+          _uz.state.page = Math.min(d.pages, _uz.state.page + 1);
+          _uz.render({});
+        });
+        _uz.create("Last", _uz.state.page === d.pages, () => {
+          _uz.state.page = d.pages;
+          _uz.render({});
+        });
+      }
+    },
+    create: (t, disabled, fn, cls, btn) => {
+      btn = document.createElement("button");
+      btn.textContent = t;
+      btn.className = "emkt-page-btn" + (cls ? " " + cls : "");
+      btn.disabled = !!disabled;
+      btn.onclick = fn;
+      document.querySelector(".emkt-pages").appendChild(btn);
+    }
+  };
+  document.querySelector('[data-action="close-search"]').onclick = () => document.querySelector(".emkt-search-modal").classList.remove("show");
+  document.querySelector(".emkt-search-input").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      _uz.state.query = e.target.value;
+      _uz.state.page = 1;
+      _uz.render({});
+    }
+  });
+  document.querySelector('[data-action="close-notfound"]').onclick = () => {
+    document.querySelector(".emkt-message-modal").classList.remove("show");
+    document.querySelector(".emkt-search-input").value = "";
+    _uz.state.query = "";
+    _uz.state.page = 1;
+  };
+  window.addEventListener("message", (e) => {
+    if (e.data && e.data.action) {
+      if (e.data.action.match(/(accounts)/)) {
+        e.data.items = {};
+        if (e.data.message.message && e.data.message.message.downloads) {
+          for (let k in e.data.message.message.downloads)
+            for (let i in _ux.items)
+              if (k == _ux.items[i].pSN) {
+                e.data.items[i] = _ux.items[i];
+                if (e.data.message.message.downloads[k].void)
+                  e.data.items[i].void = e.data.message.message.downloads[k].void;
+                e.data.items[i].url = e.data.message.message.downloads[k].url;
+              }
+          
+          window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "read-data",
+            tag: "rate-products"
+          }, "*");
+        } else document.querySelector(".center-icon").style.display = "block";
+        if (_uz.free && _uz.free.items)
+          e.data.items = Object.assign(_uz.free.items, e.data.items);
+        _uz.products = {
+          rates: {},
+          items: e.data.items
+        };
+        _uz.render({});
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+      }
+      if (e.data.action.match(/(rate-products)/))
+        for (let k in e.data.message)
+          updateRating({ k: k, n: _uz.products.rates[k] = e.data.message[k].message.rate });
+    }
+  });
+  window.parent.postMessage({
+    id: window.frameElement.id,
+    action: "whatsapp-button",
+    hide: !0
+  }, "*");
+  if (localStorage.free) {
+    _uz.free = {
+      pSN: JSON.parse(localStorage.free),
+      items: {}
+    };
+    for (let k in _uz.free.pSN)
+      for (let i in _ux.items)
+        if (k == _ux.items[i].pSN) {
+          _uz.free.items[i] = _ux.items[i];
+          if (_uz.free.pSN[k].void)
+            _uz.free.items[i].void = _uz.free.pSN[k].void;
+          _uz.free.items[i].link = _uz.free.pSN[k].link;
+        }
+    _uz.products = {
+      rates: {},
+      items: _uz.free.items
+    };
+    _uz.render({});
+  }
+  if (_uz.user.opened && _uz.user.opened.buyer)
+    window.parent.postMessage({
+      id: window.frameElement.id,
+      action: "read-data",
+      tag: `accounts/${_uz.user.opened.buyer.replace(/\@|\./g,"_")}`
+    }, "*");
+    setTimeout(()=> {
+        if (!_uz.products) {
+            localStorage.dialog = JSON.stringify({
+                message: `Unable to checkout items, because you are not connected to the internet!`,
+                buttons: {
+                    dismiss: {
+                        text: `<span>Dismiss</span>`,
+                        shells: `['carousel', 'accordion', 'cards', 'faqs']`,
+                        scroll: 0
+                    }
+                },
+                back: {
+                    shells: `['carousel', 'accordion', 'cards', 'faqs']`,
+                    scroll: 0
+                }
+            });
+            loadPage({ shells: ['dialog'], scroll: 0 });
+        }
+    }, 8192);
+</script>

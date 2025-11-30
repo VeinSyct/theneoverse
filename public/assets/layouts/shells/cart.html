@@ -1,0 +1,479 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+	:root {
+		--size-header: 2.25rem;
+		--size-accordion-title: 1.25rem;
+		--size-accordion-content: 1rem;
+		--animation-speed: 100;
+		--slide-ease: cubic-bezier(0.86, 0, .07, 1);
+		--slide-duration: calc(400ms * 100 / var(--animation-speed));
+		--slide-delay: calc(450ms * 100 / var(--animation-speed));
+		--circle-duration: calc(900ms * 100 / var(--animation-speed));
+	}
+	*,
+	*::before,
+	*::after {
+		position: relative;
+		left: 0;
+		top: 0;
+		box-sizing: border-box;
+	}
+	a,
+	p,
+	h1 {
+		margin: 0;
+	}
+	body {
+		margin: 12px;
+		overflow: hidden;
+	}
+	main {
+		padding: 0 96px;
+		position: fixed;
+		color: white;
+		top: 124px;
+		width: 100%;
+		height: calc(100vh - 142px);
+		font-weight: 600;
+		scroll-behavior: smooth;
+		scroll-padding-top: 1rem;
+		animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+		overflow-y: scroll;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+	@media only screen and (max-width:1024px) and (orientation:landscape) {
+	}
+	@media only screen and (max-width:480px) {
+		main {
+			padding: 0 24px;
+		}
+	}
+	@media only screen and (min-width:481px) and (max-width:768px) {
+		main {
+			padding: 0 24px;
+		}
+	}
+	main > h1 {
+		padding: 0;
+		font-size: var(--size-header);
+		margin-bottom: 1.25rem;
+        color: white;
+	}
+	main > h2 {
+		margin-bottom: 1rem;
+        color: white;
+	}
+	main > img {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+	}
+	::selection {
+		background-color: rgba(0, 0, 0, .4);
+	}
+	.accordion {
+		display: grid;
+		--circle-x: 1.8rem;
+		--circle-y: 0;
+		--circle-r: 200%;
+		--circle-bg: rgba(255, 255, 255, .1);
+		color: white;
+		background-color: var(--circle-bg);
+		background: rgba(255, 255, 255, .1);
+		backdrop-filter: blur(20px);
+		border: 1px solid rgba(255, 255, 255, .2);
+		margin-bottom: 1rem;
+		border-radius: min(8px, .5rem);
+		grid-template-rows: 0fr 0fr;
+		transition-timing-function: var(--slide-ease);
+		transition-duration: 200ms, 200ms, var(--slide-duration);
+		transition-property: opacity, box-shadow, grid-template-rows;
+		transition-delay: 0ms, 0ms, var(--slide-delay);
+		box-shadow: 0 0 0 2px rgba(0, 0, 0, .1);
+		opacity: .8;
+	}
+	.accordion:not(:target):hover {
+		box-shadow: 0 25px 50px rgba(0, 0, 0, .15), inset 0 1px 0 rgba(255, 255, 255, .3);
+	}
+	.accordion:not(:target):active {
+		opacity: 1;
+		box-shadow: 0 20px 40px rgba(0, 0, 0, .1), inset 0 1px 0 rgba(255, 255, 255, .2);
+	}
+	.accordion,
+	.content {
+		overflow: hidden;
+	}
+	.accordion:target {
+		--d: 90deg;
+		grid-template-rows: 0fr 1fr;
+		transition: grid-template-rows var(--slide-ease) var(--slide-duration) var(--slide-delay);
+	}
+	.wrapper {
+		padding-block: 0 1.05rem;
+		padding-inline: 1.25rem;
+	}
+	.wrapper div {
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: row;
+		justify-content: center;
+	}
+	.wrapper div img {
+		margin: 12px;
+	}
+	@media only screen and (max-width:480px) {
+		.wrapper div img {
+			margin: 12px;
+			object-fit: cover;
+		}
+	}
+	.content {
+		font-size: var(--size-accordion-content);
+		line-height: 140%;
+	}
+	.content p {
+		margin-bottom: 1rem;
+	}
+	.content a {
+		color: currentColor;
+		font-weight: 800;
+		text-decoration: underline;
+	}
+	main :last-child,
+	.content :last-child {
+		margin-bottom: 0;
+	}
+	.title a {
+		padding: 1rem 1.25rem;
+		font-size: var(--size-accordion-title);
+		font-weight: 800;
+		color: currentColor;
+		text-decoration: none;
+		display: flex;
+		flex-direction: row;
+		place-items: center;
+	}
+	.title a::before {
+		--chevron-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3C!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --%3E%3Cpath fill='white' d='M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z'/%3E%3C/svg%3E");
+		content: "";
+		left: 0;
+		top: 0;
+		width: .65rem;
+		aspect-ratio: 320 / 512;
+		display: inline-block;
+		margin-right: .75rem;
+		transform: rotate(var(--d, 0deg));
+		transition: transform var(--slide-ease) var(--slide-duration) var(--slide-delay);
+		mask-image: var(--chevron-icon);
+		mask-size: 100% 100%;
+		-webkit-mask-image: var(--chevron-icon);
+		-webkit-mask-size: 100% 100%;
+		background-color: currentColor;
+	}
+	.accordion::before,
+	.accordion::after {
+		content: "";
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-color: var(--circle-bg);
+		mix-blend-mode: difference;
+		transform-style: preserve-3d;
+		transition-timing-function: ease;
+		transition-property: opacity, clip-path, visibility;
+		pointer-events: none;
+		clip-path: circle(var(--r) at var(--circle-x) var(--circle-y));
+		border-radius: inherit;
+		z-index: 4;
+	}
+	.accordion::before {
+		--r: 0%;
+		transition-delay: var(--circle-duration), var(--circle-duration), 0ms;
+		transition-duration: 0ms, var(--circle-duration), 0ms;
+		opacity: 0;
+	}
+	.accordion:target::before {
+		--r: var(--circle-r);
+		transition-delay: 0ms, 0ms, 0ms;
+		transition-duration: 0ms, var(--circle-duration), 0ms;
+		opacity: 1;
+	}
+	.accordion::after {
+		--r: var(--circle-r);
+		transition-delay: 0ms, 0ms, var(--circle-duration);
+		transition-duration: 0ms, var(--circle-duration), 0ms;
+		visibility: hidden;
+		opacity: 1;
+	}
+	.accordion:target:after {
+		--r: 0%;
+		transition-delay: 0ms, 0ms, 0ms;
+		transition-duration: 0ms, 0ms, 0ms;
+		visibility: visible;
+		opacity: 0;
+	}
+	.title a:focus-visible {
+		background-color: hsl(0, 100%, 90%);
+		outline: none;
+	}
+	.accordion:target .title a:focus-visible {
+		background-color: hsl(183, 100%, 93%);
+	}
+	.currency-amount {
+		font-family: var(--font-numerical);
+		font-style: normal;
+		font-weight: 700;
+		white-space: nowrap;
+		letter-spacing: 1px;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		color: var(--primary-sw-active);
+		line-height: 1;
+		text-shadow: 0px 0 2px #ea36af, -1px 0 1px #41ffd8;
+		animation-duration: .0064s;
+		animation-name: textflicker;
+		animation-iteration-count: infinite;
+		animation-direction: alternate;
+		pointer-events: none;
+	}
+	@keyframes textflicker {
+		from {
+			text-shadow: 1px 0 0 #ea36af, -2px 0 0 #41ffd8;
+		}
+		to {
+			text-shadow: 2px .5px 2px #ea36af, -1px -0.5px 2px #41ffd8;
+		}
+	}
+	.mobile-icon {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        left: 12px;
+        top: 76px;
+        text-decoration: none;
+        color: white;
+        background: rgba(255, 255, 255, .1);
+        backdrop-filter: blur(7px);
+        border-radius: 50%;
+        transition: all .3s ease;
+        border: 1px solid rgba(255, 255, 255, .2);
+        fill: currentColor;
+        cursor: pointer;
+        z-index: 1;
+    }
+    .mobile-icon:hover {
+        background: rgba(255, 255, 255, .2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+    }
+    .mobile-icon:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+    }
+	.submit-btn {
+        width: 100%;
+        padding: 15px 30px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all .3s ease;
+        box-shadow: rgba(0, 0, 0, .35) 0px 5px 15px;
+        position: relative;
+        overflow: hidden;
+    }
+    .submit-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        box-shadow: rgba(0, 0, 0, .24) 0px 3px 8px;
+        transition: left .3s ease;
+    }
+    .submit-btn:hover::before {
+        left: 0;
+    }
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: rgba(0, 0, 0, .25) 0px 14px 28px, rgba(0, 0, 0, .22) 0px 10px 10px;
+    }
+    .submit-btn:active {
+        box-shadow: rgba(0, 0, 0, .12) 0px 1px 3px, rgba(0, 0, 0, .24) 0px 1px 2px;
+    }
+    .submit-btn span {
+        position: relative;
+        z-index: 1;
+    }
+    .mobile-icon-cont {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        opacity: .01;
+    }
+	.center-icon {
+		position: fixed;
+		max-width: 42vw;
+		max-height: 42vh;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		object-fit: cover;
+	}
+    .network-nodes {
+        position: absolute;
+        opacity: .13;
+        z-index: -1;
+    }
+</style>
+<canvas class="network-nodes"></canvas>
+<script src="assets/js/network-nodes.js"></script>
+<span class="mobile-icon" onclick="loadPage({ shells: ['store'], scroll: 0 })">
+    <i class="fa fa-chevron-left"></i>
+</span>
+<main>
+	<img class="center-icon" src="assets/images/empty shopping bag.webp"/>
+</main>
+<script src="assets/js/index.js"></script>
+<script>
+	let productFrame = (d) => {
+		return `
+			<section class="accordion" id="item-${d.pSN}">
+				<h1 class="title">
+					<a href="#item-${d.pSN}" style="display: flex; flex-direction: row; justify-content: space-between">
+						${d.name}
+						<span class="currency-amount" style="margin: 12px">${d.symbol}${d.price}</span>
+						<span onclick="removeProduct({ id: '${d.pSN}', total: 0 })">✕</span>
+					</a>
+				</h1>
+				<div class="content">
+					<div class="wrapper">
+						<div>
+							<img src="${d.thumb}" style="width: 100%"/>
+						</div></br>
+						<div>
+							<p><strong>Description</strong>${d.desc}</p>
+						</div>
+					</div>
+				</div>
+			</section>`;
+	},
+	removeProduct = (d) => {
+		document.getElementById(`item-${d.id}`).remove();
+		delete _uz.cart[d.id];
+		if (Object.keys(_uz.cart).length == 0) {
+			delete localStorage.cart;
+			d.e = document.getElementsByTagName("main")[0];
+			if (d.e)
+				d.e.innerHTML = `<img src="assets/images/empty cart.webp" alt="">`;
+		} else localStorage.cart = JSON.stringify(_uz.cart);
+		for (let i in _uz.cart) {
+			d.total += parseFloat(_uz.cart[i].price);
+			d.c = _uz.cart[i].symbol;
+		}
+		d.t = document.querySelector(".font-numerical");
+		if (d.t)
+			d.t.innerHTML = `${d.c}${d.total.toFixed(2)}`;
+	},
+	loadCart = (d) => {
+		d.e = document.getElementsByTagName("main")[0];
+		if (d.e) {
+			_uz.cart = JSON.parse(localStorage.cart);
+			for (let i in _uz.cart) {
+				d.s += productFrame(_uz.cart[i]);
+				d.total += parseFloat(_uz.cart[i].price);
+				d.c = _uz.cart[i].symbol;
+			}
+			d.e.innerHTML = `
+				<h2>Shopping Cart</h2>
+				${d.s}
+				<h2>Total: <strong class="currency-amount font-numerical">${d.c}${d.total.toFixed(2)}</strong></h2>
+				<button class="submit-btn" onclick="_uz.checkOut({ c: 1 })">
+					<i class="fa fa-credit-card fa-1x" style="margin-right: 12px;"></i>
+					<span> Check Out</span>
+				</button>
+				<br>
+				<br>
+				<br>
+				<footer class='footer'>
+					<a onclick='_uz.goBack({})' style='cursor: pointer'>← Continue shopping</a>
+				</footer>`;
+		}
+	},
+	_uz = {
+		checkout: !0, // Enable checkout
+		goBack: (d) => loadPage({ shells: ['store'], scroll: 0, reset: !0 }),
+		checkOut: (d) => {
+			if (_uz.checkout) {
+				if (localStorage.user) {
+					_uz.user = JSON.parse(localStorage.user);
+					if (_uz.user && _uz.user.opened.buyer) {
+						window.parent.postMessage({
+							id: window.frameElement.id,
+							action: "check-out",
+							cart: _uz.cart
+						}, "*");
+						d.in = !0;			
+					}
+				}
+				if (!d.in)
+					d.m = `Hey there! You’ll need to sign in before checking out.`;
+			} else d.m = `Unable to checkout. Paypal is down at this moment!`;
+			if (d.m)
+				localStorage.dialog = JSON.stringify({
+					message: d.m,
+					buttons: {
+						signin: {
+							text: `${_uz.checkout ? `<span><i class="fa fa-signin"></i> Sign in</span>` : `<span> Dismiss</span>`}`,
+							shells: `['${_uz.checkout ? "signin" : "cart"}']`,
+							scroll: 0
+						}
+					},
+					back: {
+						shells: `['cart']`,
+						scroll: 0
+					}
+				});
+			loadPage({ shells: [d.in ? 'checkout' : 'dialog'], scroll: 0, reset: !0 });	
+		}
+	 };
+	if (localStorage.cart)
+		loadCart({ s: "", total: 0 });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

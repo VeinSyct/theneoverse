@@ -1,0 +1,623 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+    body {
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .mobile-icon {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        top: 76px;
+        font-size: 1.2rem;
+        text-decoration: none;
+        color: white;
+        background: rgba(255, 255, 255, .1);
+        backdrop-filter: blur(7px);
+        border-radius: 50%;
+        transition: all .3s ease;
+        border: 1px solid rgba(255, 255, 255, .2);
+        fill: currentColor;
+        cursor: pointer;
+        z-index: 1;
+    }
+    .mobile-icon:hover {
+        background: rgba(255, 255, 255, .2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+    }
+    .mobile-icon:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+    }
+	section {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+		height: 100%;
+        overflow: hidden;
+        pointer-events: none;
+    }
+	.contact-form {
+        margin: 0 auto 24px;
+        padding: 64px 40px;
+        max-width: 600px;
+        min-width: 50%;
+        color: white;
+        background: rgba(255, 255, 255, .04);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, .2);
+        border-radius: 25px;
+        box-shadow: 0 .5px 0 1px rgba(255, 255, 255, .23) inset, 0 1px 0 0 rgba(255, 255, 255, .66) inset, 0 4px 16px rgba(0, 0, 0, .12);
+        pointer-events: auto;
+    }
+	@media only screen and (max-width:480px) {
+        .contact-form {
+            margin: 36px 12px 0;
+            padding: 42px 24px 12px;
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:768px) {
+        .contact-form {
+            margin: 36px 12px 0;
+            padding: 28px 16px 12px;
+        }
+    }
+	.form-group {
+        margin-bottom: 24px;
+        position: relative;
+    }
+    .form-label {
+        margin-bottom: 8px;
+        display: block;
+        color: rgba(255, 255, 255, .9);
+        font-weight: 500;
+        font-size: .95rem;
+    }
+    .form-input,
+    .form-textarea {
+        padding: 15px 20px;
+        width: 100%;
+        background: rgba(255, 255, 255, .1);
+        border: 1px solid rgba(255, 255, 255, .2);
+        border-radius: 15px;
+        color: white;
+        font-size: 16px;
+        outline: none;
+        transition: all .3s ease;
+        backdrop-filter: blur(10px);
+        box-sizing: border-box;
+    }
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+        color: rgba(255, 255, 255, .6);
+    }
+    .form-input:focus,
+    .form-textarea:focus {
+        border-color: rgba(255, 255, 255, .4);
+        background: rgba(255, 255, 255, .15);
+        box-shadow: 0 0 20px rgba(255, 255, 255, .1);
+        transform: translateY(-2px);
+    }
+    .form-textarea {
+        resize: vertical;
+        min-height: 120px;
+        font-family: inherit;
+    }
+    .submit-btn {
+        width: 100%;
+        padding: 15px 30px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all .3s ease;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, .15), inset 0 1px 0 rgba(255, 255, 255, .3);
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    .submit-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #764ba2, #667eea);
+        transition: left .3s ease;
+    }
+    .submit-btn:hover::before {
+        left: 0;
+    }
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+    .submit-btn:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+    }
+    .submit-btn span {
+        position: relative;
+        z-index: 1;
+    }
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    @media only screen and (max-width:480px) {
+        .form-row {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+    }
+    .message-cont {
+        display: none;
+        justify-content: center;
+    }
+    .message-form {
+        padding: 14px 36px;
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        min-width: 64vw;
+        bottom: 12px;
+    }
+    @media only screen and (max-width:480px) {
+        .message-form {
+            margin: 0 12px;
+            padding: 12px 24px;
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:768px) {
+        .message-form {
+            margin: 0 12px;
+            padding: 9px 24px;
+        }
+    }
+    .messages-frame {
+        position: absolute;
+        width: calc(100% - 6vw - 3px);
+        max-height: 50vh;
+        left: 6vw;
+        bottom: 136px;
+        color: white;
+        overflow-y: scroll;
+    }
+    .messages-frame div {
+        max-width: 500px;
+    }
+    .messages-frame div p {
+        width: fit-content;
+        margin: 0 0 12px;
+        padding: 6px 12px;
+        background: radial-gradient(#000c, #3e3f46aa);
+        border-radius: 12px;
+        transition: all .3s ease;
+        border: 1px solid rgba(255, 255, 255, .2);
+        fill: currentColor;
+    }
+    @media only screen and (max-width:480px) {
+        .messages-frame {
+            bottom: 96px;
+        }
+        .messages-frame div {
+            max-width: 60vw;
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:768px) {
+        .messages-frame {
+            bottom: 86px;
+        }
+        .messages-frame div {
+            max-width: 48vw;
+        }
+    }
+</style>
+<div class="demo"></div>
+<span class="mobile-icon" onclick="window.parent.postMessage({ id: window.frameElement.id, action: 'whatsapp-button', hide: !1 }, '*'); delete localStorage.url; loadPage({ shells: ['carousel', 'accordion', 'cards', 'faqs'], scroll: 0, reset: !0 })" style="left: 12px">
+    <i class="fa fa-chevron-left"></i>
+</span>
+<span class="mobile-icon" onclick="document.querySelector('.message-cont').style.display=_uz.msg?'none':'flex';_uz.msg=!_uz.msg" style="right: 12px">
+    <i class="fa fa-bullhorn"></i>
+</span>
+<section>
+	<div class="contact-form modal-form" hidden></div>
+    <div class="message-cont">
+        <div class="messages-frame">
+            <div class="shout-outs"></div>
+        </div>
+        <div class="contact-form message-form">
+            <div class="form-group" style="margin: 0 12px 0 0; padding: 0; width: 100%;">
+                <input type="text" class="form-input public-message" placeholder="Type your shout out here..." style="margin: 0" onkeyup="if(event.keyCode===13)sendMessage({ m: this })"/>            
+            </div>
+            <button class="submit-btn" onclick="sendMessage({ m: document.querySelector('.public-message') })" style="padding: 0; max-width: 50px">
+                <span>
+                    <h3 style="margin: 0"><i class="fa fa-paper-plane-o"></i></h3>
+                </span>
+            </button>
+        </div>
+    </div>
+</section>
+<script>
+    let sendMessage = (d) => {
+        if (d.m.value) {
+            if (_uz.user.name) {
+                window.parent.postMessage({
+                    id: window.frameElement.id,
+                    action: "public-message",
+                    message: { text: d.m.value, name: _uz.user.name }
+                }, "*");
+                d.e = document.querySelector(".shout-outs");
+                d.e.innerHTML = d.e.innerHTML + `<p>Me: ${d.m.value}</p>`;
+                d.m.value = "";
+                return
+            } else {
+                d.m = `Unable to submit your shout out "${d.m.value}", because you don't have a valid user name! Please register to submit shout out.`;
+                d.b = `
+                    <div class="form-row">
+                        <button class="submit-btn" onclick="this.parentNode.parentNode.style.display = 'none'">
+                            <span>Dismiss</span>
+                        </button>
+                        <button class="submit-btn" onclick="registerForm({})">
+                            <span>Register</span>
+                        </button>
+                    </div>`;
+            }
+        } else {
+            d.m = `Unable to submit your invalid shout out!`;
+            d.b = `
+                <button class="submit-btn" onclick="this.parentNode.style.display = 'none'">
+                    <span>Dismiss</span>
+                </button>`;
+        }
+        _uz.modal.innerHTML = `
+            <span class="mobile-icon" onclick="this.parentNode.style.display = 'none'" style="right: 9px; top: 9px;">
+                <i class="fa fa-times"></i>
+            </span>
+            <div class="form-group">
+                <h3>Shout out</h3>
+                <br/>
+                <label class="form-label">${d.m}</label>
+            </div>${d.b}`;
+        _uz.modal.style.display = "block";
+    },
+    registerName = (d) => {
+        for (let i = 0, j = ["register-input"]; i < j.length; i++) {
+            d.e = document.getElementsByClassName(j[i]);
+            for (let k in d.e)
+                if (d.e[k].value !== undefined) {
+                    d.v = d.e[k].value.trim();
+                    if ((k == 0 && d.v.length < 3) || (k == 1 && !(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(d.v))) || (k == 2 && !d.v.match(/^[\d,\s,\+,\-]{5,20}/))) {
+                        d.x = k;
+                        continue;
+                    }
+                    d.m[`${j[i]}-${k}`] = d.v;
+                }
+        };
+        if (!d.x) {
+            window.parent.postMessage({
+                id: window.frameElement.id,
+                action: "register-user",
+                message: d.m
+            }, "*");
+            _uz.user = localStorage.user ? JSON.parse(localStorage.user) : {};
+            _uz.user.name = d.m["register-input-0"];
+            localStorage.user = JSON.stringify(_uz.user);
+            _uz.modal.style.display = "none";
+        } else {
+            _uz.modal.innerHTML = `
+                <span class="mobile-icon" onclick="this.parentNode.style.display = 'none'" style="right: 9px; top: 9px;">
+                    <i class="fa fa-times"></i>
+                </span>
+                <div class="form-group">
+                    <h3>Registration</h3>
+                    <br/>
+                    <label class="form-label">${d.x == 1 ? `Invalid email.` : d.x == 2 ? `Invalid mobile.` : `Invalid name.`}</label>
+                </div>
+                <div class="form-row">
+                    <button class="submit-btn" onclick="registerForm({})">
+                        <span>Back</span>
+                    </button>
+                    <button class="submit-btn" onclick="this.parentNode.parentNode.style.display = 'none'">
+                        <span>Dismiss</span>
+                    </button>
+                </div>`;
+            _uz.modal.style.display = "block";
+        }
+    },
+    registerForm = (d) => {
+        _uz.modal.innerHTML = `
+            <span class="mobile-icon" onclick="this.parentNode.style.display = 'none'" style="right: 9px; top: 9px;">
+                <i class="fa fa-times"></i>
+            </span>
+            <div class="form-group">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-input register-input" placeholder="Enter your name"/>            
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-input register-input" placeholder="Enter your email address"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">WhatsApp</label>
+                    <input type="text" class="form-input register-input" placeholder="Enter your number"/>
+                </div>
+            </div>
+            <button class="submit-btn" onclick="registerName({ m: {} })">
+                <span>Register</span>
+            </button>`;
+        _uz.modal.style.display = "block";
+        document.querySelector('.message-cont').style.display = "none"; 
+        delete _uz.msg;
+    },
+    processPayment = (d) => {
+        if (!_uz.user.name) {
+            _uz.modal.innerHTML = `
+                <span class="mobile-icon" onclick="this.parentNode.style.display = 'none'" style="right: 9px; top: 9px;">
+                    <i class="fa fa-times"></i>
+                </span>
+                <div class="form-group">
+                    <h3>"Payment Failed"</h3>
+                    <br/>
+                    <label class="form-label">Unable to process payments, because of lack of information about the buying party, we could not determine the account to transfer the property title, please register and try again.</label>
+                </div>
+                <div class="form-row">
+                    <button class="submit-btn" onclick="this.parentNode.parentNode.style.display = 'none'">
+                        <span>Dismiss</span>
+                    </button>
+                    <button class="submit-btn" onclick="registerForm({})">
+                        <span>Registration</span>
+                    </button>
+                </div>`;
+            _uz.modal.style.display = "block";
+        } else window.parent.postMessage({
+                id: window.frameElement.id,
+                action: "pay-amount",
+                name: _uz.user.name,
+                title: _uz.modal.message.title,
+                c: "VCY",
+                a: `${_uz.buy.rate[_uz.modal.message.title]}`,
+            }, "*");
+    },
+    buyItem = (d) => {
+        d.price = `${insertCommas(parseFloat(_uz.buy.rate[_uz.buy.data.title]))}`;
+        _uz.modal.innerHTML = `
+            <span class="mobile-icon" onclick="this.parentNode.style.display = 'none'" style="right: 9px; top: 9px;">
+                <i class="fa fa-times"></i>
+            </span>
+            <div class="form-group">
+                <h3>${_uz.buy.data.title} Payment</h3>
+                <br/>
+                <label class="form-label">${_uz.buy.data.text}<br/><br/>Pay the virtual address price tag <strong>υς${d.price}</strong> to confirm purchase, so we proceed to the transfer property title under your ownership.</label>
+            </div>
+            <button class="submit-btn" onclick="this.parentNode.style.display = 'none'; processPayment({});">
+                <span>Pay υς${d.price}</span>
+            </button>`;
+        _uz.modal.style.display = "block";
+    },
+    insertCommas = (n) => {
+        n = n.toFixed(2).toString();
+        let pattern = /(-?\d+)(\d{3})/;
+        while (pattern.test(n)) n = n.replace(pattern, "$1,$2");
+        return n;
+    },
+    _uz = { buy: { rate: {} }, user: localStorage.user ? JSON.parse(localStorage.user) : {}, modal: document.querySelector(".modal-form"), hash: `OvUhCKRZZQLSYSWPQQRXQWIGqnaCKTRYTGLWRQGZSSTGQYIGYyUCKgnpycGvycvyGcvycvGcfUIGfwiCOzVfCQLTZvTGZqkCQLRVQvTGxSmCQLTdWvTMGtluCOzVfCRYfuWGZqkCZTQuWGxSmCRadauWMGqkhCOzVfCQLUZvSGZqkCQLUQvSGxSmCQLUUvSMGjbaCOzVfCSTbduRLSXSUYeSRZUdVRdacTvSQGZqkCXTWfVuQLTTcUXdVfYTReebdZcvSQGxSmCRWWXVUuQLUQWedfVcReedbTVVdvSQ=` };
+    if (localStorage.url) {
+        document.querySelector(".demo").innerHTML = `<iframe src="${localStorage.url}" allow="camera" style="position: absolute; width: 100%; height: 100%; left: 0; top: 0; overflow: hidden" frameBorder="0"></iframe>`;
+        document.querySelector(".demo").getElementsByTagName("iframe")[0].addEventListener("load", ()=> {
+            window.parent.postMessage({
+                id: window.frameElement.id,
+                action: "pre-loader",
+                show: !1
+            }, "*");
+        });
+    }
+    window.addEventListener("message", (e)=> {
+        if (e.data && e.data.action) {
+            if (e.data.action.match(/(public-message)/)) {
+                e.m = document.querySelector(".shout-outs");
+                for (k in e.data.message)
+                    if (!e.m.innerHTML.includes(e.data.message[k].message.text))
+                        e.m.innerHTML = e.m.innerHTML + `<p>${e.data.message[k].message.name}: ${e.data.message[k].message.text}</p>`;
+            }
+            if (e.data.action.match(/(pay-declined|pay-accepted)/)) {
+                _uz.modal.innerHTML = `
+                    <span class="mobile-icon" onclick="this.parentNode.style.display = 'none'" style="right: 9px; top: 9px;">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    <div class="form-group">
+                        <h3>Payment ${e.data.action.match(/(pay-declined)/) ? "Declined" : "Accepted"}</h3>
+                        <br/>
+                        <label class="form-label">${e.data.action.match(/(pay-declined)/) ? `Your payment has been declined, the transfer of the property title under your ownership has been put to halt, because of insuficient balance.` : `Your payment has been approved, the transfer of the property title under your ownership is now being processed.`}</label>
+                    </div>
+                    <button class="submit-btn" onclick="this.parentNode.style.display = 'none'">
+                        <span>Dismiss</span>
+                    </button>`;
+                _uz.modal.style.display = "block";
+            }
+            if (e.data.action.match(/(properties)/)) {
+                if (!e.data.message) {
+                    window.parent.postMessage({
+                        id: window.frameElement.id,
+                        tag: _uz.modal.message.title.replace(/ |\#/g, ""),
+                        action: "price-properties",
+                        message: {
+                            c: "VCY",
+                            a: `${_uz.buy.rate[_uz.modal.message.title]}`
+                        }
+                    }, "*");
+                } else _uz.buy.rate[_uz.modal.message.title] = e.data.message.message.a;
+                _uz.modal.innerHTML = `
+                    <span class="mobile-icon" onclick="this.parentNode.style.display = 'none'" style="right: 9px; top: 9px;">
+                        <i class="fa fa-times"></i>
+                    </span>
+                    <div class="form-group">
+                        <h3>${_uz.modal.message.title}</h3>
+                        <br/>
+                        <label class="form-label">${e.data.message && e.data.message.message.uid ? `The "<strong>${_uz.modal.message.title}</strong>" is owned by <strong>${e.data.uid == e.data.message.message.uid ? `You</strong>.` : `${e.data.message.message.owner}</strong>.`}` : _uz.modal.message.text}</label>
+                    </div>${e.data.message && e.data.message.message.uid ? `
+                    <button class="submit-btn" onclick="this.parentNode.style.display = 'none'">
+                        <span>Dismiss</span>
+                    </button>` :
+                    `<div class="form-row">
+                        <button class="submit-btn" onclick="this.parentNode.parentNode.style.display = 'none'">
+                            <span>Dismiss</span>
+                        </button>
+                        <button class="submit-btn" onclick="buyItem({})">
+                            <span>Buy</span>
+                        </button>
+                    </div>`}`;
+                _uz.modal.style.display = "block";
+            }
+            if (e.data.action.match(/(player-activity)/)) {
+                if (e.data.message.type.match(/(avatar-location)/)) {
+                    e.data.loc = "&&loc=";
+                    if (e.data.message.location.v) {
+                        for (let i in e.data.message.location) {
+                            e.data.a = e.data.message.location[i].toString().split(".");
+                            e.data.loc += `${e.data.a[0]}${e.data.a[1] ? `.${e.data.a[1].slice(0, 1)}` : ""},`;
+                        }
+                        e.data.name = localStorage.url.split('/').pop().split('#')[0].split('?')[0].split('.')[0];
+                        e.data.link = `${location.origin}#${new URL(localStorage.url).hostname.split(".")[0]}&&${e.data.name}${e.data.loc.replace(/,+$/, "")}`;
+                    }
+                    _uz.modal.innerHTML = `
+                        <span class="mobile-icon" onclick="this.parentNode.style.display = 'none'" style="right: 9px; top: 9px;">
+                            <i class="fa fa-times"></i>
+                        </span>
+                        <div class="form-group">
+                            <h3>Share Location</h3>
+                            <br/>
+                            <label class="form-label"${e.data.link ? `style="word-break: break-all">Your location link is ${e.data.link}` : `>There are no shareable location in this territory. Please explore and discover other territories to share location.`}</label>
+                        </div>${e.data.link ? `<div class="form-row">
+                            <button class="submit-btn" onclick="this.parentNode.parentNode.style.display = 'none'">
+                                <span>Dismiss</span>
+                            </button>
+                            <button class="submit-btn" onclick="navigator.clipboard.writeText('${e.data.link}'); this.parentNode.parentNode.style.display = 'none'">
+                                <span>Copy</span>
+                            </button>
+                        </div>` :
+                        `<button class="submit-btn" onclick="this.parentNode.style.display = 'none'">
+                            <span>Dismiss</span>
+                        </button>`}`;
+                    _uz.modal.style.display = "block";
+                }
+                if (e.data.message.type.match(/(beyond-boundary)/)) {
+                    e.text = [`Whoa... did you just imagine yourself falling? That thought came out of nowhere... unsettling, isn't it? You might want to check your mind, maybe even seek help. Darkness can sneak in, even in a virtual experience.`, `Wait... you really thought about it? That sudden, dark idea... it's almost like it could have happened. Check your thoughts... it might be safer to reach out. Even virtual experience can stir something deep.`, `Whoa... that thought of jumping... sharp, fleeting... but just a shadow in your mind. Still... maybe you should pause, breathe, and think about getting help. Darkness can be tempting.`]
+                    _uz.modal.innerHTML = `
+                        <span class="mobile-icon" onclick="this.parentNode.style.display = 'none'" style="right: 9px; top: 9px;">
+                            <i class="fa fa-times"></i>
+                        </span>
+                        <div class="form-group">
+                            <h3>Critical Event</h3>
+                            <br/>
+                            <label class="form-label">${e.text[Math.floor(Math.random() * e.text.length)]}</label>
+                        </div>
+                        <button class="submit-btn" onclick="this.parentNode.style.display = 'none'">
+                            <span>Dismiss</span>
+                        </button>`;
+                    _uz.modal.style.display = "block";
+                }
+                if (e.data.message.type.match(/(modal-message)/)) {
+                    if (e.data.message.action) {
+                        _uz.buy.data = e.data.message;
+                        _uz.buy.rate[e.data.message.title] = (Math.floor(Math.random() * 9999) + 1)  * 1e1;
+                        window.parent.postMessage({
+                            id: window.frameElement.id,
+                            action: "read-data",
+                            tag: `properties/${e.data.message.title.replace(/ |\#/g, "")}`,
+                            message: {
+                                title: e.data.message.title,
+                                rate: _uz.buy.rate[e.data.message.title]
+                            }
+                        }, "*");
+                        _uz.modal.message = e.data.message;
+                    } else {
+                        _uz.modal.innerHTML = `
+                            <span class="mobile-icon" onclick="this.parentNode.style.display = 'none'" style="right: 9px; top: 9px;">
+                                <i class="fa fa-times"></i>
+                            </span>
+                            <div class="form-group">
+                                <h3>${e.data.message.title}</h3>
+                                <br/>
+                                <label class="form-label">${e.data.message.text}</label>
+                            </div>${e.data.message.action ? `<div class="form-row">
+                                <button class="submit-btn" onclick="this.parentNode.parentNode.style.display = 'none'">
+                                    <span>Dismiss</span>
+                                </button>
+                                <button class="submit-btn" onclick="buyItem({})">
+                                    <span>Buy</span>
+                                </button>
+                            </div>` :
+                            `<button class="submit-btn" onclick="this.parentNode.style.display = 'none'">
+                                <span>Dismiss</span>
+                            </button>`}`;
+                        _uz.modal.style.display = "block";
+                    }
+                }
+                if (e.data.message.type.match(/(credit-player)/)) {
+                    e.r = Math.floor(Math.random() * 81.92) + 20.48;
+                    e.c = e.data.message.user ? (e.r * e.data.message.user.now / (performance.now() - e.data.message.time)) : e.r;
+                    _uz.modal.innerHTML = `
+                        <span class="mobile-icon" onclick="this.parentNode.style.display = 'none'" style="right: 9px; top: 9px;">
+                            <i class="fa fa-times"></i>
+                        </span>
+                        <div class="form-group">
+                            <h3>Credits</h3>
+                            <br/>
+                            <label class="form-label"><strong>υς${parseFloat(e.c).toFixed(2)}</strong> electronic cash has been collected. Seek out more red kiosks, or return here later to claim additional credits.</label>
+                        </div>
+                        <button class="submit-btn" onclick="this.parentNode.style.display = 'none'">
+                            <span>Dismiss</span>
+                        </button>`;
+                    _uz.modal.style.display = "block";
+                    window.parent.postMessage({
+                        id: window.frameElement.id,
+                        action: "credit-amount",
+                        s: _uz.hash,
+                        c: "VCY",
+                        a: `${parseFloat(e.c).toFixed(2)}`
+                    }, "*");
+                }
+            }
+        }
+    });
+    window.parent.postMessage({
+        id: window.frameElement.id,
+        action: "whatsapp-button",
+        hide: !0
+    }, "*");
+    window.parent.postMessage({
+        id: window.frameElement.id,
+        action: "pre-loader",
+        show: !0
+    }, "*");
+</script>
+<script src="assets/js/index.js"></script>

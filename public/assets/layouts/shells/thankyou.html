@@ -1,0 +1,97 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+    *{
+        transition: all 0.6s;
+    }
+    html {
+        height: 100%;
+    }
+    body{
+        font-family: 'Lato', sans-serif;
+        color: white;
+        margin: 0;
+    }
+    #main{
+        display: table;
+        width: 100%;
+        height: 100vh;
+        text-align: center;
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .fof{
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .fof h1{
+        font-size: 60px;
+        display: inline-block;
+        padding-right: 12px;
+        animation: type .5s alternate infinite;
+        pointer-events: none;
+    }
+    @keyframes type{
+        from{box-shadow: inset -3px 0px 0px #888;}
+        to{box-shadow: inset -3px 0px 0px transparent;}
+    }
+    h1 {
+        background: conic-gradient(
+        #CA4246 16.666%, 
+        #E16541 16.666%, 
+        #E16541 33.333%, 
+        #F18F43 33.333%, 
+        #F18F43 50%, 
+        #8B9862 50%, 
+        #8B9862 66.666%, 
+        #476098 66.666%, 
+        #476098 83.333%, 
+        #A7489B 83.333% );
+        -webkit-background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color:transparent;
+    }
+    .network-nodes {
+        position: absolute;
+        opacity: .13;
+        z-index: -1;
+    }
+</style>
+<canvas class="network-nodes"></canvas>
+<script src="assets/js/network-nodes.js"></script>
+<div id="main">
+    <div class="fof">
+        <h1>Thank You</h1>
+        <br>
+        <br>
+        <a onclick="loadPage({ shells: ['store'], scroll: 0 })" style="cursor: pointer">← Continue shopping</a>
+        <span> | </span>
+        <a onclick="loadPage({ shells: ['downloads'], scroll: 0 })" style="cursor: pointer">Go to downloads</a>
+    </div>
+</div>
+<script src="assets/js/index.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

@@ -1,0 +1,302 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+		margin: 12px;
+		overflow-y: scroll;
+        color: white;
+	}
+    .centered {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-width: 100%;
+        min-height: 100%;
+        overflow: hidden;
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .contact-form {
+        margin: 0 auto;
+        max-width: 600px;
+        background: rgba(255, 255, 255, .1);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, .2);
+        border-radius: 25px;
+        padding: 40px;
+        box-shadow: rgba(50, 50, 93, .25) 0px 6px 12px -2px, rgba(0, 0, 0, .3) 0px 3px 7px -3px;
+    }
+    @media only screen and (max-width:1024px) and (orientation:landscape) {
+        .contact-form {
+            margin-top: 96px;
+        }
+    }
+    @media only screen and (max-width:480px) {
+        .contact-form {
+            margin: 9px auto 64px;
+            padding: 36px 18px;
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:768px) {
+        .contact-form {
+            margin: 12px auto 64px;
+            padding: 36px 18px;
+        }
+    }
+    .contact-form p {
+        font-weight: 500;
+        font-size: 1rem;
+        margin-bottom: 20px;
+        line-height: 1.5;
+    }
+    .contact-form i {
+        font-size: 1.24rem;
+    }
+    .form-group {
+        margin-bottom: 25px;
+        position: relative;
+    }
+    .form-label {
+        display: block;
+        color: rgba(255, 255, 255, .9);
+        font-weight: 500;
+        margin-bottom: 8px;
+        font-size: .95rem;
+    }
+    .form-label span {
+        font-size: .7rem;
+        font-weight: 200;
+    }
+    .form-input,
+    .form-textarea {
+        width: 100%;
+        padding: 15px 20px;
+        background: rgba(255, 255, 255, .1);
+        border: 1px solid rgba(255, 255, 255, .2);
+        border-radius: 15px;
+        color: white;
+        font-size: 16px;
+        outline: none;
+        transition: all .3s ease;
+        backdrop-filter: blur(10px);
+        box-sizing: border-box;
+    }
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+        color: rgba(255, 255, 255, .6);
+    }
+    .form-input:focus,
+    .form-textarea:focus {
+        border-color: rgba(255, 255, 255, .4);
+        background: rgba(255, 255, 255, .15);
+        box-shadow: 0 0 20px rgba(255, 255, 255, .1);
+        transform: translateY(-2px);
+    }
+    .form-textarea {
+        resize: vertical;
+        min-height: 120px;
+        font-family: inherit;
+    }
+    .submit-btn {
+        width: 100%;
+        padding: 15px 30px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all .3s ease;
+        box-shadow: rgba(0, 0, 0, .35) 0px 5px 15px;
+        position: relative;
+        overflow: hidden;
+    }
+    .submit-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        box-shadow: rgba(0, 0, 0, .24) 0px 3px 8px;
+        transition: left .3s ease;
+    }
+    .submit-btn:hover::before {
+        left: 0;
+    }
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: rgba(0, 0, 0, .25) 0px 14px 28px, rgba(0, 0, 0, .22) 0px 10px 10px;
+    }
+    .submit-btn:active {
+        box-shadow: rgba(0, 0, 0, .12) 0px 1px 3px, rgba(0, 0, 0, .24) 0px 1px 2px;
+    }
+    .submit-btn span {
+        position: relative;
+        z-index: 1;
+    }
+    .mobile-icon {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        text-decoration: none;
+        color: white;
+        background: rgba(255, 255, 255, .1);
+        backdrop-filter: blur(7px);
+        border-radius: 50%;
+        transition: all .3s ease;
+        border: 1px solid rgba(255, 255, 255, .2);
+        fill: currentColor;
+        cursor: pointer;
+    }
+    .mobile-icon:hover {
+        background: rgba(255, 255, 255, .2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+    }
+    .mobile-icon:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+    }
+    .network-nodes {
+        position: absolute;
+        opacity: .13;
+        z-index: -1;
+    }
+</style>
+<canvas class="network-nodes"></canvas>
+<script src="assets/js/network-nodes.js"></script>
+<div class="centered">
+    <div class="contact-form">
+        <span class="mobile-icon" onclick="loadPage({ shells: ['currencies'], scroll: 0 })" style="top: 9px; right: 64px;">
+            <i class="fa fa-money"></i>
+        </span>
+        <span class="mobile-icon" onclick="resetPass({})" style="top: 9px; right: 9px;">
+            <i class="fa fa-eraser"></i>
+        </span>
+        <h2>Settings</h2>
+        <p class="font-numerical">All information is processed offline, and no data is stored online. Your identity remains completely anonymous.</p>
+        <div class="form-group">
+            <i class="fa fa-credit-card" style="margin-right: 9px"></i> Account number:
+            <h3 class="account-number font-numerical"></h3>
+        </div>
+        <div class="form-group">
+            <i class="fa fa-chain" style="margin-right: 9px"></i> Protocol:
+            <h3 class="account-protocol font-numerical"></h3>
+        </div>
+        <div class="form-group">
+            <i class="fa fa-money" style="margin-right: 9px"></i> Currency:
+            <a href="" onclick="loadPage({ shells: ['currencies'], scroll: 0 })" class="form-label"><h3 class="beneficiary-currency font-numerical"></h3></a>
+        </div>
+        <div class="form-group">
+            <label class="form-label">User name <span class="font-numerical">(optional)</span></label>
+            <input class="form-input account-name font-numerical" placeholder="Type user name here..." onkeyup="if(event.keyCode===13)changeName({ name: document.querySelector('.account-name').value }); document.querySelector('.submit-btn').style.display='block'"/>
+        </div>
+        <button class="submit-btn" onclick="changeName({ name: document.querySelector('.account-name').value })" hidden>
+            <i class="fa fa-floppy-o fa-1x" style="margin-right: 12px"></i>
+            <span>Save</span>
+        </button>
+    </div>
+</div>
+<div id="api-404" hidden></div>
+<script src="assets/external/js/baffle.min.js"></script>
+<script src="./assets/js/ecash.js"></script>
+<script>
+    document.getElementById("api-404").appendChild(_uz.api);
+    _uz.z = { qrScan: { arr: [], hashes: [] }, digit: { height: 12 }, slider: { single: {} } };
+    _uz.qr = {
+        length: 72,
+        delay: 128,
+        interval: 0,
+        hash: "9h65t34t31p7s&83*4392*81839e5c732a8181sh232%ic421o232n490s$321w23e59b$a472p921p"
+    };
+    _uz.qrhash({ hash: _uz.qr.hash });
+</script>
+<script>
+    window.readAccount = () => {
+        _uz.api.contentWindow.postMessage({ action: "ecash-api-read-account" }, _uz.api.src);
+    };
+    window.changeName = (d) => {
+        _uz.api.contentWindow.postMessage({ action: "ecash-api-change-name", name: d.name }, _uz.api.src);
+        localStorage.dialog = JSON.stringify({
+            message: `You have changed your user name to <strong>${d.name}</strong>.`,
+            buttons: {
+                dismiss: {
+                    text: `<span><i class="fa fa-check" style="margin-right: 12px"></i> Dismiss</span>`,
+                    shells: `['settings', 'balance', 'options']`,
+                    scroll: 1,
+                    reset: !0
+                }
+            },
+            back: {
+                shells: `['settings', 'balance', 'options']`,
+                scroll: 1,
+                reset: !0
+            }
+        });
+        loadPage({ shells: ['dialog'], scroll: 0, reset: !0 });
+    };
+</script>
+<script>
+    let openApp = (d) => {
+        readAccount({});
+    },
+    resetPass = (d) => {
+        localStorage.dialog = JSON.stringify({
+            message: `Are you sure you want to erase your unlock <i class='fa fa-unlock'></i> shapes?`,
+            buttons: {
+                reset: {
+                    text: `<span><i class="fa fa-eraser" style="margin-right: 12px"></i> Erase</span>`,
+                    action: `let u=JSON.parse(localStorage.user);delete u.opened.ecash;delete u.unlock;localStorage.user=JSON.stringify(u);`,
+                    shells: `['carousel', 'accordion', 'cards', 'faqs']`,
+                    scroll: 0,
+                    reset: !0
+                }
+            },
+            back: {
+                shells: `['settings', 'balance', 'options']`,
+                scroll: 1,
+                reset: !0
+            }
+        });
+        loadPage({ shells: ['dialog'], scroll: 0, reset: !0 });
+    };
+</script>
+<script src="assets/js/index.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

@@ -1,0 +1,317 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+    :root {
+        --border-radius: 12px;
+    }
+    body {
+		margin: 12px;
+		overflow-y: scroll;
+        color: white;
+	}
+    .content-section {
+        margin: 0 0 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+    }
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #ffffff, #f0f0f0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .section-title2 {
+        font-size: 2rem;
+        font-weight: 600;        
+    }
+    .section-subtitle {
+        font-size: 1.1rem;
+        opacity: .8;
+        max-width: 600px;
+        line-height: 1.6;
+    }
+    .section {
+        padding: 5rem 1rem 0;
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .section h2 {
+        text-align: center;
+        margin-bottom: 3rem;
+        font-size: 2.5rem;
+        color: white;
+    }
+    .features {
+        margin: 0 auto;
+        margin-bottom: 24px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        max-width: 90vw;
+    }
+    .feature {
+        min-height: 27vh;
+        background: rgba(255, 255, 255, .03);
+        backdrop-filter: blur(10px);
+        border-radius: var(--border-radius);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: #1b2838;
+        backdrop-filter: blur(20px);
+        background-blend-mode: soft-light;
+        border: 1px solid rgba(255, 255, 255, .2);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, .1), inset 0 1px 0 rgba(255, 255, 255, .2);
+        padding: 2rem;
+        transition: var(--transition-medium);
+        cursor: pointer;
+    }
+    .feature p {
+        position: absolute;
+        width: 86%;
+        bottom: 12px;
+    }
+    .feature:hover {
+        transform: translateY(-10px);
+        background-blend-mode: screen;
+        box-shadow: rgba(0, 0, 0, .19) 0px 10px 20px, rgba(0, 0, 0, .23) 0px 6px 6px;
+    }
+    .feature:active {
+        background-blend-mode: lighten;
+        border-color: none;
+        box-shadow: rgba(0, 0, 0, .24) 0px 3px 8px;
+    }
+    .feature h3 {
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+    }
+    .mobile-icon-cont {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: .01;
+        z-index: 1;
+    }
+    .mobile-icon-cont:hover {
+        opacity: 1;
+    }
+    .mobile-icon-cont:active {
+        opacity: .01;
+    }
+    .mobile-icon {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        text-decoration: none;
+        color: white;
+        background: rgba(255, 255, 255, .1);
+        backdrop-filter: blur(7px);
+        border-radius: 50%;
+        transition: all .3s ease;
+        fill: currentColor;
+        cursor: pointer;
+        box-shadow: 0 .5px 0 1px rgba(255, 255, 255, .23) inset, 0 1px 0 0 rgba(255, 255, 255, .66) inset, 0 4px 16px rgba(0, 0, 0, .12);
+    }
+    .mobile-icon:hover {
+        background: rgba(0, 0, 0, .1);
+        border: 1px solid rgba(255, 255, 255, .2);
+        transform: translateY(-2px) scale(1.8);
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+    }
+    .mobile-icon:active {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+    }
+    .network-nodes {
+        position: absolute;
+        opacity: .13;
+        z-index: -1;
+    }
+</style>
+<canvas class="network-nodes"></canvas>
+<script src="assets/js/network-nodes.js"></script>
+<div class="section">
+    <section class="content-section">
+        <h1 class="section-title">Services</h1>
+        <p class="section-subtitle">We seamlessly integrated innovative design concepts into immersive virtual tours and interactive experiences, transforming ordinary digital environments into captivating journeys that engage users on multiple sensory levels and leave lasting impressions.</p>
+    </section>
+</div>
+<div class="section">
+    <section class="content-section">
+        <h1 class="section-title2">360 Virtual Tours</h1>
+        <p class="section-subtitle">We integrate 360 panoramic photographs into an immersive virtual tours.</p>
+    </section>
+    <div class="features">
+        <div class="feature" style="background-image: url('assets/images/virtual tours 01 400.webp')">
+            <div class="mobile-icon-cont">
+                <span class="mobile-icon"
+                    onclick="localStorage.img = JSON.stringify(_ux.pages['tours-exteriors'].content);
+                    loadPage({ shells: ['photo', 'details'], scroll: 0 })">
+                    <i class="fa fa-picture-o"></i>
+                </span>
+            </div>
+            <h3><i class="fa fa-picture-o fa-1x" style="margin-right: 12px"></i>Exteriors</h3>
+            <p>We will integrate your 3d architectural design 360 renderings into an immersive virtual tours.</p>
+        </div>
+        <div class="feature" style="background-image: url('assets/images/virtual tours 03 400.webp')">
+            <div class="mobile-icon-cont">
+                <span class="mobile-icon"
+                    onclick="localStorage.img = JSON.stringify(_ux.pages['tours-interiors'].content);
+                    loadPage({ shells: ['photo', 'details'], scroll: 0 })">
+                    <i class="fa fa-picture-o"></i>
+                </span>
+            </div>
+            <h3><i class="fa fa-picture-o fa-1x" style="margin-right: 12px"></i>Interiors</h3>
+            <p>We will integrate your 3d interior design 360 renderings into an immersive virtual tours.</p>
+        </div>
+        <div class="feature" style="background-image: url('assets/images/virtual tours 04 400.webp')">
+            <div class="mobile-icon-cont">
+                <span class="mobile-icon"
+                    onclick="localStorage.img = JSON.stringify(_ux.pages['tours-realestates'].content);
+                    loadPage({ shells: ['photo', 'details'], scroll: 0 })">
+                    <i class="fa fa-picture-o"></i>
+                </span>
+            </div>
+            <h3><i class="fa fa-picture-o fa-1x" style="margin-right: 12px"></i>Real Estates</h3>
+            <p>We will integrate your 360 panoramic photographs into an immersive virtual tours.</p>
+        </div>
+    </div>
+    </br>
+    <section class="content-section">
+        <h1 class="section-title2">3D Virtual Experiences</h1>
+        <p class="section-subtitle">We integrate 3d assets into an immersive explorable virtual experiences.</p>
+    </section>
+    <div class="features">
+        <div class="feature" style="background-image: url('assets/images/city 05 360x200.webp')">
+            <div class="mobile-icon-cont">
+                <span class="mobile-icon"
+                    onclick="localStorage.img = JSON.stringify(_ux.pages['experience-architecturals'].content);
+                    loadPage({ shells: ['photo', 'details'], scroll: 0 })">
+                    <i class="fa fa-picture-o"></i>
+                </span>
+            </div>
+            <h3><i class="fa fa-play-circle-o fa-1x" style="margin-right: 12px"></i>Architecturals</h3>
+            <p>We will integrate your 3d architectural designs into an immersive explorable virtual experiences.</p>
+        </div>
+        <div class="feature" style="background-image: url('assets/images/virtual tours 00 400.webp')">
+            <div class="mobile-icon-cont">
+                <span class="mobile-icon"
+                    onclick="localStorage.img = JSON.stringify(_ux.pages['experience-interiors'].content);
+                    loadPage({ shells: ['photo', 'details'], scroll: 0 })">
+                    <i class="fa fa-picture-o"></i>
+                </span>
+            </div>
+            <h3><i class="fa fa-play-circle-o fa-1x" style="margin-right: 12px"></i>Interiors</h3>
+            <p>We will integrate your 3d interior designs into an immersive explorable virtual experiences.</p>
+        </div>
+        <div class="feature" style="background-image: url('assets/images/city 08 360x200.webp')">
+            <div class="mobile-icon-cont">
+                <span class="mobile-icon"
+                    onclick="localStorage.img = JSON.stringify(_ux.pages['experience-events'].content);
+                    loadPage({ shells: ['photo', 'details'], scroll: 0 })">
+                    <i class="fa fa-picture-o"></i>
+                </span>
+            </div>
+            <h3><i class="fa fa-play-circle-o fa-1x" style="margin-right: 12px"></i>Events</h3>
+            <p>We will integrate your 3d events designs into an immersive explorable virtual experiences.</p>
+        </div>
+        <div class="feature" style="background-image: url('assets/images/car.webp')">
+            <div class="mobile-icon-cont">
+                <span class="mobile-icon"
+                    onclick="localStorage.img = JSON.stringify(_ux.pages['experience-vehicles'].content);
+                    loadPage({ shells: ['photo', 'details'], scroll: 0 })">
+                    <i class="fa fa-picture-o"></i>
+                </span>
+            </div>
+            <h3><i class="fa fa-play-circle-o fa-1x" style="margin-right: 12px"></i>Vehicles</h3>
+            <p>We will integrate your 3d vehicles (i.e. cars, trucks, scooter & etc.) into an immersive drivable virtual experience vehicles.</p>
+        </div>
+    </div>
+    </br>
+    <section class="content-section">
+        <h1 class="section-title2">Electronic Cash</h1>
+        <p class="section-subtitle">We provide the frameworks to facilitate electronic cash supply and platforms.</p>
+    </section>
+    <div class="features">
+        <div class="feature" style="background-image: url('assets/images/ecash supply.webp')">
+            <div class="mobile-icon-cont">
+                <span class="mobile-icon"
+                    onclick="localStorage.img = JSON.stringify(_ux.pages['ecash-supply'].content);
+                    loadPage({ shells: ['photo', 'details'], scroll: 0 })">
+                    <i class="fa fa-picture-o"></i>
+                </span>
+            </div>
+            <h3><i class="fa fa-money fa-1x" style="margin-right: 12px"></i>Supply</h3>
+            <p>We provide the framework to enable secure democratic multi-party creation of electronic cash.</p>
+        </div>
+        <div class="feature" style="background-image: url('assets/images/ecash platform.webp')">
+            <div class="mobile-icon-cont">
+                <span class="mobile-icon"
+                    onclick="localStorage.img = JSON.stringify(_ux.pages['ecash-platform'].content);
+                    loadPage({ shells: ['photo', 'details'], scroll: 0 })">
+                    <i class="fa fa-picture-o"></i>
+                </span>
+            </div>
+            <h3><i class="fa fa-exchange fa-1x" style="margin-right: 12px"></i>Platform</h3>
+            <p>We provide the framework to securely store and transfer electronic cash fully independent of internet or centralized systems.</p>
+        </div>
+    </div>
+    </br>
+    <section class="content-section">
+        <h1 class="section-title2">Web Development</h1>
+        <p class="section-subtitle">We develop modern web frameworks that power digital platforms, online payments, and seamless value exchange.</p>
+    </section>
+    <div class="features">
+        <div class="feature" style="background-image: url('assets/images/web development.webp')">
+            <div class="mobile-icon-cont">
+                <span class="mobile-icon"
+                    onclick="localStorage.img = JSON.stringify(_ux.pages['web-development'].content);
+                    loadPage({ shells: ['photo', 'details'], scroll: 0 })">
+                    <i class="fa fa-picture-o"></i>
+                </span>
+            </div>
+            <h3><i class="fa fa-money fa-1x" style="margin-right: 12px"></i>Web Development</h3>
+            <p>We build collaborative web apps with secure offline use, real-time sync, and fast performance on any device.</p>
+        </div>
+    </div>
+    </br>
+</div>
+<script src="assets/js/index.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

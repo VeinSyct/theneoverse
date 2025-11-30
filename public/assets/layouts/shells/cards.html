@@ -1,0 +1,491 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/external/css/owl.carousel.min.css" />
+<link rel="stylesheet" href="assets/external/css/owl.theme.default.css" />
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    body {
+		margin: 12px;
+		overflow-y: scroll;
+	}
+    .clear {
+        clear: both;
+    }
+    img {
+        max-width: 100%;
+        border: 0px;
+    }
+    ul,
+    ol {
+        list-style: none;
+    }
+    a {
+        text-decoration: none;
+        color: inherit;
+        outline: none;
+        transition: all .4s ease-in-out;
+        -webkit-transition: all .4s ease-in-out;
+    }
+    a:focus,
+    a:active,
+    a:visited,
+    a:hover {
+        text-decoration: none;
+        outline: none;
+    }
+    a:hover {
+        color: #e73700;
+    }
+    h2 {
+        margin-bottom: 48px;
+        padding-bottom: 16px;
+        font-size: 20px;
+        line-height: 28px;
+        font-weight: 700;
+        position: relative;
+        text-transform: capitalize;
+    }
+    h3 {
+        margin: 0 0 10px;
+        font-size: 28px;
+        line-height: 36px;
+    }
+    button {
+        outline: none !important;
+    }
+    .game-section {
+        padding: 60px 50px;
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .game-section .owl-stage {
+        margin: 15px 0;
+        display: flex;
+        display: -webkit-flex;
+    }
+    .game-section .item {
+        margin: 0 15px 40px;
+        width: 420px;
+        height: calc(100vh - 320px);
+        min-height: 40vh;
+        display: flex;
+        display: -webkit-flex;
+        align-items: flex-end;
+        -webkit-align-items: flex-end;
+        background: #343434 no-repeat center center / cover;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, .1), inset 0 1px 0 rgba(255, 255, 255, .2);
+        -webkit-box-shadow: 0 20px 40px rgba(0, 0, 0, .1), inset 0 1px 0 rgba(255, 255, 255, .2);
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+        transition: all .4s ease-in-out;
+        -webkit-transition: all .4s ease-in-out;
+        cursor: pointer;
+    }
+    .game-section .item.active {
+        width: 720px;
+        box-shadow: rgba(50, 50, 93, .25) 0px 13px 27px -5px, rgba(0, 0, 0, .3) 0px 8px 16px -8px;
+        -webkit-box-shadow: rgba(50, 50, 93, .25) 0px 13px 27px -5px, rgba(0, 0, 0, .3) 0px 8px 16px -8px;
+    }
+    .game-section .item:after {
+        content: "";
+        display: block;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+        background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+        box-shadow: 0 25px 50px rgba(0, 0, 0, .15), inset 0 1px 0 rgba(255, 255, 255, .3);
+    }
+    .game-section .item-desc {
+        padding: 0 24px 12px;
+        color: #fff;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        transform: translateY(calc(100% - 54px));
+        -webkit-transform: translateY(calc(100% - 54px));
+        transition: all .4s ease-in-out;
+        -webkit-transition: all .4s ease-in-out;
+    }
+    .game-section .item.active .item-desc {
+        transform: none;
+        -webkit-transform: none;
+    }
+    .game-section .item-desc p {
+        opacity: 0;
+        -webkit-transform: translateY(32px);
+        transform: translateY(32px);
+        transition: all .4s ease-in-out .2s;
+        -webkit-transition: all .4s ease-in-out .2s;
+    }
+    .game-section .item.active .item-desc p {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    .game-section .owl-theme.custom-carousel .owl-dots {
+        margin-top: -20px;
+        position: relative;
+        z-index: 5;
+    }
+    @media (min-width: 992px) and (max-width: 1199px) {
+        h2 {
+            margin-bottom: 32px;
+        }
+        h3 {
+            margin: 0 0 8px;
+            font-size: 24px;
+            line-height: 32px;
+        }
+        .game-section {
+            padding: 0 30px;
+        }
+        .game-section .item {
+            margin: 0 12px 30px;
+            width: 300px;
+            border: 1px solid rgba(255, 255, 255, .2);
+        }
+        .game-section .item.active {
+            width: 400px;
+        }
+        .game-section .item-desc {
+            transform: translateY(calc(100% - 46px));
+            -webkit-transform: translateY(calc(100% - 46px));
+        }
+    }
+    @media (min-width: 768px) and (max-width: 991px) {
+        h2 {
+            margin-bottom: 32px;
+        }
+        h3 {
+            margin: 0 0 8px;
+            font-size: 24px;
+            line-height: 32px;
+        }
+        .game-section {
+            padding: 0 30px 40px;
+        }
+        .game-section .item {
+            margin: 0 12px 30px;
+            width: 240px;
+            box-shadow: rgba(0, 0, 0, .15) 1.95px 1.95px 2.6px;
+            -webkit-box-shadow: rgba(0, 0, 0, .15) 1.95px 1.95px 2.6px;
+        }
+        .game-section .item.active {
+            width: 360px;
+            box-shadow: rgba(0, 0, 0, .24) 0px 3px 8px;
+            -webkit-box-shadow: rgba(0, 0, 0, .24) 0px 3px 8px;
+        }
+        .game-section .item-desc {
+            transform: translateY(calc(100% - 42px));
+            -webkit-transform: translateY(calc(100% - 42px));
+        }
+    }
+    @media (max-width: 767px) {
+        body {
+            font-size: 14px;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        h3 {
+            margin: 0 0 8px;
+            font-size: 19px;
+            line-height: 24px;
+        }
+        .game-section {
+            padding: 0 15px 20px;
+        }
+        .game-section .item {
+            margin: 0 10px 20px;
+            width: 280px;
+            box-shadow: rgba(0, 0, 0, .15) 1.95px 1.95px 2.6px;
+            -webkit-box-shadow: rgba(0, 0, 0, .15) 1.95px 1.95px 2.6px;
+        }
+        .game-section .item.active {
+            width: 270px;
+            box-shadow: rgba(0, 0, 0, .24) 0px 3px 8px;
+            -webkit-box-shadow: rgba(0, 0, 0, .24) 0px 3px 8px;
+        }
+        .game-section .item-desc {
+            padding: 0 14px 5px;
+            transform: translateY(calc(100% - 42px));
+            -webkit-transform: translateY(calc(100% - 42px));
+        }
+    }
+    .content-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        color: white;
+    }
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #ffffff, #f0f0f0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .section-subtitle {
+        font-size: 1.1rem;
+        opacity: .8;
+        max-width: 600px;
+        line-height: 1.6;
+    }
+    .mobile-icon {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+    .mobile-icon span {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 64px;
+        height: 64px;
+        text-decoration: none;
+        color: white;
+        background: rgba(255, 255, 255, .1);
+        backdrop-filter: blur(7px);
+        border-radius: 50%;
+        transition: all .3s ease;
+        border: 1px solid rgba(255, 255, 255, .2);
+        fill: currentColor;
+        pointer-events: auto;
+        z-index: 1;
+    }
+    .mobile-icon span:hover {
+        background: rgba(255, 255, 255, .2);
+        transform: translateY(-2px) scale(1.42);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+    }
+    .mobile-icon span:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+    }
+    .ratings {
+        position: absolute;
+        display: flex;
+        right: 6px;
+        top: 12px;
+        z-index: 1;
+    }
+    .stars {
+        color: #888;
+        font-size: 36px;
+    }
+    .stars:hover {
+        color: yellow;
+    }
+    @media only screen and (max-width:480px) {
+        .ratings {
+            right: 6px;
+            top: 6px;
+        }
+        .stars {
+            font-size: 24px;
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:768px) {
+        .ratings {
+            right: 6px;
+            top: 6px;
+        }
+        .stars {
+            font-size: 18px;
+        }
+    }
+    .network-nodes {
+        position: absolute;
+        opacity: .13;
+        z-index: -1;
+    }
+</style>
+<canvas class="network-nodes"></canvas>
+<script src="assets/js/network-nodes.js"></script>
+<section class="game-section">
+    <section class="content-section">
+        <h1 class="section-title">Solutions</h1>
+        <p class="section-subtitle">Browse our solutions that meets your project requirements.</p>
+    </section>
+    <div class="owl-carousel custom-carousel owl-theme"></div>
+</section>
+<script src="assets/external/js/jquery-3.6.0.min.js"></script>
+<script src="assets/external/js/owl.carousel.min.js"></script>
+<script>
+    let getRatings = (d) => {
+        for (let i = 1; i < 6; i++) {
+            d.s = i <= d.n + .24 ? "star" : "star-o";
+            d.m = _uz.cards.rates[d.id];
+            d.r += `<i class="fa fa-${d.s} stars" style="${d.s == "star" ? "color: yellow" : ""}"
+                onclick="rateCards({ id: '${d.id}', n: ${(d.m ? d.m + i : i) / 2} })"></i>`
+        };
+        return d.r;
+    },
+    rateCards = (d) => {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "rate-cards",
+            tag: d.id,
+            message: { rate: d.n }
+        }, "*");
+        updateRating({ k: d.id, n: d.n });
+    },
+    updateRating = (d) => {
+        try {
+            d.e = document.getElementsByClassName(`ratings-${d.k}`);
+            for (let i in d.e) 
+                if (d.e[i])
+                    d.e[i].innerHTML = getRatings({ r: "", id: d.k, n: _uz.cards.rates[d.k] = d.n }); 
+        } catch (error) {}
+    },    
+    cardFrame = (d) => {
+        return`
+            <div id="card-${d.id}" class="item" style="background-image: url('${d.i}')">
+                <div class="item-desc">
+                    <h3>${d.t}</h3>
+                    <p>${d.p}</p>
+                </div>
+                <span class="ratings ratings-${d.id}">${getRatings({ r: "", id: d.id, n: d.n })}</span>
+                <div class="mobile-icon">
+                    <span onclick="localStorage.url='${d.url}'; ${d.f}">
+                        <i class="fa fa-play-circle fa-3x"></i>
+                    </span>
+                </div>
+            </div>`;
+    },
+    loadCards = (d) => {
+        for (let i = 0, j = [
+            { 
+                i: `assets/images/solution 06.webp`,
+                id: "c20250819000",
+                n: 0,
+                t: "Virtual Experience City",
+                p: `Explore Serini City, we have started building the city to complete by 2027.`,
+                f: `loadPage({ shells: ['demo'], scroll: 0, reset: !0 });`,
+                url: `https://serini.web.app#serini`
+            },
+            { 
+                i: `assets/images/solution 00.webp`,
+                id: "c20250819001",
+                n: 0,
+                t: "3D Virtual Experiences",
+                p: `Showcase large scale open world projects in virtual experiences.`,
+                f: `loadPage({ shells: ['demo'], scroll: 0, reset: !0 }); window.parent.postMessage({
+                        id: window.frameElement.id,
+                        action: 'audio-ambience',
+                        src: 'assets/sounds/ambience/cinematicrise.ogg',
+                        volume: 1,
+                        loop: !1
+                    }, '*');`,
+                url: `https://threeviewer.web.app#crateria`
+            },
+            {
+                i: `assets/images/solution 01.webp`,
+                id: "c20250819002",
+                n: 0,
+                t: "360 Virtual Tours",
+                p: `Showcase mixed 3d interactive virtual tours.`,
+                f: `loadPage({ shells: ['demo'], scroll: 0, reset: !0 })`,
+                url: `https://threeviewer.web.app#load=0`
+            },
+            {
+                i: `assets/images/solution 02.webp`,
+                id: "c20250819003",
+                n: 0,
+                t: "3D AR",
+                p: `Showcase augmented reality wrist watch and accessories on web.`,
+                f: `loadPage({ shells: ['demo'], scroll: 0, reset: !0 })`,
+                url: `https://wrist-demo.web.app`
+            },
+            {
+                i: `assets/images/solution 05.webp`,
+                id: "c20250819004",
+                n: 0,
+                t: "Device Virtual Showcase",
+                p: `Showcase 3d interactive projects in virtual experience.`,
+                f: `loadPage({ shells: ['demo'], scroll: 0, reset: !0 })`,
+                url: `https://threeviewer.web.app#controller`
+            },
+            {
+                i: `assets/images/solution 03.webp`,
+                id: "c20250819005",
+                n: 0,
+                t: "Product Virtual Showcase",
+                p: `Showcase 3d interactive projects in virtual experience.`,
+                f: `loadPage({ shells: ['demo'], scroll: 0, reset: !0 })`,
+                url: `https://threeviewer.web.app#stage`
+            },
+            { 
+                i: `assets/images/solution 04.webp`,
+                id: "c20250819006",
+                n: 0,
+                t: "3D Virtual Experiences",
+                p: `Showcase 3d development projects in virtual experiences.`,
+                f: `loadPage({ shells: ['demo'], scroll: 0, reset: !0 })`,
+                url: `https://threeviewer.web.app#lakelagoon`
+            },
+        ]; i < j.length; i++)
+            d.s += cardFrame({ id: j[i].id, i: j[i].i, t: j[i].t, p: j[i].p, f: j[i].f, url: j[i].url, n: j[i].n });
+        document.querySelector(".owl-carousel").innerHTML = d.s;
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "read-data",
+            tag: "rate-cards"
+        }, "*");
+    },
+    _uz = { cards: { rates: {} } };
+    window.addEventListener("message", (e) => {
+        if (e.data && e.data.action && e.data.action.match(/(rate-cards)/))
+            for (let k in e.data.message)
+                updateRating({ k: k, n: e.data.message[k].message.rate });
+    });
+    loadCards({ s: "" });
+    $(".custom-carousel").owlCarousel({ autoWidth: !0, loop: !0 });
+    $(document).ready(function () {
+        $(".custom-carousel .item").click(function () {
+            $(".custom-carousel .item").not($(this)).removeClass("active");
+            $(this).toggleClass("active");
+        });
+    });
+</script>
+<script src="assets/js/index.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

@@ -1,0 +1,201 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+    :root {
+        --primary-sw-active: #eeede4;
+        --amount-width: 93%;
+    }
+    body {
+		overflow: hidden;
+	}
+    .centered {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 96vh;
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+        overflow: hidden;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .balance-alert {
+        color: #ff643a;
+    }
+    .blink {
+        animation: blink 1.2s;
+        animation-iteration-count: infinite
+    }
+    @keyframes blink {
+        0% {
+            opacity: 1
+        }
+        50% {
+            opacity: .36
+        }
+        100% {
+            opacity: 1
+        }
+    }
+    .currency-amount {
+        font-family: var(--font-numerical);
+        margin: 10px 0;
+        font-style: normal;
+        font-weight: 700;
+        white-space: nowrap;
+        letter-spacing: 1px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: var(--primary-sw-active);
+        line-height: 1;
+        text-shadow: 0px 0 2px #ea36af, -1px 0 1px #41ffd8;
+        animation-duration: .0064s;
+        animation-name: textflicker;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+        pointer-events: none;
+    }
+    @keyframes textflicker {
+        from {
+            text-shadow: 1px 0 0 #ea36af, -2px 0 0 #41ffd8;
+        }
+        to {
+            text-shadow: 2px .5px 2px #ea36af, -1px -0.5px 2px #41ffd8;
+        }
+    }
+    .mobile-icon {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        left: 12px;
+        top: 76px;
+        text-decoration: none;
+        color: white;
+        background: rgba(255, 255, 255, .1);
+        backdrop-filter: blur(7px);
+        border-radius: 50%;
+        transition: all .3s ease;
+        border: 1px solid rgba(255, 255, 255, .2);
+        fill: currentColor;
+        cursor: pointer;
+        z-index: 1;
+    }
+    .mobile-icon:hover {
+        background: rgba(255, 255, 255, .2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+    }
+    .mobile-icon:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+    }
+    .check-out {
+        padding: 12px;
+        color: white;
+        text-align: center;
+    }
+    .network-nodes {
+        position: absolute;
+        opacity: .13;
+        z-index: -1;
+    }
+</style>
+<canvas class="network-nodes"></canvas>
+<script src="assets/js/network-nodes.js"></script>
+<span class="mobile-icon" onclick="loadPage({ shells: ['cart'], scroll: 0 })">
+    <i class="fa fa-chevron-left"></i>
+</span>
+<div class="centered"></div>
+<div class="pay-script"></div>
+<script src="assets/js/index.js"></script>
+<script>
+    let _uz = {};
+    window.addEventListener("message", (e)=> {
+        if (e.data && e.data.action) {
+            if (e.data.action.match(/(ecommerce)/)) {
+                _uz.cart = e.data.message;
+                e.data.s = document.createElement("script");
+                e.data.s.type = "text/javascript";
+                e.data.s.textContent = e.data.message.scr;
+                document.head.appendChild(e.data.s);
+                checkOut({
+                    receipt: _uz.cart.receipt,
+                    ["client-id"]: _uz.cart["client-id"],
+                    list: {
+                        currency: "USD",
+                        symbol: "$",
+                        total: _uz.cart.total
+                    }
+                });
+                window.parent.postMessage({
+                    id: window.frameElement.id,
+                    action: "pre-loader",
+                    show: !1
+                }, "*");
+            }
+        }
+    });
+    onhashchange = (e) => {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "load-paypal",
+            hash: e.newURL.split("#")[1],
+        }, "*");
+        delete localStorage.cart;
+        loadPage({ shells: ['thankyou'], scroll: 0 });
+    };
+    window.parent.postMessage({
+        id: window.frameElement.id,
+        action: "read-data",
+        tag: "ecommerce",
+    }, "*");
+    setTimeout(()=> {
+        if (!_uz.cart) {
+            localStorage.dialog = JSON.stringify({
+                message: `Unable to checkout items, because you are not connected to the internet!`,
+                buttons: {
+                    dismiss: {
+                        text: `<span>Dismiss</span>`,
+                        shells: `['cart']`,
+                        scroll: 0
+                    }
+                },
+                back: {
+                    shells: `['cart']`,
+                    scroll: 0
+                }
+            });
+            loadPage({ shells: ['dialog'], scroll: 0 });
+        }
+    }, 8192);
+</script>
+<!-- <script src="assets/js/checkout.js"></script>
+<script>
+    checkOut({
+        redirect: "https://google.com",
+        list: {
+            currency: "USD",
+            symbol: "$",
+            total: 2
+        }
+    });
+</script> -->

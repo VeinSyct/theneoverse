@@ -1,0 +1,229 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+    body {
+		margin: 12px;
+        color: white;
+	    animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .mobile-icon {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        left: 9px;
+        top: 9px;
+        text-decoration: none;
+        color: white;
+        background: rgba(255, 255, 255, .1);
+        backdrop-filter: blur(7px);
+        border-radius: 50%;
+        transition: all .3s ease;
+        border: 1px solid rgba(255, 255, 255, .2);
+        fill: currentColor;
+        cursor: pointer;
+    }
+    .mobile-icon:hover {
+        background: rgba(255, 255, 255, .2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+    }
+    .mobile-icon:active {
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+    }
+    section {
+        padding: 64px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 90px);
+    }
+    .content {
+        padding: 42px 0 42px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        height: fit-content;
+        max-height: calc(100vh - 176px);
+        gap: 30px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, .28) 0%, rgba(255, 255, 255, 0) 100%);
+        backdrop-filter: blur(30px);
+        border-radius: 20px;
+        width: min(900px, 100%);
+        box-shadow: 0 .5px 0 1px rgba(255, 255, 255, .23) inset, 0 1px 0 0 rgba(255, 255, 255, .66) inset, 0 4px 16px rgba(0, 0, 0, .12);
+    }
+    .info {
+        padding: 0 64px;
+        text-align: justify;
+        overflow-y: scroll;
+    }
+    @media only screen and (max-width:480px) {
+        .info {
+            padding: 0 36px;
+        }
+    }
+    @media only screen and (min-width:481px) and (max-width:768px) {
+        .info {
+            padding: 0 64px;
+        }
+    }
+    .info p {
+        color: #fff;
+        font-weight: 500;
+        font-size: 1rem;
+        margin-bottom: 20px;
+        line-height: 1.5;
+    }
+    .dialog-btn {
+        margin: 0 0 24px;
+        width: 100%;
+        padding: 15px 30px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border: 1px solid rgba(255, 255, 255, .2);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all .3s ease;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        position: relative;
+        overflow: hidden;
+    }
+    .btn2 {
+        background: linear-gradient(135deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .05));
+    }
+    .dialog-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        box-shadow: rgba(0, 0, 0, .24) 0px 3px 8px;
+        transition: left .3s ease;
+    }
+    .dialog-btn:hover::before {
+        left: 0;
+    }
+    .dialog-btn:hover {
+        background: linear-gradient(135deg, #566eda, #663b92);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, .2);
+    }
+    .btn2:hover {
+        background: linear-gradient(135deg, rgba(255, 255, 255, .24), rgba(255, 255, 255, .12));
+    }
+    .dialog-btn:active {
+        background: linear-gradient(135deg, #536bd7, #895db5);
+        box-shadow: rgba(9, 30, 66, .25) 0px 1px 1px, rgba(9, 30, 66, .13) 0px 0px 1px 1px;
+    }
+    .btn2:active {
+        background: linear-gradient(135deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .02));
+    }
+    .dialog-btn span {
+        position: relative;
+        z-index: 1;
+    }
+    .dialog-btn:disabled {
+        opacity: .36;
+        pointer-events: none;
+    }
+    .form-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+    li {
+        margin-left: 24px;
+        margin-bottom: 12px;
+    }
+    input {
+        cursor: pointer;
+    }
+    .agree-chk {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        accent-color: #ff4d4d;
+        margin-right: 10px;
+    }
+    .chk-scroll {
+        max-height: 200px;
+        overflow-y: auto;
+        padding-right: 10px;
+    }
+</style>
+<body></body>
+<script>
+    let btnFrame = (d) => {
+        return `<button class="dialog-btn${!d.type ? "" : d.type == 1 ? " btn2" : ""}"${d.disabled ? " disabled" : ""} onclick="${d.action ? d.action : ""}loadPage({ shells: ${d.shells}, scroll: ${d.scroll}${d.reset ? ", reset: !0" : ""} })">${d.text}</button>`;
+    },
+    createDialog = (d) => {
+        if (localStorage.dialog) {
+            d.s = JSON.parse(localStorage.dialog);
+            for (let k in d.s.buttons)
+                d.b += btnFrame({ shells: d.s.buttons[k].shells, scroll: d.s.buttons[k].scroll, reset: d.s.buttons[k].reset, text: d.s.buttons[k].text, action: d.s.buttons[k].action, type: d.s.buttons[k].type, disabled: d.s.buttons[k].disabled });
+            document.body.innerHTML = `
+                <section>
+                    <div class="content">
+                        <span class="mobile-icon" onclick="loadPage({ shells: ${d.s.back.shells}, scroll: ${d.s.back.scroll} })">
+                            <i class="fa fa-chevron-left"></i>
+                        </span>
+                        <div class="info">
+                            <p>${d.s.message}</p>
+                            <div class="form-row">${d.b}</div>
+                        </div>
+                    </div>
+                </section>`;
+        }
+        setTimeout(() => {
+            d.cB = document.querySelectorAll('.agree-chk');
+            d.cB.forEach(cb => {
+                cb.addEventListener('change', () => {
+                    d.aB = document.querySelectorAll('.dialog-btn');
+                    if([...d.cB].every(cb => cb.checked)) {
+                        d.aB.forEach(ab => {
+                            ab.disabled = !1;
+                        });
+                    } else d.aB.forEach(ab => {
+                        ab.disabled = !0;
+                    });
+
+                });
+            });
+        }, 1024);
+    };
+    createDialog({ b: "" });
+</script>
+<script src="assets/js/index.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", ()=> {
+        window.parent.postMessage({
+            id: window.frameElement.id,
+            action: "pre-loader",
+            show: !1
+        }, "*");
+    });
+</script>

@@ -1,0 +1,174 @@
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable = 0, viewport-fit = cover, shrink-to-fit = no">
+<link rel="stylesheet" href="assets/css/style.css" />
+<style>
+    :root {
+        --primary-sw-active: #eeede4;
+        --amount-width: 93%;
+    }
+    body {
+		margin: 12px;
+        overflow: hidden;
+	}
+    .centered {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        animation: fadeIn 1000ms ease;
+        -webkit-animation: fadeIn 1000ms ease;
+	}
+	@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .balance-alert {
+        color: #ff643a;
+    }
+    .blink {
+        animation: blink 1.2s;
+        animation-iteration-count: infinite
+    }
+    @keyframes blink {
+        0% {
+            opacity: 1
+        }
+        50% {
+            opacity: .36
+        }
+        100% {
+            opacity: 1
+        }
+    }
+    .currency-amount {
+        font-family: var(--font-numerical);
+        margin: 10px 0;
+        font-style: normal;
+        font-weight: 700;
+        white-space: nowrap;
+        letter-spacing: 1px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: var(--primary-sw-active);
+        line-height: 1;
+        text-shadow: 0px 0 2px #ea36af, -1px 0 1px #41ffd8;
+        animation-duration: .0064s;
+        animation-name: textflicker;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+        pointer-events: none;
+    }
+    @keyframes textflicker {
+        from {
+            text-shadow: 1px 0 0 #ea36af, -2px 0 0 #41ffd8;
+        }
+        to {
+            text-shadow: 2px .5px 2px #ea36af, -1px -0.5px 2px #41ffd8;
+        }
+    }
+    .network-nodes {
+        position: absolute;
+        opacity: .13;
+        z-index: -1;
+    }
+</style>
+<canvas class="network-nodes"></canvas>
+<script src="assets/js/network-nodes.js"></script>
+<div class="centered">
+    <div class="currency-amount text-autofit ex-balance"></div>
+</div>
+<script>
+    let fitTextWidth = (d) => {
+        d.ctx = document.createElement("canvas").getContext("2d");
+        while (d.low <= d.high) {
+            d.mid = Math.floor((d.low + d.high) / 2);
+            d.ctx.font = `${d.mid * 1.2}px ${window.getComputedStyle(d.e).fontFamily || "Arial"}`;
+            if (d.ctx.measureText(d.e.textContent).width > d.maxWidth)
+                d.high = d.mid - 1;
+            else d.low = d.mid + 1;
+        }
+        d.e.style.fontSize = d.high + "px";
+    },
+    fitAllText = (d) => {
+        document.querySelectorAll(".text-autofit").forEach((e) => fitTextWidth({ e: e, maxWidth: window.innerWidth * .9, low: 10, high: 1200 }) );
+    };
+    window.addEventListener("resize", fitAllText);
+</script>
+<div id="api-404" hidden></div>
+<script src="./assets/js/ecash.js"></script>
+<script>
+    document.getElementById("api-404").appendChild(_uz.api);
+    _uz.z = { qrScan: { arr: [], hashes: [] }, digit: { height: 12 }, slider: { single: {} } };
+    _uz.qr = {
+        length: 72,
+        delay: 128,
+        interval: 0,
+        hash: "9h65t34t31p7s&83*4392*81839e5c732a8181sh232%ic421o232n490s$321w23e59b$a472p921p"
+    };
+    _uz.qrhash({ hash: _uz.qr.hash });
+</script>
+<script>
+    let openApp = (d) => {
+        _uz.user = localStorage.user ? JSON.parse(localStorage.user) : {};
+        if (_uz.user.credits) {
+            _uz.api.contentWindow.postMessage({
+                action: "ecash-api-verify-credits",
+                credits: _uz.user.credits
+            }, _uz.api.src);
+            delete _uz.user.credits;
+            localStorage.user = JSON.stringify(_uz.user);
+        } else if (_uz.user.pay) {
+            d.a = 0;
+            for (let i in _uz.user.pay)
+               d.a += parseFloat(_uz.user.pay[i]);
+            delete _uz.user.pay;
+            localStorage.user = JSON.stringify(_uz.user);
+            _uz.direct = !0;
+            _uz.api.contentWindow.postMessage({ action: "ecash-api-hash-assemble", qrScan: {"arr":["+l4pPTw62UxQ7NPiPrHkSLXCN1DV6dbpTF1B0ybp0DflS0ZJWWjS68Jww7LKuT/XuV86YPjJ,9,1","+l4pPTw62UxQ7NPiPrHkSLXCN1DV6dbpTF1B0ybp0DflS0ZJWWjS68Jww7LKuT/XuV86YPjJ,9,1","+l4pPTw62UxQ7NPiPrHkSLXCN1DV6dbpTF1B0ybp0DflS0ZJWWjS68Jww7LKuT/XuV86YPjJ,9,1","zDe5yTf7sWXabcbbz2T4t0XX+NT1Jc9JybK60sbVP05Ex9or2Cfs8EMmR1jH1DvvxF8/LEI6,9,2","zDe5yTf7sWXabcbbz2T4t0XX+NT1Jc9JybK60sbVP05Ex9or2Cfs8EMmR1jH1DvvxF8/LEI6,9,2","O2pG17XVOOpIw89gR+3McOhl0OlD+tJH8MI+wi8rRUjw5EHSN+vEOCo+TW/x70ztsedbScpu,9,3","O2pG17XVOOpIw89gR+3McOhl0OlD+tJH8MI+wi8rRUjw5EHSN+vEOCo+TW/x70ztsedbScpu,9,3","O2pG17XVOOpIw89gR+3McOhl0OlD+tJH8MI+wi8rRUjw5EHSN+vEOCo+TW/x70ztsedbScpu,9,3","O2pG17XVOOpIw89gR+3McOhl0OlD+tJH8MI+wi8rRUjw5EHSN+vEOCo+TW/x70ztsedbScpu,9,3","O2pG17XVOOpIw89gR+3McOhl0OlD+tJH8MI+wi8rRUjw5EHSN+vEOCo+TW/x70ztsedbScpu,9,3","O2pG17XVOOpIw89gR+3McOhl0OlD+tJH8MI+wi8rRUjw5EHSN+vEOCo+TW/x70ztsedbScpu,9,3","0kdZuE3DT2nCX+i5z0f4KsrqzzjN1ipY0DrCb887N25Gs/TFO27C0GnRtazPwjdwQV/4Ys46,9,4","0kdZuE3DT2nCX+i5z0f4KsrqzzjN1ipY0DrCb887N25Gs/TFO27C0GnRtazPwjdwQV/4Ys46,9,4","0kdZuE3DT2nCX+i5z0f4KsrqzzjN1ipY0DrCb887N25Gs/TFO27C0GnRtazPwjdwQV/4Ys46,9,4","0kdZuE3DT2nCX+i5z0f4KsrqzzjN1ipY0DrCb887N25Gs/TFO27C0GnRtazPwjdwQV/4Ys46,9,4","+CtG17nYN7HOVzvC29hFSTfmw8S6QjvpLu3xa9c3wl65OPNEWc5DOO1LRvrsIdDi4/I318tJ,9,5","+CtG17nYN7HOVzvC29hFSTfmw8S6QjvpLu3xa9c3wl65OPNEWc5DOO1LRvrsIdDi4/I318tJ,9,5","+CtG17nYN7HOVzvC29hFSTfmw8S6QjvpLu3xa9c3wl65OPNEWc5DOO1LRvrsIdDi4/I318tJ,9,5","+CtG17nYN7HOVzvC29hFSTfmw8S6QjvpLu3xa9c3wl65OPNEWc5DOO1LRvrsIdDi4/I318tJ,9,5","+CtG17nYN7HOVzvC29hFSTfmw8S6QjvpLu3xa9c3wl65OPNEWc5DOO1LRvrsIdDi4/I318tJ,9,5","OUdAWWYlWdJDXs7tzEplQEU5wsRJPTzkQOvWTj37N0PQbVnl10fUbSrpaSk917XqybH67m3E,9,6","OUdAWWYlWdJDXs7tzEplQEU5wsRJPTzkQOvWTj37N0PQbVnl10fUbSrpaSk917XqybH67m3E,9,6","OUdAWWYlWdJDXs7tzEplQEU5wsRJPTzkQOvWTj37N0PQbVnl10fUbSrpaSk917XqybH67m3E,9,6","OUdAWWYlWdJDXs7tzEplQEU5wsRJPTzkQOvWTj37N0PQbVnl10fUbSrpaSk917XqybH67m3E,9,6","OUdAWWYlWdJDXs7tzEplQEU5wsRJPTzkQOvWTj37N0PQbVnl10fUbSrpaSk917XqybH67m3E,9,6","TWUt7SbkydT4LMfSOyHXw8osQ0pHsstJRFnQXi/Wz29LKtn4XUY3684l7EY3XDdj9UBlWtLr,9,7","TWUt7SbkydT4LMfSOyHXw8osQ0pHsstJRFnQXi/Wz29LKtn4XUY3684l7EY3XDdj9UBlWtLr,9,7","TWUt7SbkydT4LMfSOyHXw8osQ0pHsstJRFnQXi/Wz29LKtn4XUY3684l7EY3XDdj9UBlWtLr,9,7","TWUt7SbkydT4LMfSOyHXw8osQ0pHsstJRFnQXi/Wz29LKtn4XUY3684l7EY3XDdj9UBlWtLr,9,7","ycJXZG0mQONJ7tvCTrJu6UxeKuw=,9,8","ycJXZG0mQONJ7tvCTrJu6UxeKuw=,9,8","ycJXZG0mQONJ7tvCTrJu6UxeKuw=,9,8","ycJXZG0mQONJ7tvCTrJu6UxeKuw=,9,8","ycJXZG0mQONJ7tvCTrJu6UxeKuw=,9,8","zfle40ZHucY3PkhF0tVauUKxasvt0U/YPDo7Qj0s50hM7eU/UNftO9butjzX7dNfaEPpS+ax,9,0","zfle40ZHucY3PkhF0tVauUKxasvt0U/YPDo7Qj0s50hM7eU/UNftO9butjzX7dNfaEPpS+ax,9,0"],"hashes":["zfle40ZHucY3PkhF0tVauUKxasvt0U/YPDo7Qj0s50hM7eU/UNftO9butjzX7dNfaEPpS+ax","+l4pPTw62UxQ7NPiPrHkSLXCN1DV6dbpTF1B0ybp0DflS0ZJWWjS68Jww7LKuT/XuV86YPjJ","zDe5yTf7sWXabcbbz2T4t0XX+NT1Jc9JybK60sbVP05Ex9or2Cfs8EMmR1jH1DvvxF8/LEI6","O2pG17XVOOpIw89gR+3McOhl0OlD+tJH8MI+wi8rRUjw5EHSN+vEOCo+TW/x70ztsedbScpu","0kdZuE3DT2nCX+i5z0f4KsrqzzjN1ipY0DrCb887N25Gs/TFO27C0GnRtazPwjdwQV/4Ys46","+CtG17nYN7HOVzvC29hFSTfmw8S6QjvpLu3xa9c3wl65OPNEWc5DOO1LRvrsIdDi4/I318tJ","OUdAWWYlWdJDXs7tzEplQEU5wsRJPTzkQOvWTj37N0PQbVnl10fUbSrpaSk917XqybH67m3E","TWUt7SbkydT4LMfSOyHXw8osQ0pHsstJRFnQXi/Wz29LKtn4XUY3684l7EY3XDdj9UBlWtLr","ycJXZG0mQONJ7tvCTrJu6UxeKuw="],"hlen":"9"} }, _uz.api.src);
+            setTimeout(() => {
+                _uz.api.contentWindow.postMessage({
+                    action: "ecash-api-transfer-amount",
+                    currency: "VCY",
+                    range: `${d.a}`
+                }, _uz.api.src);
+                delete _uz.direct;
+            }, 960);
+        }
+        if (d.update) 
+            readBalance({});
+        else if (!_uz.user.currency) {
+                document.querySelector(".ex-balance").innerHTML = `υς0.00`;
+                setTimeout(() => changeCurrency({ currency: "VCY" }), 720);
+            } else readBalance({});
+        fitAllText({});
+    },
+    changeCurrency = (d) => {
+        _uz.api.contentWindow.postMessage({
+            action: "ecash-api-change-currency",
+            currency: d.currency
+        }, _uz.api.src);
+        _uz.user.currency = d.currency;
+        localStorage.user = JSON.stringify(_uz.user);
+    };
+    _uz.user = localStorage.user ? JSON.parse(localStorage.user) : {};
+    window.parent.postMessage({
+        id: window.frameElement.id,
+        action: "whatsapp-button",
+        hide: !0
+    }, "*");
+</script>
+<script src="assets/js/index.js"></script>
