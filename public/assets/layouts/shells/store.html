@@ -544,7 +544,7 @@
             <div class='ratings ratings-${p.pSN}'>${getRatings({ r: "", id: p.pSN, n: _uz.products.rates[p.pSN] })}</div>
             <div class='emkt-desc'>${p.desc}</div>
             <div class='emkt-meta'>
-              <div class='currency-amount'>${p.price ? `₱${p.symbol}${p.price}` : `<strong>FREE</strong>`}</div>
+              <div class='currency-amount'>${p.price ? `${p.symbol}${p.price}` : `<strong>FREE</strong>`}</div>
               ${p.price ? `<button class='submit-btn' onclick='_uz.addToCart({ id: ${p.id} })'>
                 <span><i class='fa fa-cart-plus fa-1x'></i>
                   Add to cart
@@ -579,7 +579,7 @@
               <div class='ratings ratings-${p.pSN}'>${getRatings({ r: "", id: p.pSN, n: _uz.products.rates[p.pSN] })}</div>
               <div class='emkt-desc'>${p.desc}</div>
               <div class='emkt-meta'>
-                <div class='currency-amount'>${p.price ? `₱${p.symbol}${p.price}` : `<strong>FREE</strong>`}</div>
+                <div class='currency-amount'>${p.price ? `${p.symbol}${p.price}` : `<strong>FREE</strong>`}</div>
                 ${p.price ? `<button class='submit-btn' onclick='_uz.addToCart({ id: ${p.id} })'>
                   <span><i class='fa fa-cart-plus fa-1x'></i>
                     <span style='margin-left: 6px'> Add to cart</span>
